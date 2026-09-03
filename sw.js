@@ -31,7 +31,7 @@
    navegadores a descartar o cache antigo e buscar tudo de novo — por
    exemplo, depois de corrigir um texto do dossiê. Sem isso, "cache-first"
    por padrão mantém servindo a cópia local indefinidamente. */
-var CACHE_VERSAO = 'manto-tupinamba-v2';
+var CACHE_VERSAO = 'manto-tupinamba-v3';
 
 /* Documento principal + CDNs já usados pelo <head> de index.html.
    Se as versões pinadas dos scripts de CDN mudarem em index.html, vale
