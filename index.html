@@ -1814,9 +1814,12 @@ function switchTab(tabId, silencioso) {
     var mudou = AppState.tabAtual !== tabId;
     var tabAnterior = AppState.tabAtual;
     AppState.tabAtual = tabId;
-    /* Sair da aba 'escuta' não deve deixar a narração/o carrossel de frases rodando
-       escondidos em segundo plano; voltar a ela retoma o ciclo do zero. */
-    if (mudou && tabAnterior === 'escuta') { pararFala(); pararFraseCycler(); }
+    /* Trocar de aba nunca deve deixar uma narração em andamento tocando escondida por
+       cima do módulo novo — seja o carrossel de frases da Escuta, seja uma leitura de
+       "Ouvir Meu Texto" ainda em andamento na Oficina (esta em especial pode durar vários
+       segundos; sem isso, ela seguia tocando por cima do anúncio do módulo seguinte). */
+    if (mudou) { pararFala(); }
+    if (mudou && tabAnterior === 'escuta') { pararFraseCycler(); }
     $all('[data-panel]').forEach(function (panel) {
       var alvo = panel.id === 'panel-' + tabId;
       panel.hidden = !alvo;
@@ -2148,6 +2151,10 @@ function pararFala() {
   try { if (vozState.proxyController) { vozState.proxyController.abort(); vozState.proxyController = null; } } catch (erro) { /* silencioso */ }
   vozState.geracao += 1;
   vozState.falando = false;
+  /* pararFala() é chamada de vários contextos (troca de aba, alternar narração, etc.) —
+     sempre que ela interrompe algo, o botão "Ouvir Meu Texto" (se existir na tela) precisa
+     refletir isso, senão fica preso mostrando "Parar Leitura" com nada tocando de verdade. */
+  try { atualizarBotaoOuvirTexto(false); } catch (erro) { /* silencioso */ }
 }
 
 /* Para o conteúdo fixo do app (frases do carrossel, anúncios de módulo), preferimos uma

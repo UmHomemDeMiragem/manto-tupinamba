@@ -407,6 +407,24 @@
   </div>
 </div>
 
+<div id="modal-exportar-resultado" data-modal class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-stone-950/80 backdrop-blur-sm" data-close-modal></div>
+  <div class="absolute inset-0 flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div role="dialog" aria-modal="true" aria-labelledby="exportar-resultado-title" class="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border border-stone-700 bg-stone-900 paper-card shadow-dossie p-5 sm:p-7 animate-fade-slide">
+      <h2 id="exportar-resultado-title" class="font-cinzel text-base sm:text-lg font-semibold text-stone-100 mb-1.5 flex items-center gap-2"><i data-lucide="image-down" class="w-4 h-4 text-red-500 shrink-0"></i>Quadro Exportado</h2>
+      <p class="text-[0.75rem] sm:text-[0.8125rem] text-stone-400 leading-relaxed mb-4">O download deve ter começado sozinho. Se não começou (comum em alguns celulares), toque e segure a imagem abaixo para salvá-la, ou use os botões.</p>
+      <div class="rounded-xl border border-stone-700 bg-stone-950/50 p-2 mb-4 overflow-hidden">
+        <img id="exportar-preview-img" src="" alt="Prévia do quadro de evidências exportado" class="w-full h-auto rounded-lg" />
+      </div>
+      <div class="flex flex-wrap gap-2.5 justify-end">
+        <button type="button" data-close-modal class="tap-target rounded-full border border-stone-700 px-4 text-xs sm:text-sm font-medium text-stone-300 hover:text-stone-100 hover:border-stone-500 transition-colors">Fechar</button>
+        <a id="link-abrir-nova-aba" href="#" target="_blank" rel="noopener noreferrer" class="tap-target inline-flex items-center gap-1.5 rounded-full border border-stone-700 px-4 text-xs sm:text-sm font-medium text-stone-300 hover:text-stone-100 hover:border-stone-500 transition-colors"><i data-lucide="external-link" class="w-3.5 h-3.5"></i>Abrir em Nova Aba</a>
+        <a id="link-baixar-png" href="#" download="quadro-de-evidencias.png" class="tap-target inline-flex items-center gap-1.5 rounded-full bg-red-600 hover:bg-red-500 px-4 text-xs sm:text-sm font-semibold text-white transition-colors"><i data-lucide="download" class="w-3.5 h-3.5"></i>Baixar PNG</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="toast-container" aria-live="polite" class="fixed bottom-3 right-3 left-3 sm:left-auto sm:bottom-5 sm:right-5 z-[250] flex flex-col gap-2 items-stretch sm:items-end pointer-events-none"></div>
 
 <script>
@@ -1674,6 +1692,8 @@ function desenharItemCanvas(ctx, item, W, H, imgEl) {
   ctx.restore();
 }
 
+var ultimoBlobUrlExportado = null;
+
 async function exportarQuadroPNG() {
   var btn = document.getElementById('btn-exportar');
   try {
@@ -1706,14 +1726,45 @@ async function exportarQuadroPNG() {
       desenharItemCanvas(ctx, it, W, H, it.tipo === 'pista' ? imagensCarregadas[it.chave] : null);
     });
 
-    var dataUrl = canvas.toDataURL('image/png');
-    var a = document.createElement('a');
-    a.href = dataUrl;
+    /* toBlob (em vez de toDataURL) evita o limite prático de tamanho que alguns
+       navegadores (sobretudo Safari/iOS) impõem a URIs data: muito longas — um quadro
+       cheio de fotos facilmente gera um PNG de vários megabytes. */
+    var blob = await new Promise(function (resolve, reject) {
+      try { canvas.toBlob(function (b) { b ? resolve(b) : reject(new Error('toBlob retornou vazio.')); }, 'image/png'); }
+      catch (erroToBlob) { reject(erroToBlob); }
+    });
+
+    if (ultimoBlobUrlExportado) { try { URL.revokeObjectURL(ultimoBlobUrlExportado); } catch (e) { /* silencioso */ } }
+    var blobUrl = URL.createObjectURL(blob);
+    ultimoBlobUrlExportado = blobUrl;
     var carimbo = new Date().toISOString().slice(0, 10);
-    a.download = 'quadro-de-evidencias-' + carimbo + '.png';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    var nomeArquivo = 'quadro-de-evidencias-' + carimbo + '.png';
+
+    /* Tenta o download automático — funciona na grande maioria dos navegadores desktop.
+       De qualquer forma, sempre abrimos também o modal de resultado logo abaixo: assim,
+       se o download automático for silenciosamente bloqueado (comum em navegadores
+       móveis com <a download> + blob em certas condições), o usuário ainda vê a imagem
+       pronta e tem como salvá-la manualmente — em vez de a exportação parecer "não fez
+       nada". */
+    try {
+      var a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = nomeArquivo;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (erroDownload) {
+      console.warn('[Quadro] Download automático falhou, seguindo só com o modal de resultado:', erroDownload);
+    }
+
+    var imgPreview = document.getElementById('exportar-preview-img');
+    var linkBaixar = document.getElementById('link-baixar-png');
+    var linkNovaAba = document.getElementById('link-abrir-nova-aba');
+    if (imgPreview) { imgPreview.src = blobUrl; }
+    if (linkBaixar) { linkBaixar.href = blobUrl; linkBaixar.download = nomeArquivo; }
+    if (linkNovaAba) { linkNovaAba.href = blobUrl; }
+    abrirModal('modal-exportar-resultado', 'btn-exportar');
+
     showToast('Quadro exportado em PNG.', 'sucesso');
   } catch (erro) {
     console.error('[Quadro] Falha ao exportar PNG:', erro);
