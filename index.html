@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+<meta name="theme-color" content="#0c0a09">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Protocolo Confidencial: O Manto Tupinambá e as Fraturas da Modernidade — projeto de Estética e Filosofia Moderna, Universidade de Brasília (UnB), coordenação Profa. Dra. Priscila Rufinoni.">
+<title>Protocolo Confidencial — O Manto Tupinambá e as Fraturas da Modernidade</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230c0a09'/%3E%3Cpath d='M32 10c-3 8-14 10-14 22 0 10 7 18 14 22 7-4 14-12 14-22 0-12-11-14-14-22z' fill='none' stroke='%23DC2626' stroke-width='3'/%3E%3Cpath d='M32 16v34' stroke='%23DC2626' stroke-width='2'/%3E%3C/svg%3E">
+
+<!-- Google Fonts: Cinzel (títulos / efeito de arquivo confidencial) + Inter (texto analítico) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS via Play CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          guara: {
+            50: '#FEF2F2', 100: '#FEE2E2', 200: '#FECACA', 300: '#FCA5A5',
+            400: '#F87171', 500: '#EF4444', 600: '#DC2626', 700: '#B91C1C',
+            800: '#991B1B', 900: '#7F1D1D', DEFAULT: '#DC2626'
+          }
+        },
+        fontFamily: {
+          cinzel: ['Cinzel', 'ui-serif', 'Georgia', 'serif'],
+          inter: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+        },
+        boxShadow: {
+          'stamp': '0 0 0 1px rgba(220,38,38,0.4), 0 8px 24px -8px rgba(220,38,38,0.35)',
+          'dossie': '0 1px 0 rgba(255,255,255,0.04) inset, 0 20px 40px -20px rgba(0,0,0,0.7)'
+        }
+      }
+    }
+  };
+</script>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- jsPDF (geração de laudos em PDF) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Canvas Confetti (desclassificação do envelope) -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+  :root{
+    color-scheme: dark;
+    --guara: #DC2626;
+  }
+  html, body { background-color:#0c0a09; }
+  body{
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  .font-cinzel{ font-family:'Cinzel', ui-serif, Georgia, serif; }
+  .font-inter{ font-family:'Inter', ui-sans-serif, system-ui, sans-serif; }
+
+  /* ==== scrollbars ==== */
+  ::-webkit-scrollbar{ width:9px; height:9px; }
+  ::-webkit-scrollbar-track{ background:#0c0a09; }
+  ::-webkit-scrollbar-thumb{ background:#44403c; border-radius:9999px; }
+  ::-webkit-scrollbar-thumb:hover{ background:#57534e; }
+  *{ scrollbar-color:#44403c #0c0a09; scrollbar-width:thin; }
+  .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
+  .no-scrollbar::-webkit-scrollbar{ display:none; width:0; height:0; }
+
+  /* ==== texture / atmosphere ==== */
+  .bg-grain{
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(220,38,38,0.10), transparent 45%),
+      radial-gradient(circle at 82% 70%, rgba(220,38,38,0.07), transparent 40%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
+  }
+  .paper-card{
+    background-color: rgba(28,25,23,0.72);
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(0,0,0,0) 30%);
+    backdrop-filter: blur(2px);
+  }
+  .scanlines::before{
+    content:"";
+    position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.14) 0px, rgba(0,0,0,0.14) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode: overlay; opacity:.35;
+  }
+
+  /* ==== module panel transitions ==== */
+  .module-panel{ animation: fadeSlideIn .5s ease-out both; }
+  @keyframes fadeSlideIn{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+
+  .frase-fade{ transition: opacity 1.15s ease-in-out; }
+
+  /* ==== stamp reveal ==== */
+  @keyframes stampSlam{
+    0%{ transform:scale(2.4) rotate(-18deg); opacity:0; }
+    55%{ transform:scale(0.9) rotate(-7deg); opacity:1; }
+    75%{ transform:scale(1.05) rotate(-9deg); }
+    100%{ transform:scale(1) rotate(-8deg); opacity:1; }
+  }
+  .animate-stamp{ animation: stampSlam .65s cubic-bezier(.22,.8,.28,1.15) both; }
+
+  /* ==== envelope ==== */
+  .envelope-scene{ perspective: 1200px; }
+  .envelope-flap{
+    transform-origin: top center;
+    transition: transform .65s cubic-bezier(.6,-0.1,.2,1), opacity .5s ease .25s;
+    transform-style: preserve-3d;
+  }
+  .envelope-flap.is-open{ transform: rotateX(-172deg); opacity:0; }
+  .envelope-card{ transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .envelope-card:hover{ transform: translateY(-4px); border-color: rgba(220,38,38,0.5); }
+  .envelope-card:active{ transform: translateY(-1px) scale(.99); }
+
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow:0 0 0 0 rgba(220,38,38,0.0); }
+    50%{ box-shadow:0 0 0 6px rgba(220,38,38,0.07); }
+  }
+  .animate-pulse-glow{ animation: pulseGlow 2.6s ease-in-out infinite; }
+
+  @keyframes floatSlow{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-6px);} }
+  .animate-float{ animation: floatSlow 5s ease-in-out infinite; }
+
+  @keyframes spinSlow{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
+  .animate-spin-slow{ animation: spinSlow 18s linear infinite; }
+
+  /* ==== waveform bars ==== */
+  @keyframes waveBar{ 0%,100%{ transform:scaleY(.25);} 50%{ transform:scaleY(1);} }
+  .wave-bar{ animation: waveBar 1.2s ease-in-out infinite; transform-origin:bottom; }
+
+  /* ==== tabs ==== */
+  .tab-btn[aria-selected="true"]{
+    color:#fff;
+    background-color: rgba(220,38,38,0.14);
+    border-color: rgba(220,38,38,0.55);
+  }
+  .tab-btn[aria-selected="true"] .tab-dot{ background-color:#DC2626; }
+
+  /* ==== misc ==== */
+  .clip-torn{ clip-path: polygon(0% 2%,4% 0%,9% 3%,15% 0%,21% 2%,27% 0%,33% 3%,39% 0%,45% 2%,51% 0%,57% 3%,63% 0%,69% 2%,75% 0%,81% 3%,87% 0%,93% 2%,100% 0%,100% 100%,0% 100%); }
+  .text-shadow-glow{ text-shadow:0 0 18px rgba(220,38,38,0.45); }
+  .divider-dossie{ background: repeating-linear-gradient(90deg, rgba(168,162,158,0.5) 0 6px, transparent 6px 12px); height:1px; }
+  [hidden]{ display:none !important; }
+  .toast-enter{ animation: fadeSlideIn .3s ease-out both; }
+  .animate-fade-slide{ animation: fadeSlideIn .45s ease-out both; }
+  fieldset[disabled] .envelope-card{ opacity:.45; filter:grayscale(.6); pointer-events:none; }
+  textarea{ resize:vertical; }
+  input:focus, textarea:focus, select:focus, button:focus-visible{ outline:2px solid #DC2626; outline-offset:2px; }
+</style>
+</head>
+<body class="bg-stone-950 text-stone-300 font-inter antialiased min-h-screen selection:bg-red-600/30 selection:text-white">
+
+<!-- ============================================================ -->
+<!-- FUNDO DECORATIVO FIXO                                         -->
+<!-- ============================================================ -->
+<div aria-hidden="true" class="fixed inset-0 z-0 bg-stone-950 bg-grain"></div>
+<div aria-hidden="true" class="fixed -top-40 -left-40 w-[32rem] h-[32rem] rounded-full bg-red-700/10 blur-3xl z-0"></div>
+<div aria-hidden="true" class="fixed -bottom-40 -right-40 w-[32rem] h-[32rem] rounded-full bg-red-700/10 blur-3xl z-0"></div>
+
+<!-- ============================================================ -->
+<!-- SPRITE SVG (símbolos reutilizáveis, arte original inline)     -->
+<!-- ============================================================ -->
+<svg aria-hidden="true" class="hidden" width="0" height="0">
+  <defs>
+    <!-- Trama do manto: tile de padrão repetível (arte original, geometria inspirada na disposição de penas) -->
+    <pattern id="pattern-manto" width="40" height="46" patternUnits="userSpaceOnUse">
+      <rect width="40" height="46" fill="none"/>
+      <path d="M20 4c-7 6-13 12-13 20 0 9 6 15 13 19 7-4 13-10 13-19 0-8-6-14-13-20z" fill="#DC2626" opacity="0.11"/>
+      <path d="M20 8v30" stroke="#DC2626" stroke-width="0.6" opacity="0.2"/>
+    </pattern>
+
+    <linearGradient id="pena-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F87171"/>
+      <stop offset="45%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#7F1D1D"/>
+    </linearGradient>
+
+    <!-- Pena de guará: motivo iconográfico original, usado em destaques e assinaturas visuais -->
+    <symbol id="motif-pena" viewBox="0 0 120 320">
+      <path d="M60 8C40 40 20 70 16 130c-4 55 10 110 44 176 34-66 48-121 44-176-4-60-24-90-44-122z" fill="url(#pena-grad)" opacity="0.88"/>
+      <path d="M60 20v276" stroke="#450a0a" stroke-width="2" opacity="0.55"/>
+      <g stroke="#450a0a" stroke-width="1" opacity="0.32">
+        <path d="M60 40 L26 58 M60 40 L94 58"/>
+        <path d="M60 66 L22 86 M60 66 L98 86"/>
+        <path d="M60 96 L20 118 M60 96 L100 118"/>
+        <path d="M60 128 L18 152 M60 128 L102 152"/>
+        <path d="M60 162 L20 186 M60 162 L100 186"/>
+        <path d="M60 196 L24 218 M60 196 L96 218"/>
+        <path d="M60 228 L30 246 M60 228 L90 246"/>
+        <path d="M60 258 L38 272 M60 258 L82 272"/>
+      </g>
+    </symbol>
+
+    <!-- Manto Tupinambá — silhueta hero estilizada, original, composta a partir da trama + penas acima -->
+    <symbol id="motif-manto-hero" viewBox="0 0 240 300">
+      <path d="M120 10 C 100 10 92 24 90 34 L 62 60 L 80 84 L 96 66 C 90 78 86 96 86 118 L 70 280 C 70 292 78 298 90 298 L 150 298 C 162 298 170 292 170 280 L 154 118 C 154 96 150 78 144 66 L 160 84 L 178 60 L 150 34 C 148 24 140 10 120 10 Z" fill="url(#pattern-manto)" stroke="#DC2626" stroke-width="1.75" opacity="0.95"/>
+      <path d="M96 66 C 104 78 136 78 144 66" fill="none" stroke="#DC2626" stroke-width="1.5" opacity="0.7"/>
+      <g opacity="0.85">
+        <use href="#motif-pena" x="64" y="148" width="34" height="92" opacity="0.5"/>
+        <use href="#motif-pena" x="103" y="166" width="34" height="92" opacity="0.75"/>
+        <use href="#motif-pena" x="142" y="148" width="34" height="92" opacity="0.5"/>
+      </g>
+    </symbol>
+
+    <!-- Diagrama óptico original — lente, raios convergentes e imagem invertida (motivo Descartes/Rembrandt) -->
+    <symbol id="motif-optica" viewBox="0 0 300 200">
+      <line x1="10" y1="100" x2="290" y2="100" stroke="#78716c" stroke-width="1" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="40" y1="100" x2="40" y2="55" stroke="#DC2626" stroke-width="2"/>
+      <path d="M40 55 l-6 10 h12 z" fill="#DC2626"/>
+      <path d="M150 40 C 168 55 168 145 150 160 C 132 145 132 55 150 40 Z" fill="rgba(220,38,38,0.08)" stroke="#DC2626" stroke-width="1.5"/>
+      <line x1="150" y1="28" x2="150" y2="172" stroke="#78716c" stroke-width="1"/>
+      <g stroke="#e7e5e4" stroke-width="1" opacity="0.45">
+        <line x1="40" y1="55" x2="150" y2="52"/>
+        <line x1="40" y1="55" x2="150" y2="100"/>
+        <line x1="40" y1="55" x2="150" y2="148"/>
+        <line x1="150" y1="52" x2="255" y2="140"/>
+        <line x1="150" y1="100" x2="255" y2="140"/>
+        <line x1="150" y1="148" x2="255" y2="140"/>
+      </g>
+      <line x1="255" y1="100" x2="255" y2="140" stroke="#F87171" stroke-width="2"/>
+      <path d="M255 140 l-6 -10 h12 z" fill="#F87171"/>
+    </symbol>
+
+    <!-- Silhueta de carimbo institucional (anel + estrela) — usa currentColor para reuso cromático -->
+    <symbol id="motif-carimbo" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="94" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="100" cy="100" r="84" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 5"/>
+      <circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <g fill="currentColor">
+        <circle cx="100" cy="16" r="2.4"/><circle cx="100" cy="184" r="2.4"/>
+        <circle cx="16" cy="100" r="2.4"/><circle cx="184" cy="100" r="2.4"/>
+        <circle cx="40" cy="40" r="1.8"/><circle cx="160" cy="40" r="1.8"/>
+        <circle cx="40" cy="160" r="1.8"/><circle cx="160" cy="160" r="1.8"/>
+      </g>
+      <path d="M100 55 l7 14 15 2 -11 11 2.5 15 -13.5 -7 -13.5 7 2.5-15 -11-11 15-2z" fill="none" stroke="currentColor" stroke-width="2"/>
+    </symbol>
+
+    <!-- Carimbo/logo em miniatura para o cabeçalho -->
+    <symbol id="motif-carimbo-mini" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="30" fill="none" stroke="#DC2626" stroke-width="1.5" opacity="0.9"/>
+      <circle cx="32" cy="32" r="25" fill="none" stroke="#DC2626" stroke-width="1" stroke-dasharray="2 3" opacity="0.55"/>
+      <g stroke="#DC2626" stroke-width="1" opacity="0.5">
+        <line x1="32" y1="4" x2="32" y2="10"/><line x1="32" y1="54" x2="32" y2="60"/>
+        <line x1="4" y1="32" x2="10" y2="32"/><line x1="54" y1="32" x2="60" y2="32"/>
+      </g>
+      <path d="M32 14c-2.5 6-11 8-11 17 0 8 5.5 14.5 11 17.5 5.5-3 11-9.5 11-17.5 0-9-8.5-11-11-17z" fill="none" stroke="#DC2626" stroke-width="2"/>
+      <path d="M32 19v25M32 24l-4 4M32 24l4 4M32 31l-4.5 4M32 31l4.5 4M32 38l-4.5 3.5M32 38l4.5 3.5" stroke="#DC2626" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+    </symbol>
+
+    <!-- Selo de lacre — usado na face fechada dos envelopes -->
+    <symbol id="motif-selo-lacre" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="42" fill="#7F1D1D"/>
+      <circle cx="50" cy="50" r="42" fill="none" stroke="#450a0a" stroke-width="2"/>
+      <circle cx="50" cy="50" r="33" fill="none" stroke="#450a0a" stroke-width="1" opacity="0.6" stroke-dasharray="2 3"/>
+      <path d="M50 28c-4 8-13 10-13 20 0 9 6 15 13 19 7-4 13-10 13-19 0-10-9-12-13-20z" fill="#DC2626" opacity="0.9"/>
+      <path d="M50 33v29" stroke="#450a0a" stroke-width="1" opacity="0.5"/>
+    </symbol>
+
+    <!-- Diagrama de rede/jereré — trama de amarração usada como textura de apoio -->
+    <pattern id="pattern-jerere" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M0 0L24 24M24 0L0 24" stroke="#78716c" stroke-width="0.6" opacity="0.25"/>
+    </pattern>
+  </defs>
+</svg>
+
+<!-- ============================================================ -->
+<!-- CABEÇALHO / NAVEGAÇÃO                                         -->
+<!-- ============================================================ -->
+<header class="sticky top-0 z-40 border-b border-stone-800/80 bg-stone-950/85 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-3 sm:px-6">
+    <div class="flex items-center justify-between h-16 sm:h-20 gap-3">
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <svg width="34" height="34" viewBox="0 0 64 64" class="shrink-0 sm:w-10 sm:h-10" aria-hidden="true">
+          <use href="#motif-carimbo-mini"></use>
+        </svg>
+        <div class="min-w-0">
+          <p class="font-cinzel text-[9px] sm:text-[11px] tracking-[0.28em] text-red-600 uppercase truncate">Protocolo Confidencial</p>
+          <h1 class="font-cinzel text-[13px] leading-tight sm:text-lg font-semibold text-stone-100 truncate">O Manto Tupinambá &amp; as Fraturas da Modernidade</h1>
+        </div>
+      </div>
+      <button id="btn-info" type="button" aria-haspopup="dialog" aria-controls="info-modal" class="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-stone-700 bg-stone-900/70 px-2.5 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-medium text-stone-300 hover:border-red-600/60 hover:text-red-500 transition-colors">
+        <i data-lucide="info" class="w-3.5 h-3.5"></i>
+        <span class="hidden sm:inline">Dossiê</span>
+      </button>
+    </div>
+    <nav id="tab-nav" role="tablist" aria-label="Módulos do Protocolo" class="flex gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pb-2.5 sm:pb-3 -mx-1 px-1 sm:justify-center">
+      <!-- populado via JS: renderTabNav() -->
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- CONTEÚDO PRINCIPAL — 4 MÓDULOS                                -->
+<!-- ============================================================ -->
+<main class="relative z-10 mx-auto max-w-7xl px-3 sm:px-6 py-6 sm:py-10 pb-16">
+
+  <section id="panel-escuta" data-panel role="tabpanel" aria-labelledby="tab-escuta" tabindex="0" class="module-panel">
+    <div class="max-w-4xl mx-auto">
+
+      <div class="relative overflow-hidden rounded-2xl border border-stone-800 paper-card shadow-dossie p-6 sm:p-10 mb-6 sm:mb-8">
+        <svg class="absolute -right-8 -top-10 w-44 sm:w-60 opacity-[0.12] pointer-events-none" viewBox="0 0 240 300" aria-hidden="true"><use href="#motif-manto-hero"></use></svg>
+        <div class="relative">
+          <p class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-red-600 uppercase mb-2.5">Módulo 01 · Entrada Performativa</p>
+          <h2 id="m1-titulo" class="font-cinzel text-2xl sm:text-4xl font-bold text-stone-100 mb-3 leading-tight"></h2>
+          <p id="m1-subtitulo" class="text-[13px] sm:text-base text-stone-400 max-w-xl leading-relaxed"></p>
+
+          <div class="mt-7 sm:mt-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
+            <button id="btn-ambiencia" type="button" class="group relative inline-flex items-center justify-center gap-3 rounded-full bg-red-600 hover:bg-red-500 active:scale-[0.98] text-white font-semibold px-6 sm:px-7 py-4 text-[13px] sm:text-base shadow-stamp transition-all animate-pulse-glow w-full sm:w-auto">
+              <i data-lucide="headphones" class="w-5 h-5 shrink-0"></i>
+              <span data-label>Iniciar Ambiência Sonora Performática</span>
+            </button>
+            <div id="audio-visualizer" class="flex items-end gap-[3px] h-9 px-1" aria-hidden="true" hidden>
+              <span class="wave-bar w-[3px] rounded-full bg-red-500" style="height:100%; animation-delay:-1.1s"></span>
+              <span class="wave-bar w-[3px] rounded-full bg-red-500" style="height:70%; animation-delay:-0.4s"></span>
+              <span class="wave-bar w-[3px] rounded-full bg-red-500" style="height:100%; animation-delay:-0.9s"></span>
+              <span class="wave-bar w-[3px] rounded-full bg-red-500" style="height:55%; animation-delay:-0.2s"></span>
+              <span class="wave-bar w-[3px] rounded-full bg-red-500" style="height:100%; animation-delay:-0.7s"></span>
+              <span class="wave-bar w-[3px] rounded-full bg-red-500" style="height:80%; animation-delay:-1.3s"></span>
+            </div>
+          </div>
+          <p id="audio-status" class="mt-3.5 text-[11px] sm:text-xs text-stone-500 flex items-center gap-1.5">
+            <i data-lucide="circle-dot" class="w-3 h-3 text-stone-600 shrink-0"></i>
+            <span>Ambiência em silêncio — toque para iniciar a escuta.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="relative rounded-2xl border border-stone-800 bg-stone-900/50 paper-card p-6 sm:p-12 min-h-[230px] sm:min-h-[260px] flex items-center justify-center text-center overflow-hidden mb-6 sm:mb-8">
+        <svg class="absolute left-1/2 -translate-x-1/2 -top-10 w-14 opacity-10 pointer-events-none" viewBox="0 0 120 320" aria-hidden="true"><use href="#motif-pena"></use></svg>
+        <div class="relative max-w-2xl">
+          <i data-lucide="quote" class="w-5 h-5 text-red-700/60 mx-auto mb-4"></i>
+          <p id="frase-atual" class="frase-fade font-cinzel text-lg sm:text-2xl leading-relaxed text-stone-200"></p>
+          <p id="frase-atribuicao" class="frase-fade mt-4 text-[11px] sm:text-sm uppercase tracking-[0.25em] text-red-500 min-h-[1.2em]"></p>
+        </div>
+        <div id="frase-dots" class="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-1.5"></div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4 sm:gap-5">
+        <div class="rounded-xl border border-stone-800 bg-stone-900/40 p-5">
+          <div class="flex items-center gap-2 mb-3.5">
+            <i data-lucide="waves" class="w-4 h-4 text-red-600"></i>
+            <h3 class="font-cinzel text-sm font-semibold text-stone-200 uppercase tracking-wide">Parâmetros do Soundscape</h3>
+          </div>
+          <dl id="soundscape-params" class="space-y-2 text-[12px] sm:text-[13px]"></dl>
+        </div>
+        <div class="rounded-xl border border-stone-800 bg-stone-900/40 p-5">
+          <div class="flex items-center justify-between mb-3.5">
+            <div class="flex items-center gap-2">
+              <i data-lucide="scroll-text" class="w-4 h-4 text-red-600"></i>
+              <h3 class="font-cinzel text-sm font-semibold text-stone-200 uppercase tracking-wide">Roteiro de Frases</h3>
+            </div>
+            <span class="text-[10px] text-stone-500 font-mono">10s / frase</span>
+          </div>
+          <ol id="frases-lista" class="space-y-2.5 text-[12px] sm:text-[13px] max-h-56 overflow-y-auto pr-1"></ol>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="panel-envelopes" data-panel role="tabpanel" aria-labelledby="tab-envelopes" tabindex="0" class="module-panel" hidden>
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-8 sm:mb-10 text-center max-w-2xl mx-auto">
+        <p class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-red-600 uppercase mb-2.5">Módulo 02 · O Desafio da Banca</p>
+        <h2 id="m2-titulo" class="font-cinzel text-2xl sm:text-4xl font-bold text-stone-100 mb-3"></h2>
+        <p id="m2-subtitulo" class="text-[13px] sm:text-base text-stone-400 leading-relaxed"></p>
+      </div>
+
+      <div id="envelopes-grid" class="grid sm:grid-cols-3 gap-5 sm:gap-6"></div>
+
+      <div id="laudo-wrap" class="mt-10 sm:mt-14" hidden>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="h-px flex-1 bg-stone-800"></div>
+          <span class="text-[10px] tracking-[0.28em] uppercase text-stone-500 font-mono flex items-center gap-1.5"><i data-lucide="file-text" class="w-3 h-3"></i>Laudo de Missão Confidencial</span>
+          <div class="h-px flex-1 bg-stone-800"></div>
+        </div>
+        <div id="laudo-container" class="animate-fade-slide"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="panel-terminal" data-panel role="tabpanel" aria-labelledby="tab-terminal" tabindex="0" class="module-panel" hidden>
+    <div class="max-w-4xl mx-auto">
+      <div class="mb-8 sm:mb-10 text-center max-w-2xl mx-auto">
+        <p class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-red-600 uppercase mb-2.5">Módulo 03 · Oficina de Itens Filosóficos</p>
+        <h2 id="m3-titulo" class="font-cinzel text-2xl sm:text-4xl font-bold text-stone-100 mb-3"></h2>
+        <p id="m3-subtitulo" class="text-[13px] sm:text-base text-stone-400 leading-relaxed"></p>
+      </div>
+
+      <form id="form-terminal" class="space-y-6 sm:space-y-7" novalidate>
+
+        <div class="rounded-2xl border border-stone-800 paper-card p-5 sm:p-7">
+          <div class="flex items-center gap-2 mb-5">
+            <i data-lucide="users" class="w-4 h-4 text-red-600 shrink-0"></i>
+            <h3 class="font-cinzel text-[13px] sm:text-sm font-semibold text-stone-200 uppercase tracking-wide">Identificação da Banca Avaliadora</h3>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4 sm:gap-5">
+            <label class="block">
+              <span class="text-[11px] font-semibold uppercase tracking-wide text-stone-500">Grupo / Avaliador(a)</span>
+              <input type="text" id="campo-grupo" placeholder="Ex.: Grupo 4 — Turma de Estética" autocomplete="off"
+                class="mt-1.5 w-full rounded-lg border border-stone-700 bg-stone-950/60 px-3.5 py-2.5 text-[13px] sm:text-sm text-stone-200 placeholder-stone-600 focus:border-red-600 outline-none transition-colors" />
+            </label>
+            <label class="block">
+              <span class="text-[11px] font-semibold uppercase tracking-wide text-stone-500">Categoria Estética</span>
+              <select id="campo-categoria"
+                class="mt-1.5 w-full rounded-lg border border-stone-700 bg-stone-950/60 px-3.5 py-2.5 text-[13px] sm:text-sm text-stone-200 focus:border-red-600 outline-none transition-colors"></select>
+            </label>
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-stone-800 paper-card p-5 sm:p-7">
+          <div class="flex items-center gap-2 mb-5">
+            <i data-lucide="folder-open" class="w-4 h-4 text-red-600 shrink-0"></i>
+            <h3 class="font-cinzel text-[13px] sm:text-sm font-semibold text-stone-200 uppercase tracking-wide">Objeto Disparador</h3>
+          </div>
+          <label class="block mb-4">
+            <span class="text-[11px] font-semibold uppercase tracking-wide text-stone-500">Caso sorteado no Módulo 02 (ou seleção manual)</span>
+            <select id="campo-objeto"
+              class="mt-1.5 w-full rounded-lg border border-stone-700 bg-stone-950/60 px-3.5 py-2.5 text-[13px] sm:text-sm text-stone-200 focus:border-red-600 outline-none transition-colors"></select>
+          </label>
+          <div id="objeto-preview" class="rounded-xl border border-stone-700 bg-stone-950/50 p-4 text-[12px] sm:text-sm text-stone-400 leading-relaxed"></div>
+        </div>
+
+        <div class="rounded-2xl border border-stone-800 paper-card p-5 sm:p-7 space-y-5">
+          <div class="flex items-center gap-2">
+            <i data-lucide="scroll-text" class="w-4 h-4 text-red-600 shrink-0"></i>
+            <h3 class="font-cinzel text-[13px] sm:text-sm font-semibold text-stone-200 uppercase tracking-wide">Redação do Item de Prova</h3>
+          </div>
+          <label class="block">
+            <span class="text-[11px] font-semibold uppercase tracking-wide text-stone-500">Texto de Apoio</span>
+            <textarea id="campo-texto-apoio" rows="4" placeholder="Redija o texto motivador que fundamentará o item, articulando Objeto A e Objeto B..."
+              class="mt-1.5 w-full rounded-lg border border-stone-700 bg-stone-950/60 px-3.5 py-2.5 text-[13px] sm:text-sm text-stone-200 placeholder-stone-600 focus:border-red-600 outline-none transition-colors leading-relaxed"></textarea>
+          </label>
+          <label class="block">
+            <span class="text-[11px] font-semibold uppercase tracking-wide text-stone-500">Comando da Questão</span>
+            <textarea id="campo-comando" rows="3" placeholder="Ex.: Com base no texto acima e nos conhecimentos sobre o tema, julgue o item que se segue..."
+              class="mt-1.5 w-full rounded-lg border border-stone-700 bg-stone-950/60 px-3.5 py-2.5 text-[13px] sm:text-sm text-stone-200 placeholder-stone-600 focus:border-red-600 outline-none transition-colors leading-relaxed"></textarea>
+          </label>
+          <label class="block">
+            <span class="text-[11px] font-semibold uppercase tracking-wide text-stone-500">Justificativa de Gabarito</span>
+            <textarea id="campo-gabarito" rows="4" placeholder="Explique, tecnicamente, por que o item é Certo ou Errado, com base no confronto entre os objetos..."
+              class="mt-1.5 w-full rounded-lg border border-stone-700 bg-stone-950/60 px-3.5 py-2.5 text-[13px] sm:text-sm text-stone-200 placeholder-stone-600 focus:border-red-600 outline-none transition-colors leading-relaxed"></textarea>
+          </label>
+        </div>
+
+        <div class="rounded-2xl border border-dashed border-stone-700 bg-stone-900/30 p-5 sm:p-6">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+            <button type="button" id="btn-exportar-pdf" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-full bg-red-600 hover:bg-red-500 active:scale-[0.98] text-white font-semibold px-7 py-4 text-[13px] sm:text-sm shadow-stamp transition-all">
+              <i data-lucide="file-down" class="w-5 h-5 shrink-0"></i>
+              <span>Exportar Ficha Oficial Cebraspe/UnB (PDF)</span>
+            </button>
+            <button type="button" id="btn-limpar-form" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-stone-700 text-stone-400 hover:text-stone-200 hover:border-stone-500 font-medium px-5 py-3.5 text-[13px] transition-colors">
+              <i data-lucide="eraser" class="w-4 h-4 shrink-0"></i>
+              <span>Limpar Formulário</span>
+            </button>
+          </div>
+          <p id="pdf-status" class="mt-3.5 text-[11px] text-stone-500 flex items-center gap-1.5 min-h-[1.4em]"></p>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <section id="panel-matriz" data-panel role="tabpanel" aria-labelledby="tab-matriz" tabindex="0" class="module-panel" hidden>
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-7 sm:mb-8 text-center max-w-2xl mx-auto">
+        <p class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-red-600 uppercase mb-2.5">Módulo 04 · O Espelho de 1644</p>
+        <h2 id="m4-titulo" class="font-cinzel text-2xl sm:text-4xl font-bold text-stone-100 mb-3"></h2>
+        <p id="m4-subtitulo" class="text-[13px] sm:text-base text-stone-400 leading-relaxed"></p>
+      </div>
+
+      <div id="filtro-seculos" class="flex flex-wrap items-center justify-center gap-2 mb-2.5" role="group" aria-label="Filtrar por século"></div>
+      <p id="matriz-contagem" class="text-center text-[11px] text-stone-600 mb-6 font-mono"></p>
+
+      <div class="hidden sm:grid sm:grid-cols-3 gap-4 px-5 mb-2.5">
+        <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-stone-600 flex items-center gap-1.5"><i data-lucide="landmark" class="w-3 h-3"></i>Filosofia Europeia</p>
+        <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-red-700 flex items-center gap-1.5"><i data-lucide="feather" class="w-3 h-3"></i>Manto / Cosmopolítica Indígena</p>
+        <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-amber-700 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3 h-3"></i>Resposta da Arte Brasileira</p>
+      </div>
+
+      <div id="matriz-grid" class="grid gap-4 sm:gap-5"></div>
+      <p id="matriz-vazio" class="text-center text-stone-500 text-sm py-14" hidden></p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================ -->
+<!-- RODAPÉ                                                        -->
+<!-- ============================================================ -->
+<footer class="relative z-10 border-t border-stone-800/80">
+  <div class="mx-auto max-w-7xl px-3 sm:px-6 py-7 sm:py-8">
+    <div class="divider-dossie mb-6"></div>
+    <div id="footer-meta" class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <!-- preenchido via JS a partir de DOSSIE_TRUTH_MANIFEST.metadados -->
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================ -->
+<!-- MODAL: DOSSIÊ / SOBRE O PROJETO                                -->
+<!-- ============================================================ -->
+<div id="info-modal" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-stone-950/80 backdrop-blur-sm" data-close-modal></div>
+  <div class="absolute inset-0 flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div role="dialog" aria-modal="true" aria-labelledby="info-modal-title" class="relative w-full sm:max-w-lg max-h-[88vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border border-stone-700 bg-stone-900 paper-card shadow-dossie p-5 sm:p-7 animate-fade-slide">
+      <div id="info-modal-body">
+        <!-- populado via JS: renderInfoModal() -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TOASTS                                                        -->
+<!-- ============================================================ -->
+<div id="toast-container" aria-live="polite" class="fixed bottom-3 right-3 left-3 sm:left-auto sm:bottom-5 sm:right-5 z-[60] flex flex-col gap-2 items-stretch sm:items-end pointer-events-none"></div>
+
+<script>
+'use strict';
+/* ================================================================
+   PROTOCOLO CONFIDENCIAL — O MANTO TUPINAMBÁ E AS FRATURAS DA MODERNIDADE
+   UnB · Departamento de Filosofia · Estética e Filosofia da Arte
+   Coordenação: Profa. Dra. Priscila Rufinoni
+   Aplicação single-file, 100% client-side, sem dependências de build.
+   ================================================================ */
+(function () {
+
+/* ----------------------------------------------------------------
+   1. DOSSIE_TRUTH_MANIFEST — SINGLE SOURCE OF TRUTH (SSOT)
+   ---------------------------------------------------------------- */
+function deepFreeze(valor) {
+  if (valor && typeof valor === 'object' && !Object.isFrozen(valor)) {
+    Object.getOwnPropertyNames(valor).forEach(function (chave) {
+      deepFreeze(valor[chave]);
+    });
+    Object.freeze(valor);
+  }
+  return valor;
+}
+
+var DOSSIE_TRUTH_MANIFEST = {
+
+  metadados: {
+    instituicao: "Universidade de Brasília - Departamento de Filosofia (UnB)",
+    disciplina: "Estética e Filosofia da Arte / Filosofia Moderna",
+    coordenacao: "Profa. Dra. Priscila Rufinoni",
+    projeto: "Protocolo Confidencial: O Manto Tupinambá e as Fraturas da Modernidade",
+    versao: "1.0.0-SSOT"
+  },
+
+  eixosCognitivos: {
+    analise: {
+      id: "analise",
+      grau: "Fácil",
+      descricao: "Leitura imanente e identificação direta de dados formais do objeto ou texto."
+    },
+    sintese: {
+      id: "sintese",
+      grau: "Médio",
+      descricao: "Articulação conceitual entre a forma estética e uma categoria filosófica exterior."
+    },
+    contexto: {
+      id: "contexto",
+      grau: "Difícil",
+      descricao: "Contextualização sócio-histórica e decolonial no choque entre Europa do séc. XVII e cosmologia originária."
+    }
+  },
+
+  seculosFiltro: [
+    { id: "XVII", label: "Séc. XVII" },
+    { id: "XVIII-XIX", label: "Séc. XVIII/XIX" },
+    { id: "XX", label: "Séc. XX" },
+    { id: "XXI", label: "Séc. XXI" }
+  ],
+
+  categoriasEsteticas: [
+    "Sublime Kantiano",
+    "Antropofagia Neoconcreta",
+    "Biopolítica Moderna",
+    "Cosmopolítica"
+  ],
+
+  itensBanca: [
+    {
+      id: "item-01",
+      titulo: "A Dúvida Metódica e a Carga do Zutphen",
+      epoca: "1637–1644",
+      seculo: "XVII",
+      eixoRecomendado: "analise",
+      objetoA: {
+        titulo: "René Descartes, Discurso do Método (1637)",
+        tipo: "Filosofia Europeia",
+        excerto: "“Penso, logo existo”: o sujeito racional funda a certeza na dúvida metódica, isolando a mente de todo saber recebido pelos sentidos e pela tradição — inclusive do saber sobre os corpos e os mundos que a razão europeia ainda não havia classificado."
+      },
+      objetoB: {
+        titulo: "O Manto Tupinambá em trânsito (Recife–Zutphen, 1644)",
+        tipo: "Cosmopolítica Indígena",
+        excerto: "Em maio de 1644, Maurício de Nassau deixa o Recife a bordo do navio Zutphen com um carregamento avaliado em milhões de florins. A historiografia aponta como hipótese mais aceita — não como certeza documental fechada — que adornos de penas tupinambás viajaram nesse mesmo fluxo de despojos rumo às cortes europeias."
+      },
+      releituraContemporanea: "A tecelagem viva de Glicéria Tupinambá, que a partir de 2018 percorreu museus europeus para reaprender, junto aos mantos históricos, o gesto do jereré.",
+      comandoMissao: "Redija um item no padrão Certo/Errado que avalie a seguinte assertiva: a saída do Manto do território tupinambá, tal como a dúvida cartesiana, funda-se num gesto de separação — o sujeito que se isola do mundo sensível e o objeto que é isolado de seu mundo de sentido. Justifique se essa analogia é filosoficamente sustentável ou se dissimula a violência concreta do despojo.",
+      badgeTema: "Extrativismo Colonial"
+    },
+    {
+      id: "item-02",
+      titulo: "O Olhar Anatômico e o Manto Espoliado",
+      epoca: "1632",
+      seculo: "XVII",
+      eixoRecomendado: "sintese",
+      objetoA: {
+        titulo: "Rembrandt van Rijn, A Lição de Anatomia do Dr. Tulp (1632)",
+        tipo: "Filosofia Europeia / Pintura",
+        excerto: "O corpo do condenado Aris Kindt é aberto sob a luz fria do anfiteatro de Amsterdã, transformado em superfície de saber diante do olhar coletivo dos cirurgiões. A pintura celebra a nova ciência que disseca, mede e classifica o corpo como objeto."
+      },
+      objetoB: {
+        titulo: "O Manto Tupinambá como corpo cerimonial vestido",
+        tipo: "Cosmopolítica Indígena",
+        excerto: "Enquanto o corpo europeu é aberto para revelar sua verdade anatômica, o corpo indígena que veste o manto de penas de guará é lido pelos cronistas coloniais como superfície a decifrar, despir e classificar — raramente como sujeito de um saber próprio sobre si."
+      },
+      releituraContemporanea: "Manto Tupinambá (2000), de Lygia Pape: instalação monumental de penas sintéticas vermelhas e ossos de silicone que devolve ao objeto sua carga simultânea de beleza e de terror.",
+      comandoMissao: "Formule um item Certo/Errado que relacione o “olhar anatômico” de Tulp com o olhar etnográfico que, no mesmo século, reduz o manto de penas a curiosidade de gabinete. Avalie: em ambos os casos, o saber europeu se autoriza a abrir e expor aquilo que classifica como natureza — seja o cadáver, seja o artefato indígena.",
+      badgeTema: "Biopolítica"
+    },
+    {
+      id: "item-03",
+      titulo: "O Sublime das Penas e o Juízo Europeu",
+      epoca: "1790",
+      seculo: "XVIII-XIX",
+      eixoRecomendado: "sintese",
+      objetoA: {
+        titulo: "Immanuel Kant, Crítica da Faculdade do Juízo (1790)",
+        tipo: "Filosofia Europeia",
+        excerto: "Kant distingue o belo, que agrada pela forma finita e harmoniosa, do sublime, que excede a medida e desconcerta a imaginação antes de ser recuperado pela razão — um juízo pensado a partir do sujeito europeu diante da natureza."
+      },
+      objetoB: {
+        titulo: "A plumária tupinambá e o sublime fora do cânone",
+        tipo: "Cosmopolítica Indígena",
+        excerto: "Milhares de penas vermelhas de guará, obtidas em relação ritual com a ave e tecidas em jereré, compõem um objeto cuja desmedida sensorial — cor, brilho, volume — dificilmente se deixa conter nas categorias do belo e do sublime tal como formuladas na estética europeia do século XVIII."
+      },
+      releituraContemporanea: "A pesquisa de Glicéria Tupinambá, que a partir de 2018 percorreu os museus europeus junto aos então onze mantos históricos preservados no continente (antes da repatriação de 2024), propondo pensar o manto não como objeto de contemplação estética, mas como corpo de relação com os Encantados.",
+      comandoMissao: "Elabore um item Certo/Errado sobre a aplicabilidade da categoria kantiana de sublime à plumária tupinambá. Avalie: julgar o manto pelo vocabulário do sublime kantiano ilumina sua potência sensível, mas corre o risco de recolonizar esteticamente um objeto que pertence a uma cosmologia própria, não subordinada ao juízo europeu.",
+      badgeTema: "Crítica do Juízo"
+    },
+    {
+      id: "item-04",
+      titulo: "O Gabinete de Curiosidades e o Silêncio do Arquivo",
+      epoca: "c. 1654 – séc. XVIII",
+      seculo: "XVII",
+      eixoRecomendado: "contexto",
+      objetoA: {
+        titulo: "Os Kunstkammer europeus (séc. XVII–XVIII)",
+        tipo: "Filosofia Europeia / Cultura Material",
+        excerto: "Gabinetes de curiosidades reúnem naturalia e artificialia — conchas, minerais, autômatos, armas e adornos de povos distantes — num mesmo regime de exibição que embaralha natureza, arte e troféu diplomático diante do olhar do soberano."
+      },
+      objetoB: {
+        titulo: "O Manto na coleção real dinamarquesa",
+        tipo: "Cosmopolítica Indígena",
+        excerto: "Em 13 de junho de 1654, Maurício de Nassau presenteia seu primo Frederico III da Dinamarca com dezenas de pinturas e objetos brasileiros. A hipótese historiográfica mais aceita — embora não documentalmente fechada — situa nesse mesmo circuito de dádivas cortesãs a entrada de mantos de penas tupinambás no Kunstkammer real, onde permaneceriam catalogados por séculos como curiosidade exótica."
+      },
+      releituraContemporanea: "O movimento internacional de repatriação de acervos coloniais, que em 2024 devolveu ao Brasil um dos onze mantos históricos preservados na Europa.",
+      comandoMissao: "Redija um item Certo/Errado sobre o Kunstkammer como dispositivo epistemológico. Avalie: transformar o manto tupinambá em peça de gabinete equivale a subtraí-lo de sua função cosmopolítica original, convertendo relação ritual em espólio classificado por critérios estranhos a ela.",
+      badgeTema: "Extrativismo Colonial"
+    },
+    {
+      id: "item-05",
+      titulo: "Devorar a Metrópole: Antropofagia e Neoconcretismo",
+      epoca: "1928 / 2000",
+      seculo: "XX",
+      eixoRecomendado: "sintese",
+      objetoA: {
+        titulo: "Oswald de Andrade, Manifesto Antropófago (1928)",
+        tipo: "Filosofia / Literatura Brasileira",
+        excerto: "“Tupy, or not tupy, that is the question”: o manifesto propõe devorar criticamente a cultura do colonizador, digerindo-a segundo uma lógica própria, ritual e antropofágica, em vez de simplesmente importá-la ou rejeitá-la."
+      },
+      objetoB: {
+        titulo: "Manto Tupinambá (2000), Lygia Pape",
+        tipo: "Arte Brasileira Contemporânea (releitura)",
+        excerto: "Instalação monumental de cerca de dez por dez metros: lona suspensa, esferas revestidas de penas sintéticas vermelhas, ossos de silicone e insetos plásticos recompõem o manto cerimonial como imagem simultânea de beleza plumária e de terror — corpo devorado e corpo que devora."
+      },
+      releituraContemporanea: "A própria série Tupinambá de Lygia Pape (2000) é aqui o objeto B — o que convoca uma segunda camada de leitura: como a arte brasileira do fim do século XX devora a imagem etnográfica que catalogou o manto original.",
+      comandoMissao: "Formule um item Certo/Errado que articule o conceito de antropofagia cultural de Oswald de Andrade com a operação estética de Lygia Pape em Manto Tupinambá (2000). Avalie: ao recriar o manto com materiais sintéticos e ossos de silicone, Pape devora a própria imagem etnográfica do objeto, expondo tanto seu fascínio estético quanto a violência de sua história de espólio.",
+      badgeTema: "Antropofagia"
+    },
+    {
+      id: "item-06",
+      titulo: "Restituir o Ancestral: o Retorno de 2024",
+      epoca: "2019–2024",
+      seculo: "XXI",
+      eixoRecomendado: "contexto",
+      objetoA: {
+        titulo: "Debate contemporâneo sobre restituição de acervos coloniais",
+        tipo: "Filosofia / Teoria Decolonial",
+        excerto: "Museus europeus são hoje confrontados por demandas de povos originários e ex-colônias pela devolução de bens culturais retirados em contextos de assimetria colonial — um debate que tensiona propriedade, custódia e reparação histórica."
+      },
+      objetoB: {
+        titulo: "O retorno do Manto Tupinambá ao Museu Nacional/UFRJ (2024)",
+        tipo: "Cosmopolítica Indígena",
+        excerto: "Em junho de 2023, o Museu Nacional da Dinamarca (Nationalmuseet) anuncia a decisão de devolver ao Brasil um manto de penas tupinambá guardado em seu acervo desde fins do século XVII. O objeto chega ao Brasil em julho de 2024, e sua cerimônia oficial de retorno ocorre em setembro do mesmo ano, no Museu Nacional/UFRJ."
+      },
+      releituraContemporanea: "A tecelagem viva de Glicéria Tupinambá, que em 2024 representa o Brasil na 60ª Bienal de Veneza — a primeira artista indígena a fazê-lo individualmente — com a mostra “Ka'a Pûera: nós somos pássaros que andam”.",
+      comandoMissao: "Redija um item Certo/Errado sobre o significado filosófico da restituição. Avalie: a devolução de um único manto, entre os onze preservados, resolve a assimetria colonial que motivou sua saída do território tupinambá, ou apenas a torna visível e mensurável.",
+      badgeTema: "Biopolítica"
+    },
+    {
+      id: "item-07",
+      titulo: "A Hierarquia das Formas e o Fora do Cânone",
+      epoca: "1835 (publicação póstuma)",
+      seculo: "XVIII-XIX",
+      eixoRecomendado: "contexto",
+      objetoA: {
+        titulo: "G. W. F. Hegel, Lições de Estética (publicação póstuma, 1835)",
+        tipo: "Filosofia Europeia",
+        excerto: "Hegel organiza a história da arte em formas sucessivas — simbólica, clássica, romântica — segundo o grau em que a matéria consegue expressar o espírito: uma hierarquia que subordina manifestações artísticas não europeias a estágios tidos como preliminares."
+      },
+      objetoB: {
+        titulo: "O manto catalogado, o manto silencioso (séc. XIX)",
+        tipo: "Cosmopolítica Indígena",
+        excerto: "Enquanto a estética filosófica europeia sistematiza uma história universal da arte, os mantos tupinambás permanecem em vitrines e depósitos de museus dinamarqueses, italianos, suíços, belgas e franceses — catalogados como artefato etnográfico, raramente convocados ao debate sobre o que conta como arte."
+      },
+      releituraContemporanea: "A pesquisa contemporânea que reposiciona os onze mantos preservados como interlocutores de uma cosmopolítica própria, e não como degraus inferiores de uma escala evolutiva da arte.",
+      comandoMissao: "Elabore um item Certo/Errado sobre a hierarquia hegeliana das formas artísticas aplicada ao caso do manto. Avalie: classificar a plumária tupinambá como arte “simbólica” ou pré-clássica, nos termos de Hegel, é um gesto filosoficamente neutro de periodização, e não uma operação que naturaliza a subalternização de cosmologias não europeias.",
+      badgeTema: "Crítica do Juízo"
+    },
+    {
+      id: "item-08",
+      titulo: "O Arquivo Vulnerável: Guerra e Perda",
+      epoca: "c. 1943–1945",
+      seculo: "XX",
+      eixoRecomendado: "contexto",
+      objetoA: {
+        titulo: "A Europa em guerra total (1939–1945)",
+        tipo: "Filosofia da História / Contexto",
+        excerto: "Bombardeios em larga escala atingem cidades e coleções europeias entre 1939 e 1945, expondo a fragilidade material de qualquer arquivo — inclusive daqueles construídos sobre a posse de objetos retirados de outros povos."
+      },
+      objetoB: {
+        titulo: "Um manto tupinambá perdido em Berlim",
+        tipo: "Cosmopolítica Indígena",
+        excerto: "Registros jornalísticos — não cruzados, neste dossiê, com fonte acadêmica independente — indicam que um manto de penas então emprestado a uma instituição berlinense pelo acervo etnológico de Dresden teria sido destruído em bombardeios da Segunda Guerra Mundial, reduzindo ainda mais o número de exemplares hoje sobreviventes."
+      },
+      releituraContemporanea: "O cuidado ritual de Glicéria Tupinambá com os onze mantos remanescentes, tratados não como acervo substituível, mas como parentes cuja perda seria irreparável.",
+      comandoMissao: "Redija um item Certo/Errado sobre a vulnerabilidade material do patrimônio deslocado. Avalie: a destruição de um manto tupinambá em bombardeio europeu é dado historicamente confirmado por múltiplas fontes acadêmicas independentes, e não apenas por registro de imprensa isolado — ressalvando que este dossiê sinaliza tal informação como carente de checagem adicional.",
+      badgeTema: "Extrativismo Colonial"
+    }
+  ],
+
+  escutaPerformativa: {
+    tituloModulo: "A Escuta do Manto",
+    subtitulo: "Entrada performativa — para tocar enquanto a turma ocupa a sala",
+    frases: [
+      { texto: "Enquanto Descartes meditava sobre a dúvida e o autômato, o Manto navegava nos porões do Zutphen, rumo a um Kunstkammer que ainda não sabia seu nome.", atribuicao: null },
+      { texto: "O Manto não é peça de museu. O Manto é um ancestral vivo que pede escuta.", atribuicao: "Glicéria Tupinambá" },
+      { texto: "Rembrandt pinta o cadáver aberto em 1632; décadas depois, a plumária sagrada vira indumento de corte retratado em Hannover.", atribuicao: null },
+      { texto: "Onze mantos atravessaram os séculos. Um retornou ao Brasil em 2024. Dez ainda aguardam, catalogados, em vitrines europeias.", atribuicao: null },
+      { texto: "Nassau embarcou no Zutphen em maio de 1644 com milhões de florins em carga. A historiografia ainda debate como as penas de guará entraram nesse porão.", atribuicao: null },
+      { texto: "Não se trata de copiar o desenho antigo. Trata-se de reaprender o gesto, o jereré, a escuta cerimonial que o tece.", atribuicao: null }
+    ]
+  },
+
+  soundscapes: {
+    ambienciaPerformatica: {
+      label: "Ambiência Binaural 432Hz + Ruído Rosa",
+      freqBaseHz: 432,
+      freqBatimentoBinauralHz: 6,
+      formaOnda: "sine",
+      ganhoMestre: 0.22,
+      fadeInSeg: 2.5,
+      fadeOutSeg: 1.2,
+      ruidoRosa: { ganho: 0.05, filtroPassaBaixaHz: 900, filtroQ: 0.7 },
+      modulacaoVento: { taxaHz: 0.06, profundidadeHz: 30 },
+      camadaSussurro: { ativa: true, faixaFreqHz: [170, 260], ganho: 0.02, taxaModulacaoHz: 0.13 }
+    },
+    cliqueEnvelope: { freqHz: 1400, formaOnda: "square", duracaoMs: 35, ganho: 0.09 },
+    seloRompido: { freqInicialHz: 320, freqFinalHz: 70, formaOnda: "sawtooth", duracaoMs: 260, ganho: 0.14 },
+    confirmacaoTerminal: { freqHz: 660, freqSecundariaHz: 990, formaOnda: "triangle", duracaoMs: 140, ganho: 0.08 }
+  },
+
+  confettiConfig: {
+    cores: ["#DC2626", "#991B1B", "#78716c", "#e7e5e4", "#1c1917"],
+    quantidadeParticulas: 70,
+    espalhamento: 75,
+    velocidadeInicial: 38,
+    gravidade: 1.05,
+    ticks: 190
+  },
+
+  interfaceTextos: {
+    modulos: {
+      escuta: { id: "escuta", titulo: "A Escuta do Manto", subtitulo: "Entrada Performativa", icone: "headphones" },
+      envelopes: { id: "envelopes", titulo: "O Desafio da Banca", subtitulo: "Extração de Envelopes Secretos", icone: "mail" },
+      terminal: { id: "terminal", titulo: "Oficina de Itens Filosóficos", subtitulo: "Terminal do Avaliador", icone: "terminal" },
+      matriz: { id: "matriz", titulo: "O Espelho de 1644", subtitulo: "Matriz Crítica e Sincronias", icone: "table-2" }
+    },
+    envelopesInfo: [
+      { eixo: "analise", codigo: "ENVELOPE 01", operacao: "Operação Análise" },
+      { eixo: "sintese", codigo: "ENVELOPE 02", operacao: "Operação Síntese" },
+      { eixo: "contexto", codigo: "ENVELOPE 03", operacao: "Operação Contextualização" }
+    ],
+    carimboDesclassificado: "DESCLASSIFICADO",
+    carimboTopSecret: "TOP SECRET",
+    carimboOrgao: "CEBRASPE · UnB",
+    pdf: {
+      tituloDocumento: "FICHA OFICIAL DE ITEM — CEBRASPE / UnB",
+      carimbo: "ARQUIVO DESCLASSIFICADO",
+      rubricaNome: "Profa. Dra. Priscila Rufinoni",
+      rubricaCargo: "Coordenação — Estética e Filosofia da Arte, UnB"
+    }
+  }
+
+};
+
+deepFreeze(DOSSIE_TRUTH_MANIFEST);
+
+/* ----------------------------------------------------------------
+   2. UTILITÁRIOS, ESTADO GLOBAL E HELPERS DE INTERFACE
+   ---------------------------------------------------------------- */
+var AppState = {
+  tabAtual: 'escuta',
+  audio: { ctx: null, nodes: null, tocando: false, fraseIndex: 0, fraseTimer: null, fraseIntervaloMs: 10000 },
+  envelopes: {
+    analise: { aberto: false, item: null },
+    sintese: { aberto: false, item: null },
+    contexto: { aberto: false, item: null }
+  },
+  terminal: { objetoSelecionadoId: null },
+  matriz: { filtroSeculo: 'TODOS' }
+};
+
+function $(seletor, escopo) { return (escopo || document).querySelector(seletor); }
+function $all(seletor, escopo) { return Array.prototype.slice.call((escopo || document).querySelectorAll(seletor)); }
+
+function refreshIcons() {
+  try {
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
+    }
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao renderizar ícones Lucide:', erro);
+  }
+}
+
+function escapeHtml(texto) {
+  if (typeof texto !== 'string') return '';
+  return texto.replace(/[&<>"']/g, function (c) {
+    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+  });
+}
+
+function pickRandom(lista) {
+  if (!Array.isArray(lista) || lista.length === 0) return null;
+  return lista[Math.floor(Math.random() * lista.length)];
+}
+
+function getItemById(id) {
+  var achados = DOSSIE_TRUTH_MANIFEST.itensBanca.filter(function (item) { return item.id === id; });
+  return achados.length ? achados[0] : null;
+}
+
+function badgeClasses(badgeTema) {
+  var mapa = {
+    'Biopolítica': 'bg-red-950/60 text-red-300 border-red-800/70',
+    'Crítica do Juízo': 'bg-amber-950/40 text-amber-300 border-amber-800/60',
+    'Extrativismo Colonial': 'bg-stone-800 text-stone-300 border-stone-600/70',
+    'Antropofagia': 'bg-orange-950/40 text-orange-300 border-orange-800/60'
+  };
+  return mapa[badgeTema] || 'bg-stone-800 text-stone-300 border-stone-600/70';
+}
+
+function grauClasses(grau) {
+  var mapa = { 'Fácil': 'text-emerald-400', 'Médio': 'text-amber-400', 'Difícil': 'text-red-500' };
+  return mapa[grau] || 'text-stone-400';
+}
+
+function eixoCorAccent(eixoId) {
+  var mapa = { analise: 'emerald', sintese: 'amber', contexto: 'red' };
+  return mapa[eixoId] || 'stone';
+}
+
+/* Cartão reutilizável de "Objeto A / Objeto B" — usado no Laudo (Módulo 2) e na Matriz (Módulo 4) */
+function buildObjetoCard(objeto, variante) {
+  var ehA = variante === 'A';
+  var borda = ehA ? 'border-stone-700' : 'border-red-800/50';
+  var tagBg = ehA ? 'bg-stone-800 text-stone-400' : 'bg-red-950/60 text-red-300';
+  var rotulo = ehA ? 'text-stone-500' : 'text-red-500';
+  return '' +
+    '<div class="rounded-xl border ' + borda + ' bg-stone-950/60 p-4 sm:p-5 h-full">' +
+      '<div class="flex items-center justify-between mb-2.5 gap-2">' +
+        '<span class="text-[10px] font-bold tracking-[0.15em] uppercase ' + rotulo + '">Objeto ' + variante + '</span>' +
+        '<span class="text-[10px] px-2 py-0.5 rounded-full ' + tagBg + '">' + escapeHtml(objeto.tipo) + '</span>' +
+      '</div>' +
+      '<h4 class="font-cinzel text-[15px] sm:text-base font-semibold text-stone-100 mb-2 leading-snug">' + escapeHtml(objeto.titulo) + '</h4>' +
+      '<p class="text-[13px] sm:text-sm text-stone-400 leading-relaxed">' + escapeHtml(objeto.excerto) + '</p>' +
+    '</div>';
+}
+
+function showToast(mensagem, tipo) {
+  try {
+    var container = document.getElementById('toast-container');
+    if (!container) return;
+    var estilos = {
+      sucesso: 'border-emerald-700/60 text-emerald-300',
+      erro: 'border-red-700/60 text-red-300',
+      info: 'border-stone-600/60 text-stone-300'
+    };
+    var icones = { sucesso: 'check-circle-2', erro: 'alert-triangle', info: 'info' };
+    var t = (tipo && estilos[tipo]) ? tipo : 'info';
+    var el = document.createElement('div');
+    el.className = 'toast-enter pointer-events-auto flex items-center gap-2.5 rounded-lg border bg-stone-900/95 paper-card px-3.5 py-2.5 text-xs sm:text-sm shadow-dossie ' + estilos[t];
+    var icon = document.createElement('i');
+    icon.setAttribute('data-lucide', icones[t]);
+    icon.className = 'w-4 h-4 shrink-0';
+    var span = document.createElement('span');
+    span.className = 'flex-1 leading-snug';
+    span.textContent = mensagem;
+    el.appendChild(icon);
+    el.appendChild(span);
+    container.appendChild(el);
+    refreshIcons();
+    setTimeout(function () {
+      el.style.transition = 'opacity .4s ease, transform .4s ease';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(6px)';
+      setTimeout(function () { try { el.remove(); } catch (e) {} }, 420);
+    }, 3800);
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao exibir notificação:', erro);
+  }
+}
+
+function switchTab(tabId) {
+  try {
+    AppState.tabAtual = tabId;
+    $all('[data-panel]').forEach(function (panel) {
+      var alvo = panel.id === 'panel-' + tabId;
+      panel.hidden = !alvo;
+      if (alvo) {
+        panel.classList.remove('module-panel');
+        void panel.offsetWidth; /* força reflow para reiniciar a animação */
+        panel.classList.add('module-panel');
+      }
+    });
+    $all('.tab-btn').forEach(function (btn) {
+      var ativo = btn.getAttribute('data-tab') === tabId;
+      btn.setAttribute('aria-selected', ativo ? 'true' : 'false');
+    });
+    var alvoScroll = document.getElementById('panel-' + tabId);
+    if (alvoScroll) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao trocar de módulo:', erro);
+  }
+}
+
+function renderTabNav() {
+  try {
+    var nav = document.getElementById('tab-nav');
+    if (!nav) return;
+    var ordem = ['escuta', 'envelopes', 'terminal', 'matriz'];
+    nav.innerHTML = ordem.map(function (id, index) {
+      var m = DOSSIE_TRUTH_MANIFEST.interfaceTextos.modulos[id];
+      return '' +
+        '<button type="button" id="tab-' + id + '" data-tab="' + id + '" role="tab" ' +
+        'aria-selected="' + (index === 0 ? 'true' : 'false') + '" aria-controls="panel-' + id + '" ' +
+        'class="tab-btn shrink-0 inline-flex items-center gap-2 rounded-full border border-stone-700 bg-stone-900/60 px-3.5 py-2 sm:px-4 sm:py-2.5 text-[11.5px] sm:text-sm font-medium text-stone-400 hover:text-stone-200 hover:border-stone-600 transition-colors">' +
+        '<span class="tab-dot w-1.5 h-1.5 rounded-full bg-stone-600 transition-colors"></span>' +
+        '<i data-lucide="' + m.icone + '" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>' +
+        '<span>' + escapeHtml(m.titulo) + '</span>' +
+        '</button>';
+    }).join('');
+    $all('.tab-btn', nav).forEach(function (btn) {
+      btn.addEventListener('click', function () { switchTab(btn.getAttribute('data-tab')); });
+    });
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao montar navegação de módulos:', erro);
+  }
+}
+
+function renderFooterMeta() {
+  try {
+    var el = document.getElementById('footer-meta');
+    if (!el) return;
+    var m = DOSSIE_TRUTH_MANIFEST.metadados;
+    el.innerHTML =
+      '<div class="flex items-center gap-2 text-stone-500"><i data-lucide="landmark" class="w-3.5 h-3.5 shrink-0"></i><p class="text-[10.5px] sm:text-xs tracking-wide">' + escapeHtml(m.instituicao) + '</p></div>' +
+      '<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] sm:text-[11px] text-stone-600">' +
+        '<span>' + escapeHtml(m.disciplina) + '</span>' +
+        '<span class="w-1 h-1 rounded-full bg-stone-700"></span>' +
+        '<span>Coord. ' + escapeHtml(m.coordenacao) + '</span>' +
+        '<span class="w-1 h-1 rounded-full bg-stone-700"></span>' +
+        '<span class="font-mono">v' + escapeHtml(m.versao) + '</span>' +
+      '</div>';
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao montar rodapé:', erro);
+  }
+}
+
+function renderInfoModal() {
+  try {
+    var body = document.getElementById('info-modal-body');
+    if (!body) return;
+    var m = DOSSIE_TRUTH_MANIFEST.metadados;
+    var eixos = DOSSIE_TRUTH_MANIFEST.eixosCognitivos;
+    body.innerHTML =
+      '<div class="flex items-start justify-between gap-3 mb-5">' +
+        '<div class="min-w-0">' +
+          '<p class="font-cinzel text-[10px] tracking-[0.25em] text-red-600 uppercase">Dossiê do Projeto</p>' +
+          '<h2 id="info-modal-title" class="font-cinzel text-base sm:text-xl font-semibold text-stone-100 mt-1 leading-snug">' + escapeHtml(m.projeto) + '</h2>' +
+        '</div>' +
+        '<button type="button" data-close-modal aria-label="Fechar" class="shrink-0 rounded-full p-1.5 text-stone-400 hover:text-red-500 hover:bg-stone-800 transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>' +
+      '</div>' +
+      '<dl class="space-y-2.5 text-[13px] sm:text-sm mb-6">' +
+        '<div class="flex justify-between gap-4 border-b border-stone-800 pb-2"><dt class="text-stone-500 shrink-0">Instituição</dt><dd class="text-stone-300 text-right">' + escapeHtml(m.instituicao) + '</dd></div>' +
+        '<div class="flex justify-between gap-4 border-b border-stone-800 pb-2"><dt class="text-stone-500 shrink-0">Disciplina</dt><dd class="text-stone-300 text-right">' + escapeHtml(m.disciplina) + '</dd></div>' +
+        '<div class="flex justify-between gap-4 border-b border-stone-800 pb-2"><dt class="text-stone-500 shrink-0">Coordenação</dt><dd class="text-stone-300 text-right">' + escapeHtml(m.coordenacao) + '</dd></div>' +
+        '<div class="flex justify-between gap-4 pb-1"><dt class="text-stone-500 shrink-0">Versão do Dossiê</dt><dd class="text-stone-300 text-right font-mono">' + escapeHtml(m.versao) + '</dd></div>' +
+      '</dl>' +
+      '<p class="text-[11px] uppercase tracking-[0.2em] text-stone-500 mb-2.5">Eixos Cognitivos da Banca</p>' +
+      '<div class="space-y-2 mb-1">' +
+        Object.keys(eixos).map(function (k) {
+          var e = eixos[k];
+          return '<div class="rounded-lg border border-stone-800 bg-stone-950/50 p-3">' +
+            '<div class="flex items-center justify-between mb-1">' +
+              '<span class="text-xs font-semibold text-stone-200 uppercase tracking-wide">' + escapeHtml(k) + '</span>' +
+              '<span class="text-[10px] font-bold ' + grauClasses(e.grau) + '">' + escapeHtml(e.grau) + '</span>' +
+            '</div>' +
+            '<p class="text-[12px] text-stone-500 leading-relaxed">' + escapeHtml(e.descricao) + '</p>' +
+          '</div>';
+        }).join('') +
+      '</div>';
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao montar modal informativo:', erro);
+  }
+}
+
+function initModal() {
+  try {
+    var modal = document.getElementById('info-modal');
+    var btnAbrir = document.getElementById('btn-info');
+    if (!modal || !btnAbrir) return;
+    btnAbrir.addEventListener('click', function () {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      refreshIcons();
+    });
+    $all('[data-close-modal]', modal).forEach(function (el) {
+      el.addEventListener('click', function () {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && !modal.classList.contains('hidden')) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    });
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao inicializar modal:', erro);
+  }
+}
+
+/* Fallback resiliente de imagens externas (Wikimedia Commons / acervos abertos) — nunca quebra o layout */
+window.handleImgFallback = function (imgEl) {
+  try {
+    imgEl.style.display = 'none';
+    var fallback = imgEl.nextElementSibling;
+    if (fallback && fallback.classList) { fallback.classList.remove('hidden'); }
+  } catch (erro) { /* silencioso — a interface jamais deve travar por causa de uma imagem */ }
+};
+
+/* ----------------------------------------------------------------
+   3. MÓDULO 1 — A ESCUTA DO MANTO (entrada performativa / áudio)
+   ---------------------------------------------------------------- */
+function garantirAudioContext() {
+  if (!AppState.audio.ctx) {
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) { throw new Error('Web Audio API indisponível neste navegador.'); }
+    AppState.audio.ctx = new Ctx();
+  }
+  return AppState.audio.ctx;
+}
+
+/* Gerador de ruído rosa em runtime (algoritmo de Paul Kellet) — nenhum arquivo de áudio externo é usado */
+function criarBufferRuidoRosa(ctx, duracaoSeg) {
+  var sampleRate = ctx.sampleRate;
+  var tamanho = Math.max(1, Math.floor(sampleRate * duracaoSeg));
+  var buffer = ctx.createBuffer(1, tamanho, sampleRate);
+  var dados = buffer.getChannelData(0);
+  var b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+  for (var i = 0; i < tamanho; i++) {
+    var branco = Math.random() * 2 - 1;
+    b0 = 0.99886 * b0 + branco * 0.0555179;
+    b1 = 0.99332 * b1 + branco * 0.0750759;
+    b2 = 0.96900 * b2 + branco * 0.1538520;
+    b3 = 0.86650 * b3 + branco * 0.3104856;
+    b4 = 0.55000 * b4 + branco * 0.5329522;
+    b5 = -0.7616 * b5 - branco * 0.0168980;
+    var rosa = b0 + b1 + b2 + b3 + b4 + b5 + b6 + branco * 0.5362;
+    b6 = branco * 0.115926;
+    dados[i] = rosa * 0.11;
+  }
+  return buffer;
+}
+
+function iniciarAmbiencia() {
+  try {
+    var cfg = DOSSIE_TRUTH_MANIFEST.soundscapes.ambienciaPerformatica;
+    var ctx = garantirAudioContext();
+    if (ctx.state === 'suspended' && typeof ctx.resume === 'function') {
+      ctx.resume().catch(function () {});
+    }
+
+    var master = ctx.createGain();
+    master.gain.setValueAtTime(0.0001, ctx.currentTime);
+    master.gain.exponentialRampToValueAtTime(Math.max(cfg.ganhoMestre, 0.0001), ctx.currentTime + cfg.fadeInSeg);
+    master.connect(ctx.destination);
+
+    var temPan = typeof ctx.createStereoPanner === 'function';
+    var panL = temPan ? ctx.createStereoPanner() : null;
+    var panR = temPan ? ctx.createStereoPanner() : null;
+    var oscL = ctx.createOscillator();
+    var oscR = ctx.createOscillator();
+    oscL.type = cfg.formaOnda; oscR.type = cfg.formaOnda;
+    oscL.frequency.value = cfg.freqBaseHz;
+    oscR.frequency.value = cfg.freqBaseHz + cfg.freqBatimentoBinauralHz;
+    var gOsc = ctx.createGain(); gOsc.gain.value = 0.5;
+    if (temPan) {
+      panL.pan.value = -1; panR.pan.value = 1;
+      oscL.connect(panL); panL.connect(gOsc);
+      oscR.connect(panR); panR.connect(gOsc);
+    } else {
+      oscL.connect(gOsc); oscR.connect(gOsc);
+    }
+    gOsc.connect(master);
+    oscL.start(); oscR.start();
+
+    var bufferRosa = criarBufferRuidoRosa(ctx, 4);
+    var fonteRuido = ctx.createBufferSource();
+    fonteRuido.buffer = bufferRosa; fonteRuido.loop = true;
+    var filtroRuido = ctx.createBiquadFilter();
+    filtroRuido.type = 'lowpass';
+    filtroRuido.frequency.value = cfg.ruidoRosa.filtroPassaBaixaHz;
+    filtroRuido.Q.value = cfg.ruidoRosa.filtroQ;
+    var gRuido = ctx.createGain(); gRuido.gain.value = cfg.ruidoRosa.ganho;
+    fonteRuido.connect(filtroRuido); filtroRuido.connect(gRuido); gRuido.connect(master);
+    fonteRuido.start();
+
+    var lfoVento = ctx.createOscillator();
+    lfoVento.frequency.value = cfg.modulacaoVento.taxaHz;
+    var lfoVentoGain = ctx.createGain();
+    lfoVentoGain.gain.value = cfg.modulacaoVento.profundidadeHz;
+    lfoVento.connect(lfoVentoGain); lfoVentoGain.connect(filtroRuido.frequency);
+    lfoVento.start();
+
+    var nodesSussurro = null;
+    if (cfg.camadaSussurro && cfg.camadaSussurro.ativa) {
+      var bufferSuss = criarBufferRuidoRosa(ctx, 5);
+      var fonteSuss = ctx.createBufferSource();
+      fonteSuss.buffer = bufferSuss; fonteSuss.loop = true;
+      var bpSuss = ctx.createBiquadFilter();
+      bpSuss.type = 'bandpass';
+      var faixa = cfg.camadaSussurro.faixaFreqHz;
+      bpSuss.frequency.value = (faixa[0] + faixa[1]) / 2;
+      bpSuss.Q.value = 2.2;
+      var gSuss = ctx.createGain(); gSuss.gain.value = cfg.camadaSussurro.ganho;
+      var lfoSuss = ctx.createOscillator();
+      lfoSuss.frequency.value = cfg.camadaSussurro.taxaModulacaoHz;
+      var lfoSussGain = ctx.createGain();
+      lfoSussGain.gain.value = (faixa[1] - faixa[0]) / 2;
+      lfoSuss.connect(lfoSussGain); lfoSussGain.connect(bpSuss.frequency);
+      fonteSuss.connect(bpSuss); bpSuss.connect(gSuss); gSuss.connect(master);
+      fonteSuss.start(); lfoSuss.start();
+      nodesSussurro = { fonte: fonteSuss, filtro: bpSuss, ganho: gSuss, lfo: lfoSuss, lfoGanho: lfoSussGain };
+    }
+
+    AppState.audio.nodes = {
+      master: master, oscL: oscL, oscR: oscR, gOsc: gOsc, panL: panL, panR: panR,
+      ruido: fonteRuido, filtroRuido: filtroRuido, gRuido: gRuido,
+      lfoVento: lfoVento, lfoVentoGain: lfoVentoGain, sussurro: nodesSussurro
+    };
+    AppState.audio.tocando = true;
+    return true;
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao iniciar ambiência sonora:', erro);
+    showToast('Não foi possível iniciar o áudio neste navegador (política de autoplay ou API indisponível). A leitura textual continua normalmente.', 'erro');
+    AppState.audio.tocando = false;
+    return false;
+  }
+}
+
+function pararAmbiencia() {
+  try {
+    var ctx = AppState.audio.ctx;
+    var nodes = AppState.audio.nodes;
+    if (!ctx || !nodes) { AppState.audio.tocando = false; return; }
+    var cfg = DOSSIE_TRUTH_MANIFEST.soundscapes.ambienciaPerformatica;
+    var agora = ctx.currentTime;
+    try {
+      var atual = nodes.master.gain.value || 0.0001;
+      nodes.master.gain.cancelScheduledValues(agora);
+      nodes.master.gain.setValueAtTime(Math.max(atual, 0.0001), agora);
+      nodes.master.gain.exponentialRampToValueAtTime(0.0001, agora + cfg.fadeOutSeg);
+    } catch (eRamp) { /* segue para a parada dos nós mesmo se o ramp falhar */ }
+    setTimeout(function () {
+      [nodes.oscL, nodes.oscR, nodes.ruido, nodes.lfoVento,
+       nodes.sussurro ? nodes.sussurro.fonte : null, nodes.sussurro ? nodes.sussurro.lfo : null]
+        .forEach(function (n) { try { if (n && typeof n.stop === 'function') { n.stop(); } } catch (eStop) {} });
+    }, (cfg.fadeOutSeg * 1000) + 90);
+    AppState.audio.tocando = false;
+    AppState.audio.nodes = null;
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao encerrar ambiência sonora:', erro);
+    AppState.audio.tocando = false;
+  }
+}
+
+/* Síntese defensiva de efeitos sonoros curtos (clique de envelope, selo rompido, confirmação de terminal) */
+function tocarEfeito(cfg) {
+  try {
+    var ctx = garantirAudioContext();
+    if (ctx.state === 'suspended' && typeof ctx.resume === 'function') { ctx.resume().catch(function () {}); }
+    var agora = ctx.currentTime;
+    var dur = (cfg.duracaoMs || 120) / 1000;
+
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = cfg.formaOnda || 'sine';
+    if (typeof cfg.freqInicialHz === 'number' && typeof cfg.freqFinalHz === 'number') {
+      osc.frequency.setValueAtTime(cfg.freqInicialHz, agora);
+      osc.frequency.exponentialRampToValueAtTime(Math.max(cfg.freqFinalHz, 1), agora + dur);
+    } else {
+      osc.frequency.setValueAtTime(cfg.freqHz || 440, agora);
+    }
+    gain.gain.setValueAtTime(0.0001, agora);
+    gain.gain.exponentialRampToValueAtTime(Math.max(cfg.ganho || 0.08, 0.0001), agora + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, agora + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(agora); osc.stop(agora + dur + 0.05);
+
+    if (cfg.freqSecundariaHz) {
+      var osc2 = ctx.createOscillator();
+      var gain2 = ctx.createGain();
+      osc2.type = cfg.formaOnda || 'sine';
+      osc2.frequency.setValueAtTime(cfg.freqSecundariaHz, agora + 0.02);
+      gain2.gain.setValueAtTime(0.0001, agora);
+      gain2.gain.exponentialRampToValueAtTime(Math.max((cfg.ganho || 0.08) * 0.7, 0.0001), agora + 0.03);
+      gain2.gain.exponentialRampToValueAtTime(0.0001, agora + dur);
+      osc2.connect(gain2); gain2.connect(ctx.destination);
+      osc2.start(agora + 0.02); osc2.stop(agora + dur + 0.07);
+    }
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao sintetizar efeito sonoro:', erro);
+    /* silencioso — a interação visual prossegue mesmo sem som */
+  }
+}
+
+function alternarAmbiencia() {
+  try {
+    var btn = document.getElementById('btn-ambiencia');
+    var label = btn ? btn.querySelector('[data-label]') : null;
+    var icon = btn ? btn.querySelector('i') : null;
+    var status = document.getElementById('audio-status');
+    var vis = document.getElementById('audio-visualizer');
+    if (!AppState.audio.tocando) {
+      var ok = iniciarAmbiencia();
+      if (ok) {
+        if (label) { label.textContent = 'Encerrar Ambiência Sonora'; }
+        if (icon) { icon.setAttribute('data-lucide', 'pause'); }
+        if (btn) { btn.classList.remove('animate-pulse-glow'); }
+        if (vis) { vis.hidden = false; }
+        if (status) { status.innerHTML = '<i data-lucide="radio" class="w-3 h-3 text-red-500 shrink-0"></i><span>Ambiência ativa — 432&nbsp;Hz binaural + ruído rosa em síntese contínua.</span>'; }
+        refreshIcons();
+      }
+    } else {
+      pararAmbiencia();
+      if (label) { label.textContent = 'Iniciar Ambiência Sonora Performática'; }
+      if (icon) { icon.setAttribute('data-lucide', 'headphones'); }
+      if (btn) { btn.classList.add('animate-pulse-glow'); }
+      if (vis) { vis.hidden = true; }
+      if (status) { status.innerHTML = '<i data-lucide="circle-dot" class="w-3 h-3 text-stone-600 shrink-0"></i><span>Ambiência em silêncio — toque para iniciar a escuta.</span>'; }
+      refreshIcons();
+    }
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao alternar ambiência:', erro);
+    showToast('Ocorreu um problema ao controlar o áudio.', 'erro');
+  }
+}
+
+function renderFrase(indice) {
+  try {
+    var frases = DOSSIE_TRUTH_MANIFEST.escutaPerformativa.frases;
+    if (!frases.length) { return; }
+    var idx = ((indice % frases.length) + frases.length) % frases.length;
+    var frase = frases[idx];
+    var elTexto = document.getElementById('frase-atual');
+    var elAttr = document.getElementById('frase-atribuicao');
+    if (!elTexto) { return; }
+    elTexto.style.opacity = '0';
+    if (elAttr) { elAttr.style.opacity = '0'; }
+    setTimeout(function () {
+      elTexto.textContent = '“' + frase.texto + '”';
+      if (elAttr) { elAttr.textContent = frase.atribuicao ? ('— ' + frase.atribuicao) : ''; }
+      elTexto.style.opacity = '1';
+      if (elAttr) { elAttr.style.opacity = '1'; }
+    }, 260);
+    $all('#frase-dots span').forEach(function (dot, i) {
+      dot.classList.toggle('bg-red-600', i === idx);
+      dot.classList.toggle('bg-stone-700', i !== idx);
+    });
+    AppState.audio.fraseIndex = idx;
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao renderizar frase performática:', erro);
+  }
+}
+
+function startFraseCycler() {
+  try {
+    if (AppState.audio.fraseTimer) { clearInterval(AppState.audio.fraseTimer); }
+    renderFrase(0);
+    AppState.audio.fraseTimer = setInterval(function () {
+      renderFrase(AppState.audio.fraseIndex + 1);
+    }, AppState.audio.fraseIntervaloMs);
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao iniciar o ciclo de frases:', erro);
+  }
+}
+
+function renderModulo1Estatico() {
+  try {
+    var epf = DOSSIE_TRUTH_MANIFEST.escutaPerformativa;
+    var elTitulo = document.getElementById('m1-titulo');
+    var elSubtitulo = document.getElementById('m1-subtitulo');
+    if (elTitulo) { elTitulo.textContent = epf.tituloModulo; }
+    if (elSubtitulo) { elSubtitulo.textContent = epf.subtitulo; }
+
+    var dots = document.getElementById('frase-dots');
+    if (dots) {
+      dots.innerHTML = epf.frases.map(function (_, i) {
+        return '<span class="w-1.5 h-1.5 rounded-full ' + (i === 0 ? 'bg-red-600' : 'bg-stone-700') + ' transition-colors"></span>';
+      }).join('');
+    }
+
+    var lista = document.getElementById('frases-lista');
+    if (lista) {
+      lista.innerHTML = epf.frases.map(function (f, i) {
+        return '<li class="flex gap-2.5">' +
+          '<span class="shrink-0 w-5 h-5 rounded-full bg-stone-800 text-stone-400 text-[10px] flex items-center justify-center font-mono mt-0.5">' + (i + 1) + '</span>' +
+          '<span class="text-stone-400 leading-relaxed">' + escapeHtml(f.texto) + (f.atribuicao ? ' <em class="text-red-500 not-italic">— ' + escapeHtml(f.atribuicao) + '</em>' : '') + '</span>' +
+          '</li>';
+      }).join('');
+    }
+
+    var params = document.getElementById('soundscape-params');
+    if (params) {
+      var cfg = DOSSIE_TRUTH_MANIFEST.soundscapes.ambienciaPerformatica;
+      var linhas = [
+        ['Frequência-base', cfg.freqBaseHz + ' Hz'],
+        ['Batimento binaural', '+' + cfg.freqBatimentoBinauralHz + ' Hz (canal direito)'],
+        ['Forma de onda', cfg.formaOnda],
+        ['Ruído rosa', 'ganho ' + cfg.ruidoRosa.ganho + ' · LPF ' + cfg.ruidoRosa.filtroPassaBaixaHz + ' Hz'],
+        ['Modulação de vento', cfg.modulacaoVento.taxaHz + ' Hz · ±' + cfg.modulacaoVento.profundidadeHz + ' Hz'],
+        ['Camada de sussurro', cfg.camadaSussurro.faixaFreqHz[0] + '–' + cfg.camadaSussurro.faixaFreqHz[1] + ' Hz']
+      ];
+      params.innerHTML = linhas.map(function (l) {
+        return '<div class="flex justify-between gap-3 border-b border-stone-800/70 pb-1.5 last:border-0"><dt class="text-stone-500">' + l[0] + '</dt><dd class="text-stone-300 font-mono text-right">' + l[1] + '</dd></div>';
+      }).join('');
+    }
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao renderizar conteúdo estático do Módulo 1:', erro);
+  }
+}
+
+function initModulo1() {
+  try {
+    renderModulo1Estatico();
+    var btn = document.getElementById('btn-ambiencia');
+    if (btn) { btn.addEventListener('click', alternarAmbiencia); }
+    startFraseCycler();
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao inicializar Módulo 1:', erro);
+  }
+}
+
+/* ----------------------------------------------------------------
+   4. MÓDULO 2 — O DESAFIO DA BANCA (envelopes secretos)
+   ---------------------------------------------------------------- */
+function dispararConfetti() {
+  try {
+    if (typeof window.confetti !== 'function') { return; }
+    var cfg = DOSSIE_TRUTH_MANIFEST.confettiConfig;
+    window.confetti({
+      particleCount: cfg.quantidadeParticulas,
+      spread: cfg.espalhamento,
+      startVelocity: cfg.velocidadeInicial,
+      gravity: cfg.gravidade,
+      ticks: cfg.ticks,
+      colors: cfg.cores,
+      origin: { y: 0.35 },
+      scalar: 0.85,
+      disableForReducedMotion: true
+    });
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao disparar confetti:', erro);
+    /* silencioso — a desclassificação do envelope prossegue mesmo sem confetti */
+  }
+}
+
+function renderEnvelopesGrid() {
+  try {
+    var grid = document.getElementById('envelopes-grid');
+    if (!grid) { return; }
+    var infos = DOSSIE_TRUTH_MANIFEST.interfaceTextos.envelopesInfo;
+    grid.innerHTML = infos.map(function (info, i) {
+      var eixo = DOSSIE_TRUTH_MANIFEST.eixosCognitivos[info.eixo];
+      var cor = eixoCorAccent(info.eixo);
+      return '' +
+        '<div class="envelope-card is-locked relative rounded-2xl border-2 border-stone-700 bg-gradient-to-b from-stone-800/80 to-stone-900 p-5 sm:p-7 cursor-pointer overflow-hidden envelope-scene animate-float" style="animation-delay:' + (i * 0.35) + 's" data-eixo="' + info.eixo + '" tabindex="0" role="button" aria-label="Abrir ' + info.codigo + ' — ' + info.operacao + '">' +
+          '<div class="envelope-flap absolute inset-x-0 top-0 h-[52%] origin-top bg-gradient-to-b from-stone-700 to-stone-800 border-b border-stone-600 flex items-center justify-center z-10">' +
+            '<svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow" viewBox="0 0 100 100" aria-hidden="true"><use href="#motif-selo-lacre"></use></svg>' +
+          '</div>' +
+          '<div class="relative pt-16 sm:pt-20 text-center">' +
+            '<p class="font-mono text-[10px] tracking-[0.32em] text-stone-500 mb-1.5">' + escapeHtml(info.codigo) + '</p>' +
+            '<h3 class="font-cinzel text-base sm:text-lg font-bold text-stone-200 mb-2.5 leading-snug">' + escapeHtml(info.operacao) + '</h3>' +
+            '<span class="inline-flex items-center gap-1.5 text-[10px] px-2.5 py-1 rounded-full border border-' + cor + '-800/60 bg-' + cor + '-950/40 text-' + cor + '-400 font-semibold uppercase tracking-wide">' + escapeHtml(eixo.grau) + '</span>' +
+            '<p class="mt-2 text-[11.5px] text-stone-500 leading-relaxed px-1">' + escapeHtml(eixo.descricao) + '</p>' +
+            '<p class="envelope-status mt-4 text-[11px] text-stone-500 flex items-center justify-center gap-1.5"><i data-lucide="lock" class="w-3 h-3"></i><span>Lacrado — toque para desclassificar</span></p>' +
+          '</div>' +
+          '<svg class="absolute -bottom-4 -right-4 w-20 h-20 opacity-[0.06] pointer-events-none text-stone-200" viewBox="0 0 200 200" aria-hidden="true"><use href="#motif-carimbo"></use></svg>' +
+        '</div>';
+    }).join('');
+    $all('.envelope-card', grid).forEach(function (card) {
+      card.addEventListener('click', function () { abrirEnvelope(card); });
+      card.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); abrirEnvelope(card); }
+      });
+    });
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao montar os envelopes:', erro);
+  }
+}
+
+function abrirEnvelope(card) {
+  try {
+    var eixoId = card.getAttribute('data-eixo');
+    tocarEfeito(DOSSIE_TRUTH_MANIFEST.soundscapes.cliqueEnvelope);
+    var jaAberto = card.classList.contains('is-open');
+
+    if (!jaAberto) {
+      card.classList.remove('is-locked');
+      card.classList.add('is-open');
+      var flap = card.querySelector('.envelope-flap');
+      if (flap) { flap.classList.add('is-open'); }
+      var statusEl = card.querySelector('.envelope-status');
+      if (statusEl) { statusEl.innerHTML = '<i data-lucide="unlock" class="w-3 h-3"></i><span>Desclassificado — toque novamente para sortear outro caso</span>'; }
+      card.classList.remove('animate-float');
+    }
+
+    setTimeout(function () {
+      tocarEfeito(DOSSIE_TRUTH_MANIFEST.soundscapes.seloRompido);
+      dispararConfetti();
+      sortearMissao(eixoId);
+      refreshIcons();
+    }, jaAberto ? 30 : 360);
+
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao abrir envelope:', erro);
+    showToast('Não foi possível abrir o envelope. Tente novamente.', 'erro');
+  }
+}
+
+function sortearMissao(eixoId) {
+  try {
+    var pool = DOSSIE_TRUTH_MANIFEST.itensBanca.filter(function (it) { return it.eixoRecomendado === eixoId; });
+    if (!pool.length) { pool = DOSSIE_TRUTH_MANIFEST.itensBanca.slice(); }
+    var atual = AppState.envelopes[eixoId] ? AppState.envelopes[eixoId].item : null;
+    var candidato = pickRandom(pool);
+    var tentativas = 0;
+    while (pool.length > 1 && candidato && atual && candidato.id === atual.id && tentativas < 8) {
+      candidato = pickRandom(pool);
+      tentativas++;
+    }
+    if (!AppState.envelopes[eixoId]) { AppState.envelopes[eixoId] = { aberto: false, item: null }; }
+    AppState.envelopes[eixoId].aberto = true;
+    AppState.envelopes[eixoId].item = candidato;
+    renderLaudo(candidato, eixoId);
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao sortear missão do envelope:', erro);
+    showToast('Não foi possível sortear um caso para este envelope.', 'erro');
+  }
+}
+
+function renderLaudo(item, eixoId) {
+  try {
+    var wrap = document.getElementById('laudo-wrap');
+    var container = document.getElementById('laudo-container');
+    if (!container || !item) { return; }
+    var eixo = DOSSIE_TRUTH_MANIFEST.eixosCognitivos[eixoId];
+    var carimboTxt = DOSSIE_TRUTH_MANIFEST.interfaceTextos.carimboDesclassificado;
+    container.innerHTML =
+      '<div class="relative rounded-2xl border-2 border-red-800/50 bg-stone-900 paper-card shadow-dossie p-5 sm:p-9 overflow-hidden">' +
+        '<svg class="absolute -left-12 -bottom-16 w-56 h-56 opacity-[0.05] pointer-events-none text-red-600" viewBox="0 0 200 200" aria-hidden="true"><use href="#motif-carimbo"></use></svg>' +
+        '<div class="relative flex flex-wrap items-start justify-between gap-4 mb-5 pb-5 border-b border-dashed border-stone-700">' +
+          '<div class="min-w-0">' +
+            '<p class="font-mono text-[10px] tracking-[0.3em] text-stone-500 mb-1.5">CASO Nº ' + escapeHtml(item.id.toUpperCase()) + ' · ' + escapeHtml(item.epoca) + '</p>' +
+            '<h3 class="font-cinzel text-lg sm:text-2xl font-bold text-stone-100 leading-snug">' + escapeHtml(item.titulo) + '</h3>' +
+          '</div>' +
+          '<div class="shrink-0 animate-stamp select-none" aria-hidden="true">' +
+            '<div class="relative inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 text-red-600 -rotate-[8deg]">' +
+              '<svg class="absolute inset-0 w-full h-full" viewBox="0 0 200 200"><use href="#motif-carimbo"></use></svg>' +
+              '<span class="relative font-cinzel text-[9px] sm:text-[10px] font-bold tracking-[0.06em] text-center leading-[1.15] px-2">' + escapeHtml(carimboTxt) + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="relative flex flex-wrap items-center gap-2 mb-6">' +
+          '<span class="text-[10px] px-2.5 py-1 rounded-full border font-semibold uppercase tracking-wide ' + badgeClasses(item.badgeTema) + '">' + escapeHtml(item.badgeTema) + '</span>' +
+          '<span class="text-[10px] px-2.5 py-1 rounded-full border border-stone-700 bg-stone-800/60 text-stone-400 uppercase tracking-wide">Eixo ' + escapeHtml(eixoId) + ' · ' + escapeHtml(eixo.grau) + '</span>' +
+        '</div>' +
+        '<div class="relative grid sm:grid-cols-2 gap-4 sm:gap-5 mb-6">' +
+          buildObjetoCard(item.objetoA, 'A') +
+          buildObjetoCard(item.objetoB, 'B') +
+        '</div>' +
+        '<div class="relative rounded-xl border border-amber-800/40 bg-amber-950/10 p-4 sm:p-5 mb-6">' +
+          '<p class="text-[10px] font-bold tracking-[0.15em] uppercase text-amber-500 mb-1.5 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i>Releitura Contemporânea</p>' +
+          '<p class="text-[13px] sm:text-sm text-stone-300 leading-relaxed">' + escapeHtml(item.releituraContemporanea) + '</p>' +
+        '</div>' +
+        '<div class="relative rounded-xl border border-red-800/40 bg-red-950/10 p-4 sm:p-5">' +
+          '<p class="text-[10px] font-bold tracking-[0.15em] uppercase text-red-500 mb-1.5 flex items-center gap-1.5"><i data-lucide="gavel" class="w-3.5 h-3.5"></i>Comando da Missão</p>' +
+          '<p class="text-[13px] sm:text-sm text-stone-300 leading-relaxed">' + escapeHtml(item.comandoMissao) + '</p>' +
+        '</div>' +
+        '<div class="relative flex flex-col sm:flex-row gap-3 mt-7">' +
+          '<button type="button" id="btn-enviar-terminal" class="inline-flex items-center justify-center gap-2 rounded-full bg-red-600 hover:bg-red-500 text-white text-[13px] sm:text-sm font-semibold px-5 py-3 transition-colors"><i data-lucide="terminal" class="w-4 h-4"></i>Enviar ao Terminal do Avaliador</button>' +
+          '<button type="button" id="btn-sortear-outro" class="inline-flex items-center justify-center gap-2 rounded-full border border-stone-700 hover:border-stone-500 text-stone-300 text-[13px] sm:text-sm font-medium px-5 py-3 transition-colors"><i data-lucide="rotate-ccw" class="w-4 h-4"></i>Sortear Outro Caso</button>' +
+        '</div>' +
+      '</div>';
+    if (wrap) { wrap.hidden = false; }
+    var btnEnviar = document.getElementById('btn-enviar-terminal');
+    if (btnEnviar) { btnEnviar.addEventListener('click', function () { enviarParaTerminal(item.id); }); }
+    var btnOutro = document.getElementById('btn-sortear-outro');
+    if (btnOutro) {
+      btnOutro.addEventListener('click', function () {
+        tocarEfeito(DOSSIE_TRUTH_MANIFEST.soundscapes.cliqueEnvelope);
+        dispararConfetti();
+        sortearMissao(eixoId);
+      });
+    }
+    refreshIcons();
+    if (wrap && typeof wrap.scrollIntoView === 'function') {
+      setTimeout(function () { wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 80);
+    }
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao renderizar laudo de missão:', erro);
+    showToast('Não foi possível montar o laudo da missão.', 'erro');
+  }
+}
+
+function enviarParaTerminal(itemId) {
+  try {
+    switchTab('terminal');
+    setTimeout(function () {
+      if (typeof selecionarObjetoDisparador === 'function') { selecionarObjetoDisparador(itemId); }
+      showToast('Objeto disparador carregado no Terminal do Avaliador.', 'sucesso');
+    }, 150);
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao enviar objeto ao terminal:', erro);
+  }
+}
+
+function renderModulo2Estatico() {
+  try {
+    var info = DOSSIE_TRUTH_MANIFEST.interfaceTextos.modulos.envelopes;
+    var t = document.getElementById('m2-titulo');
+    var s = document.getElementById('m2-subtitulo');
+    if (t) { t.textContent = info.titulo; }
+    if (s) { s.textContent = 'Três envelopes lacrados correspondem aos três eixos cognitivos da banca. Toque para romper o selo, sortear um caso documental e revelar o Laudo de Missão Confidencial.'; }
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao renderizar cabeçalho do Módulo 2:', erro);
+  }
+}
+
+function initModulo2() {
+  try {
+    renderModulo2Estatico();
+    renderEnvelopesGrid();
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao inicializar Módulo 2:', erro);
+  }
+}
+
+/* ----------------------------------------------------------------
+   5. MÓDULO 3 — OFICINA DE ITENS FILOSÓFICOS (terminal do avaliador)
+   ---------------------------------------------------------------- */
+function popularSelectObjeto() {
+  try {
+    var sel = document.getElementById('campo-objeto');
+    if (!sel) { return; }
+    var itens = DOSSIE_TRUTH_MANIFEST.itensBanca;
+    sel.innerHTML = '<option value="">— Selecione um objeto disparador —</option>' +
+      itens.map(function (it) {
+        return '<option value="' + it.id + '">' + escapeHtml(it.titulo) + ' (' + escapeHtml(it.epoca) + ')</option>';
+      }).join('');
+    sel.addEventListener('change', function () {
+      AppState.terminal.objetoSelecionadoId = sel.value;
+      atualizarPreviaObjeto(sel.value);
+    });
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao popular seleção de objeto disparador:', erro);
+  }
+}
+
+function popularSelectCategoria() {
+  try {
+    var sel = document.getElementById('campo-categoria');
+    if (!sel) { return; }
+    var cats = DOSSIE_TRUTH_MANIFEST.categoriasEsteticas;
+    sel.innerHTML = cats.map(function (c) {
+      return '<option value="' + escapeHtml(c) + '">' + escapeHtml(c) + '</option>';
+    }).join('');
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao popular categorias estéticas:', erro);
+  }
+}
+
+function atualizarPreviaObjeto(itemId) {
+  try {
+    var prev = document.getElementById('objeto-preview');
+    if (!prev) { return; }
+    var item = getItemById(itemId);
+    if (!item) {
+      prev.innerHTML = '<p class="text-stone-600 italic flex items-center gap-1.5"><i data-lucide="info" class="w-3.5 h-3.5 shrink-0"></i>Nenhum objeto selecionado. Sorteie um caso no Módulo 02 — O Desafio da Banca — ou escolha manualmente acima.</p>';
+      refreshIcons();
+      return;
+    }
+    prev.innerHTML =
+      '<div class="flex items-center gap-2 mb-2.5 flex-wrap">' +
+        '<span class="text-[10px] px-2 py-0.5 rounded-full border ' + badgeClasses(item.badgeTema) + '">' + escapeHtml(item.badgeTema) + '</span>' +
+        '<span class="text-[10px] text-stone-600 font-mono">' + escapeHtml(item.epoca) + ' · Séc. ' + escapeHtml(item.seculo) + '</span>' +
+      '</div>' +
+      '<p class="text-stone-200 font-semibold mb-2 font-cinzel">' + escapeHtml(item.titulo) + '</p>' +
+      '<p class="text-stone-500"><strong class="text-stone-400">Objeto A —</strong> ' + escapeHtml(item.objetoA.titulo) + '</p>' +
+      '<p class="text-stone-500 mt-1"><strong class="text-stone-400">Objeto B —</strong> ' + escapeHtml(item.objetoB.titulo) + '</p>' +
+      '<p class="text-stone-600 mt-2.5 italic">"' + escapeHtml(item.comandoMissao.slice(0, 140)) + (item.comandoMissao.length > 140 ? '…' : '') + '"</p>';
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao atualizar prévia do objeto disparador:', erro);
+  }
+}
+
+function selecionarObjetoDisparador(itemId) {
+  try {
+    var sel = document.getElementById('campo-objeto');
+    if (sel) { sel.value = itemId; }
+    AppState.terminal.objetoSelecionadoId = itemId;
+    atualizarPreviaObjeto(itemId);
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao selecionar objeto disparador:', erro);
+  }
+}
+
+function atualizarStatusPdf(mensagem, ehErro) {
+  try {
+    var el = document.getElementById('pdf-status');
+    if (!el) { return; }
+    el.innerHTML = '<i data-lucide="' + (ehErro ? 'alert-triangle' : 'check-circle-2') + '" class="w-3.5 h-3.5 shrink-0 ' + (ehErro ? 'text-red-500' : 'text-emerald-500') + '"></i><span>' + escapeHtml(mensagem) + '</span>';
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao atualizar status do PDF:', erro);
+  }
+}
+
+function limparFormularioTerminal() {
+  try {
+    ['campo-grupo', 'campo-texto-apoio', 'campo-comando', 'campo-gabarito'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) { el.value = ''; }
+    });
+    var selObj = document.getElementById('campo-objeto');
+    if (selObj) { selObj.value = ''; }
+    var selCat = document.getElementById('campo-categoria');
+    if (selCat) { selCat.selectedIndex = 0; }
+    AppState.terminal.objetoSelecionadoId = null;
+    atualizarPreviaObjeto('');
+    atualizarStatusPdf('Formulário reiniciado.', false);
+    showToast('Formulário do terminal reiniciado.', 'info');
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao limpar formulário do terminal:', erro);
+  }
+}
+
+/* Desenha a borda perimetral dupla em qualquer página do laudo PDF */
+function desenharMolduraPDF(doc, pageW, pageH) {
+  try {
+    doc.setDrawColor(25, 25, 25);
+    doc.setLineWidth(0.6);
+    doc.rect(8, 8, pageW - 16, pageH - 16);
+    doc.setDrawColor(120, 120, 120);
+    doc.setLineWidth(0.2);
+    doc.rect(11, 11, pageW - 22, pageH - 22);
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao desenhar moldura do PDF:', erro);
+  }
+}
+
+/* Escreve uma linha ÚNICA de texto rotacionado, encolhendo a fonte até caber em larguraAlvo.
+   Evita deliberadamente a combinação {angle + maxWidth} do jsPDF 2.5.1, cujo quebra-linha
+   automático corrompe/desalinha o texto quando rotacionado (bug observado empiricamente). */
+function textoRotacionadoAjustado(doc, texto, cx, cy, angulo, larguraAlvo, tamanhoMax, tamanhoMin) {
+  var tamanho = tamanhoMax;
+  doc.setFontSize(tamanho);
+  while (doc.getTextWidth(texto) > larguraAlvo && tamanho > tamanhoMin) {
+    tamanho -= 0.25;
+    doc.setFontSize(tamanho);
+  }
+  doc.text(texto, cx, cy, { align: 'center', angle: angulo });
+}
+
+/* Desenha o carimbo circular "ARQUIVO DESCLASSIFICADO" em posição livre do PDF */
+function desenharCarimboPDF(doc, cx, cy, texto, orgao) {
+  try {
+    doc.setDrawColor(178, 30, 30);
+    doc.setLineWidth(0.9);
+    doc.circle(cx, cy, 20, 'S');
+    doc.setLineWidth(0.35);
+    doc.circle(cx, cy, 16.5, 'S');
+    var angulo = 14;
+    doc.setTextColor(178, 30, 30);
+
+    doc.setFont('helvetica', 'bold');
+    textoRotacionadoAjustado(doc, texto, cx, cy - 1.5, angulo, 28, 8, 4.2);
+
+    doc.setFont('helvetica', 'normal');
+    textoRotacionadoAjustado(doc, orgao, cx, cy + 6.5, angulo, 25, 6.4, 4);
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao desenhar carimbo no PDF:', erro);
+  }
+}
+
+function gerarPDF() {
+  try {
+    if (!window.jspdf || typeof window.jspdf.jsPDF !== 'function') {
+      throw new Error('Biblioteca jsPDF indisponível.');
+    }
+    var elGrupo = document.getElementById('campo-grupo');
+    var elCategoria = document.getElementById('campo-categoria');
+    var elObjeto = document.getElementById('campo-objeto');
+    var elTexto = document.getElementById('campo-texto-apoio');
+    var elComando = document.getElementById('campo-comando');
+    var elGabarito = document.getElementById('campo-gabarito');
+
+    var grupo = elGrupo ? elGrupo.value.trim() : '';
+    var categoria = elCategoria ? elCategoria.value : '';
+    var objetoId = elObjeto ? elObjeto.value : '';
+    var textoApoio = elTexto ? elTexto.value.trim() : '';
+    var comando = elComando ? elComando.value.trim() : '';
+    var gabarito = elGabarito ? elGabarito.value.trim() : '';
+    var item = getItemById(objetoId);
+
+    if (!grupo || !item || !textoApoio || !comando || !gabarito) {
+      var faltando = [];
+      if (!grupo) { faltando.push('Grupo/Avaliador'); }
+      if (!item) { faltando.push('Objeto Disparador'); }
+      if (!textoApoio) { faltando.push('Texto de Apoio'); }
+      if (!comando) { faltando.push('Comando da Questão'); }
+      if (!gabarito) { faltando.push('Justificativa de Gabarito'); }
+      showToast('Preencha antes de exportar: ' + faltando.join(', ') + '.', 'erro');
+      atualizarStatusPdf('Campos pendentes: ' + faltando.join(', ') + '.', true);
+      return;
+    }
+
+    var meta = DOSSIE_TRUTH_MANIFEST.metadados;
+    var pdfTextos = DOSSIE_TRUTH_MANIFEST.interfaceTextos.pdf;
+    var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+    var pageW = doc.internal.pageSize.getWidth();
+    var pageH = doc.internal.pageSize.getHeight();
+
+    desenharMolduraPDF(doc, pageW, pageH);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(160, 25, 25);
+    doc.text(DOSSIE_TRUTH_MANIFEST.interfaceTextos.carimboTopSecret, pageW / 2, 16, { align: 'center' });
+
+    doc.setFont('times', 'bold');
+    doc.setFontSize(13.5);
+    doc.setTextColor(20, 20, 20);
+    doc.text(pdfTextos.tituloDocumento, pageW / 2, 23, { align: 'center' });
+
+    doc.setFont('times', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(80, 80, 80);
+    doc.text(meta.instituicao, pageW / 2, 29, { align: 'center' });
+    doc.text(meta.disciplina + ' — Coordenação: ' + meta.coordenacao, pageW / 2, 34, { align: 'center' });
+
+    doc.setDrawColor(150, 150, 150);
+    doc.setLineWidth(0.2);
+    doc.line(16, 38, pageW - 16, 38);
+
+    var y = 46;
+
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); doc.setTextColor(120, 20, 20);
+    doc.text('PROJETO', 16, y);
+    doc.setFont('helvetica', 'normal'); doc.setTextColor(30, 30, 30);
+    var linhasProjeto = doc.splitTextToSize(meta.projeto, pageW - 68);
+    doc.text(linhasProjeto, 52, y);
+    y += Math.max(linhasProjeto.length * 4.6, 6) + 3;
+
+    doc.setFont('helvetica', 'bold'); doc.setTextColor(120, 20, 20);
+    doc.text('GRUPO/AVALIADOR', 16, y);
+    doc.setFont('helvetica', 'normal'); doc.setTextColor(30, 30, 30);
+    doc.text(grupo, 52, y);
+    y += 6.5;
+
+    doc.setFont('helvetica', 'bold'); doc.setTextColor(120, 20, 20);
+    doc.text('CATEGORIA ESTÉTICA', 16, y);
+    doc.setFont('helvetica', 'normal'); doc.setTextColor(30, 30, 30);
+    doc.text(categoria || '—', 52, y);
+    y += 6.5;
+
+    doc.setFont('helvetica', 'bold'); doc.setTextColor(120, 20, 20);
+    doc.text('CASO / ÉPOCA', 16, y);
+    doc.setFont('helvetica', 'normal'); doc.setTextColor(30, 30, 30);
+    doc.text(item.titulo + '  (' + item.epoca + ')', 52, y);
+    y += 7;
+
+    doc.setDrawColor(190, 190, 190); doc.setLineWidth(0.15);
+    doc.line(16, y, pageW - 16, y);
+    y += 6;
+
+    doc.setFont('helvetica', 'bolditalic'); doc.setFontSize(8); doc.setTextColor(90, 90, 90);
+    doc.text('OBJETO A', 16, y);
+    doc.setFont('times', 'italic'); doc.setTextColor(60, 60, 60);
+    var linhasA = doc.splitTextToSize(item.objetoA.titulo + ' — ' + item.objetoA.excerto, pageW - 32);
+    doc.text(linhasA, 16, y + 4.2);
+    y += 4.2 + linhasA.length * 4.1 + 4;
+
+    doc.setFont('helvetica', 'bolditalic'); doc.setFontSize(8); doc.setTextColor(90, 90, 90);
+    doc.text('OBJETO B', 16, y);
+    doc.setFont('times', 'italic'); doc.setTextColor(60, 60, 60);
+    var linhasB = doc.splitTextToSize(item.objetoB.titulo + ' — ' + item.objetoB.excerto, pageW - 32);
+    doc.text(linhasB, 16, y + 4.2);
+    y += 4.2 + linhasB.length * 4.1 + 8;
+
+    function novaSecao(titulo, texto) {
+      if (y > pageH - 50) { doc.addPage(); desenharMolduraPDF(doc, pageW, pageH); y = 20; }
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5); doc.setTextColor(120, 20, 20);
+      doc.text(titulo, 16, y);
+      y += 5.5;
+      doc.setFont('times', 'normal'); doc.setFontSize(10); doc.setTextColor(20, 20, 20);
+      var linhas = doc.splitTextToSize(texto, pageW - 32);
+      linhas.forEach(function (linha) {
+        if (y > pageH - 24) { doc.addPage(); desenharMolduraPDF(doc, pageW, pageH); y = 20; }
+        doc.text(linha, 16, y);
+        y += 5;
+      });
+      y += 6;
+    }
+
+    novaSecao('TEXTO DE APOIO', textoApoio);
+    novaSecao('COMANDO DA QUESTÃO', comando);
+    novaSecao('JUSTIFICATIVA DE GABARITO', gabarito);
+
+    if (y > pageH - 46) { doc.addPage(); desenharMolduraPDF(doc, pageW, pageH); y = 24; }
+    y += 6;
+    desenharCarimboPDF(doc, pageW - 34, y + 18, pdfTextos.carimbo, DOSSIE_TRUTH_MANIFEST.interfaceTextos.carimboOrgao);
+
+    doc.setDrawColor(120, 120, 120); doc.setLineWidth(0.2);
+    doc.line(16, y + 24, 92, y + 24);
+    doc.setFont('times', 'italic'); doc.setFontSize(11); doc.setTextColor(30, 30, 30);
+    doc.text(pdfTextos.rubricaNome, 16, y + 20);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(7.6); doc.setTextColor(100, 100, 100);
+    doc.text('Rubrica de validação docente', 16, y + 28.5);
+    doc.text(pdfTextos.rubricaCargo, 16, y + 33);
+
+    var totalPaginas = doc.internal.getNumberOfPages();
+    for (var p = 1; p <= totalPaginas; p++) {
+      doc.setPage(p);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(140, 140, 140);
+      doc.text('Dossiê v' + meta.versao + ' · Gerado em ' + new Date().toLocaleString('pt-BR') + ' · Pág. ' + p + '/' + totalPaginas, pageW - 11, pageH - 5, { align: 'right' });
+      doc.text(item.id.toUpperCase(), 11, pageH - 5);
+    }
+
+    var nomeArquivo = 'Ficha-Cebraspe-UnB_' + item.id + '_' + Date.now() + '.pdf';
+    doc.save(nomeArquivo);
+    showToast('Ficha oficial exportada em PDF: ' + nomeArquivo, 'sucesso');
+    atualizarStatusPdf('Ficha exportada com sucesso — verifique os downloads do dispositivo.', false);
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao gerar PDF:', erro);
+    showToast('Não foi possível gerar o PDF. Verifique os campos e tente novamente.', 'erro');
+    atualizarStatusPdf('Falha ao gerar o PDF — tente novamente.', true);
+  }
+}
+
+function renderModulo3Estatico() {
+  try {
+    var info = DOSSIE_TRUTH_MANIFEST.interfaceTextos.modulos.terminal;
+    var t = document.getElementById('m3-titulo');
+    var s = document.getElementById('m3-subtitulo');
+    if (t) { t.textContent = info.titulo; }
+    if (s) { s.textContent = 'Redija, a partir do objeto sorteado, um item no padrão Certo/Errado da banca e exporte a ficha oficial para validação docente.'; }
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao renderizar cabeçalho do Módulo 3:', erro);
+  }
+}
+
+function initModulo3() {
+  try {
+    renderModulo3Estatico();
+    popularSelectObjeto();
+    popularSelectCategoria();
+    atualizarPreviaObjeto('');
+    var btnPdf = document.getElementById('btn-exportar-pdf');
+    if (btnPdf) { btnPdf.addEventListener('click', gerarPDF); }
+    var btnLimpar = document.getElementById('btn-limpar-form');
+    if (btnLimpar) { btnLimpar.addEventListener('click', limparFormularioTerminal); }
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao inicializar Módulo 3:', erro);
+  }
+}
+
+/* ----------------------------------------------------------------
+   6. MÓDULO 4 — O ESPELHO DE 1644 (matriz crítica e sincronias)
+   ---------------------------------------------------------------- */
+function renderFiltroSeculos() {
+  try {
+    var el = document.getElementById('filtro-seculos');
+    if (!el) { return; }
+    var opcoes = [{ id: 'TODOS', label: 'Todos os Séculos' }].concat(DOSSIE_TRUTH_MANIFEST.seculosFiltro);
+    el.innerHTML = opcoes.map(function (op) {
+      var ativo = op.id === AppState.matriz.filtroSeculo;
+      return '<button type="button" data-filtro-seculo="' + op.id + '" class="filtro-seculo-btn rounded-full border px-4 py-2 text-[12px] sm:text-sm font-medium transition-colors ' +
+        (ativo ? 'border-red-600 bg-red-600/15 text-red-400' : 'border-stone-700 text-stone-400 hover:text-stone-200 hover:border-stone-500') +
+        '">' + escapeHtml(op.label) + '</button>';
+    }).join('');
+    $all('.filtro-seculo-btn', el).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        AppState.matriz.filtroSeculo = btn.getAttribute('data-filtro-seculo');
+        $all('.filtro-seculo-btn', el).forEach(function (b) {
+          var ativo = b === btn;
+          b.classList.toggle('border-red-600', ativo);
+          b.classList.toggle('bg-red-600/15', ativo);
+          b.classList.toggle('text-red-400', ativo);
+          b.classList.toggle('border-stone-700', !ativo);
+          b.classList.toggle('text-stone-400', !ativo);
+        });
+        renderMatrizGrid();
+      });
+    });
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao montar filtros de século:', erro);
+  }
+}
+
+function renderMatrizGrid() {
+  try {
+    var grid = document.getElementById('matriz-grid');
+    var vazio = document.getElementById('matriz-vazio');
+    var contagem = document.getElementById('matriz-contagem');
+    if (!grid) { return; }
+    var filtro = AppState.matriz.filtroSeculo;
+    var itens = DOSSIE_TRUTH_MANIFEST.itensBanca.filter(function (it) {
+      return filtro === 'TODOS' || it.seculo === filtro;
+    });
+
+    if (contagem) {
+      var totalGeral = DOSSIE_TRUTH_MANIFEST.itensBanca.length;
+      contagem.textContent = itens.length + ' de ' + totalGeral + ' caso(s) documental(is) catalogado(s) neste recorte';
+    }
+
+    if (!itens.length) {
+      grid.innerHTML = '';
+      if (vazio) { vazio.hidden = false; vazio.textContent = 'Nenhum caso documental catalogado neste recorte temporal.'; }
+      return;
+    }
+    if (vazio) { vazio.hidden = true; }
+
+    grid.innerHTML = itens.map(function (item) {
+      return '' +
+        '<div class="rounded-xl border border-stone-800 bg-stone-900/40 hover:border-stone-700 transition-colors p-4 sm:p-5">' +
+          '<div class="flex flex-wrap items-center justify-between gap-2 mb-4">' +
+            '<div class="flex items-center gap-2 flex-wrap">' +
+              '<span class="font-mono text-[11px] text-stone-500">' + escapeHtml(item.epoca) + '</span>' +
+              '<span class="text-[10px] px-2 py-0.5 rounded-full border border-stone-700 bg-stone-800 text-stone-400">Séc. ' + escapeHtml(item.seculo) + '</span>' +
+            '</div>' +
+            '<span class="text-[10px] px-2.5 py-1 rounded-full border font-semibold uppercase tracking-wide ' + badgeClasses(item.badgeTema) + '">' + escapeHtml(item.badgeTema) + '</span>' +
+          '</div>' +
+          '<h4 class="font-cinzel text-[15px] sm:text-base font-semibold text-stone-100 mb-4 leading-snug">' + escapeHtml(item.titulo) + '</h4>' +
+          '<div class="grid sm:grid-cols-3 gap-3 sm:gap-4">' +
+            '<div class="rounded-lg border border-stone-700 bg-stone-950/50 p-3.5">' +
+              '<p class="text-[9.5px] font-bold tracking-[0.15em] uppercase text-stone-500 mb-1.5 flex items-center gap-1.5 sm:hidden"><i data-lucide="landmark" class="w-3 h-3"></i>Filosofia Europeia</p>' +
+              '<p class="text-[12.5px] font-medium text-stone-300 mb-1">' + escapeHtml(item.objetoA.titulo) + '</p>' +
+              '<p class="text-[11.5px] text-stone-500 leading-relaxed">' + escapeHtml(item.objetoA.excerto) + '</p>' +
+            '</div>' +
+            '<div class="rounded-lg border border-red-800/40 bg-red-950/10 p-3.5">' +
+              '<p class="text-[9.5px] font-bold tracking-[0.15em] uppercase text-red-500 mb-1.5 flex items-center gap-1.5 sm:hidden"><i data-lucide="feather" class="w-3 h-3"></i>Manto / Cosmopolítica</p>' +
+              '<p class="text-[12.5px] font-medium text-stone-200 mb-1">' + escapeHtml(item.objetoB.titulo) + '</p>' +
+              '<p class="text-[11.5px] text-stone-400 leading-relaxed">' + escapeHtml(item.objetoB.excerto) + '</p>' +
+            '</div>' +
+            '<div class="rounded-lg border border-amber-800/30 bg-amber-950/10 p-3.5">' +
+              '<p class="text-[9.5px] font-bold tracking-[0.15em] uppercase text-amber-500 mb-1.5 flex items-center gap-1.5 sm:hidden"><i data-lucide="sparkles" class="w-3 h-3"></i>Resposta da Arte Brasileira</p>' +
+              '<p class="text-[11.5px] text-stone-400 leading-relaxed">' + escapeHtml(item.releituraContemporanea) + '</p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="mt-3.5 pt-3.5 border-t border-stone-800/70 flex items-center justify-between gap-2">' +
+            '<span class="text-[10px] text-stone-600 uppercase tracking-wide">Eixo recomendado: ' + escapeHtml(item.eixoRecomendado) + '</span>' +
+            '<button type="button" class="btn-enviar-item-terminal inline-flex items-center gap-1.5 text-[11px] text-stone-400 hover:text-red-500 transition-colors" data-item-id="' + item.id + '"><i data-lucide="terminal" class="w-3.5 h-3.5"></i>Usar no Terminal</button>' +
+          '</div>' +
+        '</div>';
+    }).join('');
+
+    $all('.btn-enviar-item-terminal', grid).forEach(function (btn) {
+      btn.addEventListener('click', function () { enviarParaTerminal(btn.getAttribute('data-item-id')); });
+    });
+
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao renderizar a matriz crítica:', erro);
+  }
+}
+
+function renderModulo4Estatico() {
+  try {
+    var info = DOSSIE_TRUTH_MANIFEST.interfaceTextos.modulos.matriz;
+    var t = document.getElementById('m4-titulo');
+    var s = document.getElementById('m4-subtitulo');
+    if (t) { t.textContent = info.titulo; }
+    if (s) { s.textContent = 'Filtre por século e confronte, lado a lado, a filosofia europeia, o destino do Manto Tupinambá e a resposta da arte brasileira contemporânea.'; }
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao renderizar cabeçalho do Módulo 4:', erro);
+  }
+}
+
+function initModulo4() {
+  try {
+    renderModulo4Estatico();
+    renderFiltroSeculos();
+    renderMatrizGrid();
+    refreshIcons();
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao inicializar Módulo 4:', erro);
+  }
+}
+
+/* ----------------------------------------------------------------
+   7. INICIALIZAÇÃO GERAL DA APLICAÇÃO
+   ---------------------------------------------------------------- */
+function initApp() {
+  try {
+    renderTabNav();
+    renderFooterMeta();
+    renderInfoModal();
+    initModal();
+
+    initModulo1();
+    initModulo2();
+    initModulo3();
+    initModulo4();
+
+    refreshIcons();
+  } catch (erro) {
+    console.error('[Dossiê] Falha crítica na inicialização da aplicação:', erro);
+    try { showToast('Ocorreu um erro ao iniciar o dossiê. Recarregue a página.', 'erro'); } catch (erroToast) { /* nada mais a fazer */ }
+  }
+}
+
+try {
+  window.addEventListener('pagehide', function () {
+    try { if (AppState.audio.ctx && typeof AppState.audio.ctx.close === 'function') { AppState.audio.ctx.close(); } } catch (erro) { /* silencioso */ }
+  });
+} catch (erro) { /* addEventListener sempre disponível em navegadores modernos; segue silencioso caso contrário */ }
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+
+})();
+</script>
+</body>
+</html>
