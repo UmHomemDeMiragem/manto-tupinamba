@@ -1,0 +1,13 @@
+{
+  "name": "manto-tupinamba",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Protocolo Confidencial: O Manto Tupinambá — app estático (index.html / quadro-evidencias.html) mais uma function serverless de narração sob demanda (api/tts.js) na Vercel.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

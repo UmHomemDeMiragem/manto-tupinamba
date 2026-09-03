@@ -2141,6 +2141,8 @@ function falar(texto, aoTerminar) {
 function pararFala() {
   try { if (vozState.suportado) { window.speechSynthesis.cancel(); } } catch (erro) { /* silencioso */ }
   try { if (vozState.audioEl) { vozState.audioEl.pause(); vozState.audioEl.currentTime = 0; } } catch (erro) { /* silencioso */ }
+  try { if (vozState.audioElProxy) { vozState.audioElProxy.pause(); vozState.audioElProxy.currentTime = 0; } } catch (erro) { /* silencioso */ }
+  try { if (vozState.proxyController) { vozState.proxyController.abort(); vozState.proxyController = null; } } catch (erro) { /* silencioso */ }
   vozState.geracao += 1;
   vozState.falando = false;
 }
@@ -2189,6 +2191,84 @@ function tocarNarracao(texto, audioSrc, aoTerminar) {
     return true;
   } catch (erro) {
     console.warn('[Dossiê] Falha ao reproduzir narração pré-gravada:', erro);
+    return falar(texto, aoTerminar);
+  }
+}
+
+/* Texto digitado pelo aluno (Oficina, Módulo 3) tenta primeiro uma narração neural via
+   proxy serverless (/api/tts, voz Thalita fixa no servidor) e, se qualquer coisa falhar
+   (função inexistente — caso do GitHub Pages —, timeout, resposta não-OK, erro ao tocar),
+   cai silenciosamente para falar()/speechSynthesis — degradação esperada, nunca um erro
+   visível ao usuário. Usa o mesmo vozState.geracao de tocarNarracao/falar para invalidar
+   callbacks órfãos quando o usuário troca de contexto no meio do caminho. */
+function falarComProxyOuFallback(texto, aoTerminar) {
+  try {
+    if (!texto) { if (typeof aoTerminar === 'function') { aoTerminar(); } return false; }
+    try { if (vozState.suportado) { window.speechSynthesis.cancel(); } } catch (e) { /* silencioso */ }
+    vozState.geracao += 1;
+    var minhaGeracao = vozState.geracao;
+    vozState.falando = true;
+
+    function usarFallback() {
+      if (minhaGeracao !== vozState.geracao) { return; } /* um contexto mais novo assumiu */
+      var ok = falar(texto, aoTerminar);
+      if (!ok) { vozState.falando = false; }
+    }
+
+    var controller = (typeof window.AbortController === 'function') ? new window.AbortController() : null;
+    vozState.proxyController = controller;
+    var timeoutId = controller ? setTimeout(function () { controller.abort(); }, 10000) : null;
+
+    fetch('/api/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: texto }),
+      signal: controller ? controller.signal : undefined
+    }).then(function (resp) {
+      var contentType = (resp.headers.get('Content-Type') || '').toLowerCase();
+      if (!resp.ok || contentType.indexOf('audio') === -1) { throw new Error('proxy TTS indisponível'); }
+      return resp.blob();
+    }).then(function (blob) {
+      if (timeoutId) { clearTimeout(timeoutId); }
+      if (minhaGeracao !== vozState.geracao) { return; } /* invalidado enquanto a rede respondia */
+      var url = URL.createObjectURL(blob);
+      if (!vozState.audioElProxy) { vozState.audioElProxy = new Audio(); vozState.audioElProxy.preload = 'auto'; }
+      var el = vozState.audioElProxy;
+      try { el.pause(); } catch (e) { /* silencioso */ }
+      var concluido = false;
+      function limparListeners() {
+        el.removeEventListener('ended', onEnded);
+        el.removeEventListener('error', onError);
+      }
+      function onEnded() {
+        if (concluido) { return; }
+        concluido = true;
+        limparListeners();
+        URL.revokeObjectURL(url);
+        if (minhaGeracao !== vozState.geracao) { return; }
+        vozState.falando = false;
+        if (typeof aoTerminar === 'function') { aoTerminar(); }
+      }
+      function onError() {
+        if (concluido) { return; }
+        concluido = true;
+        limparListeners();
+        URL.revokeObjectURL(url);
+        usarFallback();
+      }
+      el.addEventListener('ended', onEnded);
+      el.addEventListener('error', onError);
+      el.src = url;
+      var promessa = el.play();
+      if (promessa && typeof promessa.catch === 'function') { promessa.catch(onError); }
+    }).catch(function () {
+      if (timeoutId) { clearTimeout(timeoutId); }
+      usarFallback();
+    });
+
+    return true;
+  } catch (erro) {
+    console.warn('[Dossiê] Falha ao iniciar narração via proxy, usando voz do navegador:', erro);
     return falar(texto, aoTerminar);
   }
 }
@@ -3224,7 +3304,7 @@ function ouvirMeuTexto() {
       showToast('Escreva algo no texto de apoio, comando ou gabarito antes de ouvir.', 'erro');
       return;
     }
-    var ok = falar(partes.join('. '), function () { atualizarBotaoOuvirTexto(false); });
+    var ok = falarComProxyOuFallback(partes.join('. '), function () { atualizarBotaoOuvirTexto(false); });
     if (!ok) { showToast('Narração por voz indisponível neste navegador.', 'erro'); return; }
     atualizarBotaoOuvirTexto(true);
   } catch (erro) {
