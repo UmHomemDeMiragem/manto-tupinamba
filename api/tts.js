@@ -29,7 +29,27 @@
 const { synthesizeToMp3 } = require('../lib/edge-tts-client');
 
 const MAX_TEXT_LENGTH = 700;
-const TIMEOUT_MS = 15000;
+// Deve caber com folga dentro de maxDuration (config no fim do arquivo) —
+// o timeout "gracioso" abaixo precisa vencer a corrida contra o corte
+// duro da própria Vercel, senão o aluno recebe um 504 cru em vez da
+// mensagem em português.
+const TIMEOUT_MS = 11000;
+
+// Proteção mínima contra um cliente sozinho martelando o endpoint (sem
+// login, sala de aula com 30-60 alunos, plano gratuito da Vercel): não é
+// um rate limit robusto (é por instância "quente" da function, em
+// memória, e reseta a cada cold start) — só o suficiente para este
+// cenário de baixo risco.
+const RATE_LIMIT_WINDOW_MS = 4000;
+const lastRequestByIp = new Map();
+
+function getClientIp(req) {
+  const forwarded = req.headers['x-forwarded-for'];
+  if (typeof forwarded === 'string' && forwarded.length > 0) {
+    return forwarded.split(',')[0].trim();
+  }
+  return req.socket && req.socket.remoteAddress ? req.socket.remoteAddress : 'unknown';
+}
 
 // Valores fixos, iguais aos já usados com sucesso no resto do app —
 // nunca aceitos do cliente (ver nota de segurança acima).
@@ -105,12 +125,23 @@ module.exports = async (req, res) => {
       return;
     }
 
+    const ip = getClientIp(req);
+    const now = Date.now();
+    const last = lastRequestByIp.get(ip) || 0;
+    if (now - last < RATE_LIMIT_WINDOW_MS) {
+      sendJsonError(res, 429, 'Aguarde alguns segundos antes de pedir outra narração.');
+      return;
+    }
+    lastRequestByIp.set(ip, now);
+
     // Timeout de segurança adicional cobrindo a chamada inteira (o módulo
     // já aplica um timeout por conexão internamente); nunca deixa a
-    // function pendurada sem resposta.
+    // function pendurada sem resposta. Fica com folga abaixo de
+    // maxDuration para que esta mensagem em português tenha tempo de
+    // vencer a corrida contra o corte duro da plataforma.
     const audioBuffer = await withTimeout(
       synthesizeToMp3(trimmed, { voice: VOICE, rate: RATE, timeoutMs: TIMEOUT_MS }),
-      TIMEOUT_MS + 2000,
+      TIMEOUT_MS + 1000,
       'Tempo limite excedido ao gerar a narração.'
     );
 

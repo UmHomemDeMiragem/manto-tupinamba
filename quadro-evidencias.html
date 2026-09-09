@@ -8,16 +8,49 @@
 <meta name="description" content="Quadro de Evidências: monte visualmente, num mural investigativo, as conexões entre a modernidade europeia e a trajetória do Manto Tupinambá — dinâmica alternativa ao Protocolo Confidencial. ICH/UnB, Departamento de Filosofia, curadoria Profa. Dra. Priscila Rossinetti Rufinoni.">
 <title>Quadro de Evidências — O Manto Tupinambá &amp; as Fraturas da Modernidade</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230c0a09'/%3E%3Ccircle cx='26' cy='22' r='6' fill='%23DC2626'/%3E%3Cpath d='M26 28 C26 40 40 38 40 48' fill='none' stroke='%23DC2626' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='40' cy='48' r='6' fill='none' stroke='%23DC2626' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230c0a09'/%3E%3Ccircle cx='26' cy='22' r='6' fill='%23DC2626'/%3E%3Cpath d='M26 28 C26 40 40 38 40 48' fill='none' stroke='%23DC2626' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='40' cy='48' r='6' fill='none' stroke='%23DC2626' stroke-width='2.5'/%3E%3C/svg%3E">
+
+<!-- Open Graph / Twitter Card: preview visual quando o link é compartilhado (WhatsApp, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Quadro de Evidências · ICH/UnB">
+<meta property="og:title" content="Quadro de Evidências — O Manto Tupinambá & as Fraturas da Modernidade">
+<meta property="og:description" content="Monte visualmente, num mural investigativo, as conexões entre a modernidade europeia e a trajetória do Manto Tupinambá — dinâmica alternativa ao Protocolo Confidencial.">
+<meta property="og:image" content="https://manto-tupinamba.vercel.app/og-image.jpg">
+<meta property="og:image:alt" content="O Manto Tupinambá em exibição na Biblioteca do Museu Nacional/UFRJ, durante a cerimônia de retorno do artefato ao Brasil em 2024.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quadro de Evidências — O Manto Tupinambá & as Fraturas da Modernidade">
+<meta name="twitter:description" content="Monte visualmente, num mural investigativo, as conexões entre a modernidade europeia e a trajetória do Manto Tupinambá.">
+<meta name="twitter:image" content="https://manto-tupinamba.vercel.app/og-image.jpg">
 
 <!-- Google Fonts: Cinzel (títulos) + Inter (corpo) — mesmas famílias/pesos do Protocolo Confidencial -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Tailwind CSS via Play CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
+<!-- CSS crítico inline: pinta o fundo correto e mostra uma mensagem de carregamento
+     ANTES de qualquer script de CDN chegar (ver <script defer> abaixo) — importante
+     em sinal fraco/instável, onde os scripts do Tailwind/Lucide podem demorar. -->
+<style>
+  html, body { background-color: #0c0a09; }
+  #carregando-inicial {
+    position: fixed; inset: 0; z-index: 999; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 14px; background: #0c0a09;
+    color: #d6d3d1; font-family: ui-sans-serif, system-ui, sans-serif; text-align: center; padding: 24px;
+  }
+  #carregando-inicial .aro {
+    width: 34px; height: 34px; border-radius: 999px; border: 3px solid #44403c;
+    border-top-color: #DC2626; animation: girar-carregando 0.85s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) { #carregando-inicial .aro { animation-duration: 2.4s; } }
+  @keyframes girar-carregando { to { transform: rotate(360deg); } }
+</style>
+
+<!-- Config guardado num global simples — o script do Tailwind é carregado com defer
+     logo abaixo (roda depois deste), e só aplica o config no evento "load" do CDN.
+     Isso evita bloquear o parse do resto do documento em sinal fraco/instável. -->
 <script>
-  tailwind.config = {
+  window.__tailwindConfig = {
     darkMode: 'class',
     theme: {
       extend: {
@@ -40,9 +73,11 @@
     }
   };
 </script>
+<!-- Tailwind CSS via Play CDN -->
+<script src="https://cdn.tailwindcss.com" defer onload="window.tailwind.config = window.__tailwindConfig;"></script>
 
 <!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@1.39.0/dist/umd/lucide.js"></script>
+<script src="https://unpkg.com/lucide@1.39.0/dist/umd/lucide.js" defer></script>
 
 <style>
   :root{
@@ -201,6 +236,20 @@
 </style>
 </head>
 <body class="bg-stone-950 text-stone-300 font-inter antialiased min-h-screen selection:bg-red-600/30 selection:text-white">
+
+<!-- Some sozinho quando iniciarApp() roda (ver final do script) — cobre a janela entre
+     o primeiro parse do documento e o carregamento dos scripts de CDN (deferidos). -->
+<div id="carregando-inicial"><div class="aro" aria-hidden="true"></div><p>Carregando o Quadro de Evidências…</p></div>
+<script>
+  // Rede de segurança: se algo impedir iniciarApp() de rodar (ex.: uma CDN travada
+  // por completo), não deixa o aluno olhando pra tela de "carregando" pra sempre.
+  setTimeout(function () {
+    try {
+      var el = document.getElementById('carregando-inicial');
+      if (el) { el.remove(); }
+    } catch (erro) { /* silencioso */ }
+  }, 12000);
+</script>
 
 <!-- ============================================================ -->
 <!-- FUNDO DECORATIVO FIXO (reaproveitado do Protocolo Confidencial) -->
@@ -380,7 +429,8 @@
         <li>Toque em <strong class="text-stone-100">“Adicionar Ficha”</strong> para escrever sua interpretação da conexão num cartão de anotação.</li>
         <li>Quando terminar, toque em <strong class="text-stone-100">“Exportar PNG”</strong> para salvar uma imagem do quadro montado.</li>
       </ol>
-      <p class="mt-5 pt-4 border-t border-stone-800 text-[0.6875rem] text-stone-500 leading-relaxed flex items-start gap-2"><i data-lucide="save" class="w-3.5 h-3.5 shrink-0 mt-0.5"></i>O quadro é salvo automaticamente neste navegador. Ele não é enviado a nenhum servidor e não fica disponível em outro dispositivo.</p>
+      <p class="mt-5 pt-4 border-t border-stone-800 text-[0.6875rem] text-stone-400 leading-relaxed flex items-start gap-2"><i data-lucide="save" class="w-3.5 h-3.5 shrink-0 mt-0.5"></i>O quadro é salvo automaticamente neste navegador. Ele não é enviado a nenhum servidor e não fica disponível em outro dispositivo.</p>
+      <p class="mt-3 text-[0.6875rem] text-stone-400 leading-relaxed flex items-start gap-2"><i data-lucide="clock" class="w-3.5 h-3.5 shrink-0 mt-0.5"></i>Leva cerca de 10–15 minutos. É uma dinâmica alternativa ao “Protocolo Confidencial” (link no topo) — escolha uma das duas, não é preciso fazer as duas.</p>
     </div>
   </div>
 </div>
@@ -1817,6 +1867,11 @@ function wireModais() {
    ---------------------------------------------------------------- */
 function iniciarApp() {
   try {
+    try {
+      var overlayCarregando = document.getElementById('carregando-inicial');
+      if (overlayCarregando) { overlayCarregando.remove(); }
+    } catch (erroOverlay) { /* silencioso */ }
+
     boardEl = document.getElementById('quadro-cortica');
     itemsLayerEl = document.getElementById('camada-itens');
     stringsSvgEl = document.getElementById('camada-barbantes');
@@ -1846,6 +1901,21 @@ function iniciarApp() {
     wireTeclado();
 
     refreshIcons();
+
+    // Abre "Como Usar" automaticamente na primeira visita deste navegador —
+    // mesmo raciocínio do Protocolo Confidencial: um aluno que chega sozinho
+    // ao link só vê essa orientação se procurar por ela no cabeçalho.
+    try {
+      var CHAVE_VISTO_COMO_USAR = 'quadro_visto_comousar_v1';
+      if (!window.localStorage || !window.localStorage.getItem(CHAVE_VISTO_COMO_USAR)) {
+        setTimeout(function () {
+          try {
+            abrirModal('modal-como-usar', 'btn-como-usar');
+            if (window.localStorage) { window.localStorage.setItem(CHAVE_VISTO_COMO_USAR, '1'); }
+          } catch (erroAbrir) { /* silencioso — não impede o uso do app */ }
+        }, 600);
+      }
+    } catch (erro) { /* localStorage indisponível (modo privado etc.) — segue sem auto-abrir */ }
   } catch (erro) {
     console.error('[Quadro] Falha crítica na inicialização:', erro);
     try { showToast('Ocorreu um erro ao iniciar o quadro. Recarregue a página.', 'erro'); } catch (_e) {}

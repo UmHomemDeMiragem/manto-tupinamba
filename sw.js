@@ -31,7 +31,7 @@
    navegadores a descartar o cache antigo e buscar tudo de novo — por
    exemplo, depois de corrigir um texto do dossiê. Sem isso, "cache-first"
    por padrão mantém servindo a cópia local indefinidamente. */
-var CACHE_VERSAO = 'manto-tupinamba-v3';
+var CACHE_VERSAO = 'manto-tupinamba-v4';
 
 /* Documento principal + CDNs já usados pelo <head> de index.html.
    Se as versões pinadas dos scripts de CDN mudarem em index.html, vale
@@ -41,6 +41,8 @@ var CACHE_VERSAO = 'manto-tupinamba-v3';
 var URLS_PRE_CACHE = [
   './',
   'index.html',
+  'quadro-evidencias.html',
+  'og-image.jpg',
   'https://cdn.tailwindcss.com',
   'https://unpkg.com/lucide@1.39.0/dist/umd/lucide.js',
   'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
