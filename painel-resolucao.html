@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+<meta name="theme-color" content="#0c0a09">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Simulado do Manto Tupinambá: responda itens Certo/Errado no estilo CEBRASPE/PAS sobre a história e filosofia do manto tupinambá — painel aberto para alunos de ensino médio, vestibulandos e qualquer visitante. ICH/UnB, Departamento de Filosofia, curadoria Profa. Dra. Priscila Rossinetti Rufinoni.">
+<title>Simulado do Manto Tupinambá — Painel de Resolução</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230c0a09'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23DC2626' stroke-width='3.5'/%3E%3Cpath d='M22 33 L29 40 L44 22' fill='none' stroke='%23DC2626' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230c0a09'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23DC2626' stroke-width='3.5'/%3E%3Cpath d='M22 33 L29 40 L44 22' fill='none' stroke='%23DC2626' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<!-- Open Graph / Twitter Card: preview visual quando o link é compartilhado (WhatsApp, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Simulado do Manto Tupinambá · ICH/UnB">
+<meta property="og:title" content="Simulado do Manto Tupinambá — Painel de Resolução">
+<meta property="og:description" content="Responda itens Certo/Errado no estilo CEBRASPE/PAS sobre a história e filosofia do Manto Tupinambá — aberto a qualquer visitante, sem cadastro.">
+<meta property="og:image" content="https://manto-tupinamba.vercel.app/og-image.jpg">
+<meta property="og:image:alt" content="O Manto Tupinambá em exibição na Biblioteca do Museu Nacional/UFRJ, durante a cerimônia de retorno do artefato ao Brasil em 2024.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Simulado do Manto Tupinambá — Painel de Resolução">
+<meta name="twitter:description" content="Responda itens Certo/Errado no estilo CEBRASPE/PAS sobre a história e filosofia do Manto Tupinambá.">
+<meta name="twitter:image" content="https://manto-tupinamba.vercel.app/og-image.jpg">
+
+<!-- Google Fonts: Cinzel (títulos) + Inter (corpo) — mesmas famílias/pesos dos apps irmãos -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- CSS crítico inline: pinta o fundo correto e mostra uma mensagem de carregamento
+     ANTES de qualquer script de CDN chegar (ver <script defer> abaixo) — importante
+     em sinal fraco/instável (ver nota em sw.js). -->
+<style>
+  html, body { background-color: #0c0a09; }
+  #carregando-inicial {
+    position: fixed; inset: 0; z-index: 999; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 14px; background: #0c0a09;
+    color: #d6d3d1; font-family: ui-sans-serif, system-ui, sans-serif; text-align: center; padding: 24px;
+  }
+  #carregando-inicial .aro {
+    width: 34px; height: 34px; border-radius: 999px; border: 3px solid #44403c;
+    border-top-color: #DC2626; animation: girar-carregando 0.85s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) { #carregando-inicial .aro { animation-duration: 2.4s; } }
+  @keyframes girar-carregando { to { transform: rotate(360deg); } }
+</style>
+<script>
+  window.__tailwindConfig = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          guara: {
+            50: '#FEF2F2', 100: '#FEE2E2', 200: '#FECACA', 300: '#FCA5A5',
+            400: '#F87171', 500: '#EF4444', 600: '#DC2626', 700: '#B91C1C',
+            800: '#991B1B', 900: '#7F1D1D', DEFAULT: '#DC2626'
+          }
+        },
+        fontFamily: {
+          cinzel: ['Cinzel', 'ui-serif', 'Georgia', 'serif'],
+          inter: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+        },
+        boxShadow: {
+          'stamp': '0 0 0 1px rgba(220,38,38,0.4), 0 8px 24px -8px rgba(220,38,38,0.35)',
+          'dossie': '0 1px 0 rgba(255,255,255,0.04) inset, 0 20px 40px -20px rgba(0,0,0,0.7)'
+        }
+      }
+    }
+  };
+</script>
+<!-- Tailwind CSS via Play CDN -->
+<script src="https://cdn.tailwindcss.com" defer onload="window.tailwind.config = window.__tailwindConfig;"></script>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@1.39.0/dist/umd/lucide.js" defer></script>
+
+<style>
+  :root{
+    color-scheme: dark;
+    --guara: #DC2626;
+  }
+  html, body { background-color:#0c0a09; }
+  body{
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  .font-cinzel{ font-family:'Cinzel', ui-serif, Georgia, serif; }
+  .font-inter{ font-family:'Inter', ui-sans-serif, system-ui, sans-serif; }
+
+  /* ==== acessibilidade ==== */
+  .tap-target{ min-height:48px; min-width:48px; }
+  input, select, textarea{ font-size:max(1rem, 16px); }
+  .sr-only-focusable:not(:focus){ position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important; }
+  input:focus, textarea:focus, select:focus, button:focus-visible, a:focus-visible, [tabindex]:focus-visible{ outline:2px solid #DC2626; outline-offset:2px; }
+  label{ cursor:pointer; }
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration:.001ms !important; animation-iteration-count:1 !important;
+      transition-duration:.001ms !important; scroll-behavior:auto !important;
+    }
+  }
+
+  /* ==== scrollbars ==== */
+  ::-webkit-scrollbar{ width:9px; height:9px; }
+  ::-webkit-scrollbar-track{ background:#0c0a09; }
+  ::-webkit-scrollbar-thumb{ background:#44403c; border-radius:9999px; }
+  ::-webkit-scrollbar-thumb:hover{ background:#57534e; }
+  *{ scrollbar-color:#44403c #0c0a09; scrollbar-width:thin; }
+  .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
+  .no-scrollbar::-webkit-scrollbar{ display:none; width:0; height:0; }
+  .scroll-fade-r{ mask-image:linear-gradient(to right, #000 calc(100% - 2.25rem), transparent 100%); -webkit-mask-image:linear-gradient(to right, #000 calc(100% - 2.25rem), transparent 100%); }
+
+  /* ==== texture / atmosphere (reaproveitado dos apps irmãos) ==== */
+  .bg-grain{
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(220,38,38,0.10), transparent 45%),
+      radial-gradient(circle at 82% 70%, rgba(220,38,38,0.07), transparent 40%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
+  }
+  .paper-card{
+    background-color: rgba(28,25,23,0.72);
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(0,0,0,0) 30%);
+    backdrop-filter: blur(2px);
+  }
+
+  [hidden]{ display:none !important; }
+  @keyframes fadeSlideIn{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+  .animate-fade-slide{ animation: fadeSlideIn .45s ease-out both; }
+  .toast-enter{ animation: fadeSlideIn .3s ease-out both; }
+
+  @keyframes popIn{ from{ opacity:0; transform:scale(.92);} to{ opacity:1; transform:scale(1);} }
+  .animate-pop{ animation: popIn .3s cubic-bezier(.2,.9,.3,1.15) both; }
+
+  /* ==== barra de progresso ==== */
+  .barra-progresso{ height:6px; border-radius:999px; background:rgba(255,255,255,0.06); overflow:hidden; }
+  .barra-progresso-preenchimento{ height:100%; background:linear-gradient(90deg,#DC2626,#F87171); transition:width .35s ease; }
+
+  /* ==== cartão do item ==== */
+  .cartao-item{
+    border: 1px solid rgba(168,162,158,0.2);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 25px 50px -20px rgba(0,0,0,0.75);
+  }
+  .btn-julgamento{ transition: transform .12s ease, background-color .15s ease, border-color .15s ease; }
+  .btn-julgamento:active{ transform: scale(0.97); }
+  .btn-julgamento[disabled]{ pointer-events:none; }
+  .btn-julgamento.certo-marcado{ background:#065f46; border-color:#10b981; color:#fff; }
+  .btn-julgamento.errado-marcado{ background:#7f1d1d; border-color:#ef4444; color:#fff; }
+  .btn-julgamento.gabarito-revelado{ outline:2px dashed rgba(252,211,77,.8); outline-offset:3px; }
+
+  /* ==== carimbo de resultado ==== */
+  .carimbo-resultado{
+    border: 3px solid var(--cor-carimbo, #DC2626);
+    color: var(--cor-carimbo, #DC2626);
+    border-radius: 10px;
+    transform: rotate(-3deg);
+    display: inline-block;
+  }
+
+  /* ==== painéis expansíveis ==== */
+  .painel-expansivel > summary{ list-style:none; cursor:pointer; }
+  .painel-expansivel > summary::-webkit-details-marker{ display:none; }
+  .chev-expansivel{ transition: transform .2s ease; }
+  .painel-expansivel[open] > summary .chev-expansivel{ transform:rotate(180deg); }
+</style>
+</head>
+<body class="bg-stone-950 text-stone-300 font-inter antialiased min-h-screen selection:bg-red-600/30 selection:text-white">
+
+<!-- Some sozinho quando iniciarApp() roda (ver final do script) — cobre a janela entre o
+     primeiro parse do documento e o carregamento dos scripts de CDN (deferidos). -->
+<div id="carregando-inicial"><div class="aro" aria-hidden="true"></div><p>Carregando o simulado…</p></div>
+<script>
+  // Rede de segurança: se algo impedir iniciarApp() de rodar (ex.: uma CDN travada
+  // por completo), não deixa o visitante olhando pra tela de "carregando" pra sempre.
+  setTimeout(function () {
+    try {
+      var el = document.getElementById('carregando-inicial');
+      if (el) { el.remove(); }
+    } catch (erro) { /* silencioso */ }
+  }, 12000);
+</script>
+
+<div aria-hidden="true" class="fixed inset-0 z-0 bg-stone-950 bg-grain"></div>
+<div aria-hidden="true" class="fixed -top-40 -left-40 w-[32rem] h-[32rem] rounded-full bg-red-700/10 blur-3xl z-0"></div>
+<div aria-hidden="true" class="fixed -bottom-40 -right-40 w-[32rem] h-[32rem] rounded-full bg-red-700/10 blur-3xl z-0"></div>
+
+<a href="#conteudo-principal" class="sr-only-focusable fixed top-2 left-2 z-[300] rounded-lg bg-red-600 text-white text-sm font-semibold px-4 py-2">Pular para o simulado</a>
+
+<!-- ============================================================ -->
+<!-- CABEÇALHO                                                     -->
+<!-- ============================================================ -->
+<header class="sticky top-0 z-40 border-b border-stone-800/80 bg-stone-950/85 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-3 sm:px-6">
+    <div class="flex items-center justify-between h-16 sm:h-20 gap-3">
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <svg width="34" height="34" viewBox="0 0 64 64" class="shrink-0 sm:w-10 sm:h-10" aria-hidden="true">
+          <rect width="64" height="64" rx="10" fill="#1c1917" stroke="#DC2626" stroke-width="1.5"/>
+          <circle cx="32" cy="32" r="20" fill="none" stroke="#DC2626" stroke-width="3.5"/>
+          <path d="M22 33 L29 40 L44 22" fill="none" stroke="#DC2626" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="min-w-0">
+          <p class="font-cinzel text-[0.5625rem] sm:text-[0.6875rem] tracking-[0.28em] text-red-500 uppercase truncate">Protocolo Confidencial · Painel de Resolução</p>
+          <h1 class="font-cinzel text-[0.8125rem] leading-tight sm:text-lg font-semibold text-stone-100 truncate">Simulado do Manto Tupinambá</h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <button id="btn-como-funciona" type="button" aria-haspopup="dialog" aria-controls="modal-como-funciona" class="tap-target inline-flex items-center gap-1.5 rounded-full border border-stone-700 bg-stone-900/70 px-2.5 sm:px-3.5 text-[0.6875rem] sm:text-xs font-medium text-stone-300 hover:border-red-600/60 hover:text-red-500 transition-colors">
+          <i data-lucide="help-circle" class="w-3.5 h-3.5 shrink-0"></i><span class="hidden sm:inline">Como Funciona</span>
+        </button>
+        <a href="index.html" title="Protocolo Confidencial — para quem redige os itens" class="tap-target inline-flex items-center gap-1.5 rounded-full border border-stone-700 bg-stone-900/70 px-2.5 sm:px-3.5 text-[0.6875rem] sm:text-xs font-medium text-stone-300 hover:border-red-600/60 hover:text-red-500 transition-colors">
+          <i data-lucide="file-text" class="w-3.5 h-3.5 shrink-0"></i><span class="hidden sm:inline">Dossiê Completo</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- CONTEÚDO PRINCIPAL                                            -->
+<!-- ============================================================ -->
+<main id="conteudo-principal" class="relative z-10 mx-auto max-w-3xl px-3 sm:px-6 py-6 sm:py-10 pb-16">
+
+  <!-- ---- TELA 1: INTRODUÇÃO ---- -->
+  <section id="tela-intro" class="animate-fade-slide">
+    <div class="rounded-2xl border border-stone-800 paper-card shadow-dossie p-5 sm:p-8">
+      <p class="font-cinzel text-[0.625rem] sm:text-[0.6875rem] tracking-[0.3em] text-red-500 uppercase mb-2">Convocação Aberta</p>
+      <h2 class="font-cinzel text-xl sm:text-2xl font-semibold text-stone-100 leading-snug mb-3">Você está pronto(a) para a banca?</h2>
+      <p class="text-[0.8125rem] sm:text-sm text-stone-400 leading-relaxed mb-4">
+        Este simulado usa o mesmo formato das provas da UnB (PAS e CEBRASPE): cada item é uma
+        <strong class="text-stone-200">afirmação</strong> sobre a história e a filosofia por trás do
+        Manto Tupinambá, e você julga se ela está <strong class="text-emerald-400">Certa</strong> ou
+        <strong class="text-red-400">Errada</strong>. Não é preciso ter estudado o assunto antes — cada
+        resposta vem com uma explicação logo em seguida.
+      </p>
+      <p class="text-[0.75rem] sm:text-[0.8125rem] text-stone-500 leading-relaxed mb-6 flex items-start gap-2">
+        <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5 text-stone-500"></i>
+        Aberto a qualquer visitante — aluno(a) de ensino médio, vestibulando(a), ou curioso(a). Sem
+        cadastro, sem envio de dados a nenhum servidor: seu progresso fica só neste navegador.
+      </p>
+
+      <div class="mb-6">
+        <p class="text-[0.6875rem] sm:text-xs uppercase tracking-wide text-stone-500 mb-2.5">Filtrar por eixo (opcional)</p>
+        <div id="filtros-eixo" role="group" aria-label="Filtrar itens por eixo" class="flex flex-wrap gap-2">
+          <button type="button" data-eixo="todos" class="chip-eixo tap-target rounded-full border border-red-600 bg-red-600/15 text-red-400 px-3.5 text-xs font-medium transition-colors" aria-pressed="true">Todos os Eixos</button>
+          <button type="button" data-eixo="analise" class="chip-eixo tap-target rounded-full border border-stone-700 text-stone-300 hover:border-red-600/50 hover:text-red-400 px-3.5 text-xs font-medium transition-colors" aria-pressed="false">Análise</button>
+          <button type="button" data-eixo="sintese" class="chip-eixo tap-target rounded-full border border-stone-700 text-stone-300 hover:border-red-600/50 hover:text-red-400 px-3.5 text-xs font-medium transition-colors" aria-pressed="false">Síntese</button>
+          <button type="button" data-eixo="contexto" class="chip-eixo tap-target rounded-full border border-stone-700 text-stone-300 hover:border-red-600/50 hover:text-red-400 px-3.5 text-xs font-medium transition-colors" aria-pressed="false">Contextualização</button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between gap-4 flex-wrap">
+        <p id="contagem-itens-disponiveis" class="text-[0.75rem] text-stone-500"></p>
+        <button id="btn-comecar" type="button" class="tap-target inline-flex items-center gap-2 rounded-full bg-red-600 hover:bg-red-500 px-6 text-sm font-semibold text-white transition-colors shadow-stamp">
+          <i data-lucide="play" class="w-4 h-4 shrink-0"></i>Começar o Simulado
+        </button>
+      </div>
+
+      <div id="aviso-retomar" hidden class="mt-5 pt-4 border-t border-stone-800 flex items-center justify-between gap-3 flex-wrap">
+        <p class="text-[0.75rem] text-stone-400 flex items-center gap-1.5"><i data-lucide="history" class="w-3.5 h-3.5 shrink-0"></i>Você tem um simulado em andamento.</p>
+        <button id="btn-retomar" type="button" class="tap-target rounded-full border border-stone-700 hover:border-red-600/60 hover:text-red-400 px-4 text-xs font-medium text-stone-300 transition-colors">Retomar de onde parei</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---- TELA 2: QUIZ ---- -->
+  <section id="tela-quiz" hidden>
+    <div class="flex items-center justify-between gap-3 mb-2.5">
+      <p id="progresso-texto" class="text-[0.75rem] sm:text-xs text-stone-400 font-mono">Item 1 de 1</p>
+      <p id="pontuacao-texto" class="text-[0.75rem] sm:text-xs text-stone-400 font-mono">Acertos: 0</p>
+    </div>
+    <div class="barra-progresso mb-5"><div id="barra-progresso-preenchimento" class="barra-progresso-preenchimento" style="width:0%"></div></div>
+
+    <div id="cartao-item" class="cartao-item rounded-2xl paper-card p-5 sm:p-7 animate-pop">
+      <div class="flex items-center gap-2 mb-4 flex-wrap">
+        <span id="badge-eixo-item" class="text-[0.625rem] px-2.5 py-1 rounded-full border font-medium uppercase tracking-wide"></span>
+        <span id="badge-dificuldade-item" class="text-[0.625rem] px-2.5 py-1 rounded-full border border-stone-700 text-stone-400 font-medium uppercase tracking-wide"></span>
+        <button id="btn-ouvir-item" type="button" class="tap-target ml-auto inline-flex items-center gap-1.5 rounded-full border border-stone-700 text-stone-400 hover:text-red-500 hover:border-red-600/50 text-[0.6875rem] font-medium px-3.5 transition-colors">
+          <i data-lucide="volume-2" class="w-3.5 h-3.5 shrink-0"></i><span>Ouvir</span>
+        </button>
+      </div>
+
+      <p id="texto-afirmativa" class="text-[0.9375rem] sm:text-base text-stone-100 leading-relaxed font-medium mb-6"></p>
+
+      <div class="grid grid-cols-2 gap-3" role="group" aria-label="Julgue a afirmativa">
+        <button id="btn-marcar-certo" type="button" data-julgamento="C" class="btn-julgamento tap-target rounded-xl border-2 border-emerald-700/50 bg-emerald-950/30 text-emerald-400 font-cinzel font-semibold text-sm sm:text-base py-4 flex items-center justify-center gap-2 hover:bg-emerald-900/40">
+          <i data-lucide="check" class="w-5 h-5 shrink-0"></i>Certo
+        </button>
+        <button id="btn-marcar-errado" type="button" data-julgamento="E" class="btn-julgamento tap-target rounded-xl border-2 border-red-700/50 bg-red-950/30 text-red-400 font-cinzel font-semibold text-sm sm:text-base py-4 flex items-center justify-center gap-2 hover:bg-red-900/40">
+          <i data-lucide="x" class="w-5 h-5 shrink-0"></i>Errado
+        </button>
+      </div>
+      <p class="text-center text-[0.625rem] text-stone-600 mt-2.5">Atalhos de teclado: <kbd class="px-1 py-0.5 rounded bg-stone-800 border border-stone-700">C</kbd> Certo · <kbd class="px-1 py-0.5 rounded bg-stone-800 border border-stone-700">E</kbd> Errado</p>
+
+      <div id="feedback-item" hidden class="mt-5 pt-5 border-t border-stone-800 animate-fade-slide">
+        <p id="feedback-veredito" class="font-cinzel font-semibold text-sm mb-2 flex items-center gap-2"></p>
+        <p id="feedback-justificativa" class="text-[0.8125rem] text-stone-400 leading-relaxed"></p>
+        <div class="flex justify-end mt-4">
+          <button id="btn-proximo-item" type="button" class="tap-target inline-flex items-center gap-2 rounded-full bg-red-600 hover:bg-red-500 px-5 text-sm font-semibold text-white transition-colors">
+            <span id="texto-btn-proximo">Próximo Item</span><i data-lucide="arrow-right" class="w-4 h-4 shrink-0"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 flex justify-center">
+      <button id="btn-abandonar" type="button" class="text-[0.6875rem] text-stone-600 hover:text-red-500 transition-colors">Encerrar e ver resultado parcial</button>
+    </div>
+  </section>
+
+  <!-- ---- TELA 3: RESULTADO ---- -->
+  <section id="tela-resultado" hidden class="animate-fade-slide">
+    <div class="rounded-2xl border border-stone-800 paper-card shadow-dossie p-6 sm:p-9 text-center">
+      <div class="carimbo-resultado px-5 py-2.5 mb-5" id="carimbo-resultado" style="--cor-carimbo:#DC2626;">
+        <p id="carimbo-texto" class="font-cinzel font-black text-lg sm:text-2xl tracking-wider uppercase"></p>
+      </div>
+      <h2 class="font-cinzel text-xl sm:text-2xl font-semibold text-stone-100 mb-1.5">Simulado Concluído</h2>
+      <p id="resultado-resumo" class="text-stone-400 text-sm mb-6"></p>
+
+      <div id="resultado-por-eixo" class="grid gap-2.5 mb-7 text-left max-w-sm mx-auto"></div>
+
+      <div class="flex flex-wrap gap-2.5 justify-center">
+        <button id="btn-refazer" type="button" class="tap-target inline-flex items-center gap-2 rounded-full bg-red-600 hover:bg-red-500 px-5 text-sm font-semibold text-white transition-colors">
+          <i data-lucide="rotate-ccw" class="w-4 h-4 shrink-0"></i>Refazer o Simulado
+        </button>
+        <button id="btn-revisar-erros" type="button" hidden class="tap-target inline-flex items-center gap-2 rounded-full border border-stone-700 hover:border-red-600/60 hover:text-red-400 px-5 text-sm font-medium text-stone-300 transition-colors">
+          <i data-lucide="list-checks" class="w-4 h-4 shrink-0"></i>Revisar Erros
+        </button>
+      </div>
+
+      <div id="lista-revisao" hidden class="mt-7 text-left space-y-3"></div>
+
+      <p class="text-[0.75rem] text-stone-500 mt-8 pt-6 border-t border-stone-800">
+        Curioso(a) sobre o dossiê completo por trás dessas questões?
+        <a href="index.html" class="text-red-400 hover:text-red-300 underline decoration-dotted">Explore o Protocolo Confidencial</a>.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================ -->
+<!-- MODAL: COMO FUNCIONA                                          -->
+<!-- ============================================================ -->
+<div id="modal-como-funciona" data-modal class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-stone-950/80 backdrop-blur-sm" data-close-modal></div>
+  <div class="absolute inset-0 flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div role="dialog" aria-modal="true" aria-labelledby="como-funciona-title" class="relative w-full sm:max-w-lg max-h-[88vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border border-stone-700 bg-stone-900 paper-card shadow-dossie p-5 sm:p-7 animate-fade-slide">
+      <div class="flex items-start justify-between gap-3 mb-5">
+        <div class="min-w-0">
+          <p class="font-cinzel text-[0.625rem] tracking-[0.25em] text-red-500 uppercase">Orientação Rápida</p>
+          <h2 id="como-funciona-title" class="font-cinzel text-base sm:text-xl font-semibold text-stone-100 mt-1 leading-snug">Como Funciona o Simulado</h2>
+        </div>
+        <button type="button" data-close-modal aria-label="Fechar" class="tap-target shrink-0 rounded-full p-1.5 text-stone-400 hover:text-red-500 hover:bg-stone-800 transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <ol class="space-y-3 text-[0.8125rem] sm:text-sm text-stone-300 leading-relaxed list-decimal list-inside marker:text-red-500 marker:font-semibold">
+        <li>Cada item é uma <strong class="text-stone-100">afirmação</strong> (nunca uma pergunta) sobre a história e a filosofia do Manto Tupinambá.</li>
+        <li>Julgue se ela está <strong class="text-emerald-400">Certa</strong> ou <strong class="text-red-400">Errada</strong> — é exatamente o formato usado nas provas PAS e CEBRASPE da UnB.</li>
+        <li>Depois de responder, você vê na hora se acertou e por quê — não precisa saber a matéria de antemão.</li>
+        <li>No fim, você recebe um resultado com sua pontuação e pode revisar os itens que errou.</li>
+        <li>Leva cerca de 10 minutos para os 24 itens completos, ou menos se filtrar por um eixo específico. Seu progresso fica salvo neste navegador — pode fechar e voltar depois.</li>
+      </ol>
+      <p class="mt-5 pt-4 border-t border-stone-800 text-[0.6875rem] text-stone-400 leading-relaxed flex items-start gap-2"><i data-lucide="file-text" class="w-3.5 h-3.5 shrink-0 mt-0.5"></i>Este painel é para quem vai <strong class="text-stone-300">responder</strong> as questões. Se você é aluno(a) da disciplina e vai <strong class="text-stone-300">redigir</strong> itens no padrão da banca, use o <a href="index.html" class="text-red-400 hover:text-red-300 underline decoration-dotted">Protocolo Confidencial</a>.</p>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container" aria-live="polite" class="fixed bottom-3 right-3 left-3 sm:left-auto sm:bottom-5 sm:right-5 z-[250] flex flex-col gap-2 items-stretch sm:items-end pointer-events-none"></div>
+
+<!-- ============================================================ -->
+<!-- RODAPÉ                                                        -->
+<!-- ============================================================ -->
+<footer class="relative z-10 border-t border-stone-800/80">
+  <div class="mx-auto max-w-7xl px-3 sm:px-6 py-7 sm:py-8">
+    <div class="mb-6" style="background: repeating-linear-gradient(90deg, rgba(168,162,158,0.5) 0 6px, transparent 6px 12px); height:1px;"></div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <div class="flex items-center gap-2 text-stone-400"><i data-lucide="landmark" class="w-3.5 h-3.5 shrink-0"></i><p class="text-[0.65625rem] sm:text-xs tracking-wide">Universidade de Brasília - Instituto de Ciências Humanas (ICH/UnB)</p></div>
+      <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[0.625rem] sm:text-[0.6875rem] text-stone-400">
+        <span>Departamento de Filosofia - Área de Estética e Filosofia Moderna</span>
+        <span class="w-1 h-1 rounded-full bg-stone-700"></span>
+        <span>Coord. Profa. Dra. Priscila Rossinetti Rufinoni</span>
+        <span class="w-1 h-1 rounded-full bg-stone-700"></span>
+        <span class="font-mono">Painel de Resolução · v1.0 · 2026</span>
+      </div>
+    </div>
+    <p class="text-center sm:text-left mt-4 text-[0.625rem] text-stone-600">
+      <a href="index.html" class="inline-flex items-center gap-1.5 hover:text-red-500 transition-colors"><i data-lucide="file-text" class="w-3 h-3"></i>Protocolo Confidencial — o dossiê completo, para quem redige os itens</a>
+    </p>
+    <p class="text-center sm:text-left mt-2 text-[0.625rem] text-stone-600">
+      <a href="quadro-evidencias.html" class="inline-flex items-center gap-1.5 hover:text-red-500 transition-colors"><i data-lucide="pin" class="w-3 h-3"></i>O Quadro de Evidências — dinâmica visual alternativa</a>
+    </p>
+    <p class="text-center sm:text-left mt-2 text-[0.625rem] text-stone-600">
+      <a href="https://www.instagram.com/arvorekaua/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-red-500 transition-colors"><i data-lucide="at-sign" class="w-3 h-3"></i>Desenvolvido por @arvorekaua</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+'use strict';
+/* ==================================================================
+   SIMULADO DO MANTO TUPINAMBÁ — Painel de Resolução
+   Dinâmica complementar ao Protocolo Confidencial (ICH/UnB)
+
+   Enquanto o Protocolo Confidencial ensina alunos da disciplina a
+   REDIGIR itens Certo/Errado no padrão da banca, este painel é o
+   espelho: aberto a qualquer visitante (ensino médio, vestibulandos,
+   outros alunos da UnB) para RESOLVER um banco de itens já prontos,
+   autorados e verificados a partir do mesmo conteúdo histórico
+   fact-checked do dossiê principal.
+   ================================================================== */
+
+/* ----------------------------------------------------------------
+   1. UTILITÁRIOS GENÉRICOS (mesmo padrão dos apps irmãos)
+   ---------------------------------------------------------------- */
+function $(seletor, escopo) { return (escopo || document).querySelector(seletor); }
+function $all(seletor, escopo) { return Array.prototype.slice.call((escopo || document).querySelectorAll(seletor)); }
+
+function refreshIcons() {
+  try {
+    if (window.lucide && typeof window.lucide.createIcons === 'function') { window.lucide.createIcons(); }
+    $all('svg.lucide:not([aria-label])').forEach(function (svg) { svg.setAttribute('aria-hidden', 'true'); });
+  } catch (erro) { console.warn('[Simulado] Falha ao renderizar ícones Lucide:', erro); }
+}
+
+function escapeHtml(texto) {
+  if (typeof texto !== 'string') return '';
+  return texto.replace(/[&<>"']/g, function (c) {
+    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+  });
+}
+
+function shuffle(lista) {
+  var arr = lista.slice();
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+
+function showToast(mensagem, tipo) {
+  try {
+    var container = document.getElementById('toast-container');
+    if (!container) return;
+    var estilos = {
+      sucesso: 'border-emerald-700/60 text-emerald-300',
+      erro: 'border-red-700/60 text-red-300',
+      info: 'border-stone-600/60 text-stone-300'
+    };
+    var el = document.createElement('div');
+    el.className = 'toast-enter rounded-lg border bg-stone-900/95 px-4 py-2.5 text-xs sm:text-sm shadow-lg ' + (estilos[tipo] || estilos.info);
+    el.textContent = mensagem;
+    container.appendChild(el);
+    setTimeout(function () { el.remove(); }, 3800);
+  } catch (erro) { console.warn('[Simulado] Falha ao exibir notificação:', erro); }
+}
+
+/* ----------------------------------------------------------------
+   2. MODAIS (mesmo padrão de foco/teclado dos apps irmãos)
+   ---------------------------------------------------------------- */
+var FOCUS_TRAP_SELECTOR = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+function obterFocaveis(container) {
+  if (!container) return [];
+  return $all(FOCUS_TRAP_SELECTOR, container).filter(function (el) {
+    return el.offsetParent !== null || el === document.activeElement;
+  });
+}
+function ativarFocusTrap(container) {
+  try {
+    if (!container || container._focusTrapHandler) return;
+    var handler = function (ev) {
+      if (ev.key !== 'Tab') return;
+      var focaveis = obterFocaveis(container);
+      if (!focaveis.length) { ev.preventDefault(); return; }
+      var primeiro = focaveis[0], ultimo = focaveis[focaveis.length - 1];
+      if (ev.shiftKey) {
+        if (document.activeElement === primeiro || !container.contains(document.activeElement)) { ev.preventDefault(); ultimo.focus(); }
+      } else {
+        if (document.activeElement === ultimo || !container.contains(document.activeElement)) { ev.preventDefault(); primeiro.focus(); }
+      }
+    };
+    container.addEventListener('keydown', handler);
+    container._focusTrapHandler = handler;
+    $all('body > *').forEach(function (el) {
+      if (el === container || container.contains(el) || el.getAttribute('aria-hidden') === 'true') return;
+      el.setAttribute('inert', ''); el.setAttribute('aria-hidden', 'true'); el.setAttribute('data-focustrap-hidden', '');
+    });
+  } catch (erro) { console.warn('[Simulado] Falha ao ativar focus trap:', erro); }
+}
+function desativarFocusTrap(container) {
+  try {
+    if (!container || !container._focusTrapHandler) return;
+    container.removeEventListener('keydown', container._focusTrapHandler);
+    container._focusTrapHandler = null;
+    $all('[data-focustrap-hidden]').forEach(function (el) {
+      el.removeAttribute('inert'); el.removeAttribute('aria-hidden'); el.removeAttribute('data-focustrap-hidden');
+    });
+  } catch (erro) { console.warn('[Simulado] Falha ao desativar focus trap:', erro); }
+}
+function abrirModal(id, gatilho) {
+  try {
+    var modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    var painel = modal.querySelector('[role="dialog"]');
+    if (painel) { painel.setAttribute('tabindex', '-1'); painel.focus(); }
+    modal.dataset.gatilhoId = gatilho || '';
+    ativarFocusTrap(modal);
+    refreshIcons();
+  } catch (erro) { console.warn('[Simulado] Falha ao abrir modal:', erro); }
+}
+function fecharModal(modalEl) {
+  try {
+    if (!modalEl) return;
+    modalEl.classList.add('hidden');
+    document.body.style.overflow = '';
+    desativarFocusTrap(modalEl);
+    var gatilhoId = modalEl.dataset ? modalEl.dataset.gatilhoId : '';
+    if (gatilhoId) { var gatilho = document.getElementById(gatilhoId); if (gatilho && typeof gatilho.focus === 'function') { gatilho.focus(); } }
+  } catch (erro) { console.warn('[Simulado] Falha ao fechar modal:', erro); }
+}
+function wireModais() {
+  $all('[data-modal]').forEach(function (modal) {
+    $all('[data-close-modal]', modal).forEach(function (el) {
+      el.addEventListener('click', function () { fecharModal(modal); });
+    });
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Escape') return;
+    $all('[data-modal]').forEach(function (m) { if (!m.classList.contains('hidden')) { fecharModal(m); } });
+  });
+  var btnComoFunciona = document.getElementById('btn-como-funciona');
+  if (btnComoFunciona) { btnComoFunciona.addEventListener('click', function () { abrirModal('modal-como-funciona', 'btn-como-funciona'); }); }
+}
+
+/* ----------------------------------------------------------------
+   3. NARRAÇÃO — tenta o proxy Thalita (mesmo endpoint /api/tts dos
+   apps irmãos, só existe na Vercel) e cai para speechSynthesis do
+   navegador se qualquer coisa falhar (ex.: GitHub Pages, timeout).
+   ---------------------------------------------------------------- */
+var vozState = { falando: false, geracao: 0, audioElProxy: null, proxyController: null, suportado: ('speechSynthesis' in window) };
+
+function pararFala() {
+  try { if (vozState.suportado) { window.speechSynthesis.cancel(); } } catch (erro) { /* silencioso */ }
+  try { if (vozState.audioElProxy) { vozState.audioElProxy.pause(); vozState.audioElProxy.currentTime = 0; } } catch (erro) { /* silencioso */ }
+  try { if (vozState.proxyController) { vozState.proxyController.abort(); vozState.proxyController = null; } } catch (erro) { /* silencioso */ }
+  vozState.geracao += 1;
+  vozState.falando = false;
+  atualizarBotaoOuvir(false);
+}
+
+function falarComFallback(texto) {
+  if (!vozState.suportado || !texto) { return; }
+  window.speechSynthesis.cancel();
+  var utter = new window.SpeechSynthesisUtterance(texto);
+  utter.lang = 'pt-BR';
+  utter.rate = 0.95;
+  utter.onend = function () { if (vozState.falando) { vozState.falando = false; atualizarBotaoOuvir(false); } };
+  utter.onerror = function () { vozState.falando = false; atualizarBotaoOuvir(false); };
+  window.speechSynthesis.speak(utter);
+}
+
+function falarItem(texto) {
+  try {
+    pararFala();
+    vozState.geracao += 1;
+    var minhaGeracao = vozState.geracao;
+    vozState.falando = true;
+    atualizarBotaoOuvir(true);
+
+    var controller = (typeof window.AbortController === 'function') ? new window.AbortController() : null;
+    vozState.proxyController = controller;
+    var timeoutId = controller ? setTimeout(function () { controller.abort(); }, 10000) : null;
+
+    fetch('/api/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: texto }),
+      signal: controller ? controller.signal : undefined
+    }).then(function (resp) {
+      var contentType = (resp.headers.get('Content-Type') || '').toLowerCase();
+      if (!resp.ok || contentType.indexOf('audio') === -1) { throw new Error('proxy indisponível'); }
+      return resp.blob();
+    }).then(function (blob) {
+      if (timeoutId) { clearTimeout(timeoutId); }
+      if (minhaGeracao !== vozState.geracao) { return; }
+      var url = URL.createObjectURL(blob);
+      if (!vozState.audioElProxy) { vozState.audioElProxy = new Audio(); vozState.audioElProxy.preload = 'auto'; }
+      var el = vozState.audioElProxy;
+      try { el.pause(); } catch (e) { /* silencioso */ }
+      el.onended = function () { URL.revokeObjectURL(url); if (minhaGeracao === vozState.geracao) { vozState.falando = false; atualizarBotaoOuvir(false); } };
+      el.onerror = function () { URL.revokeObjectURL(url); if (minhaGeracao === vozState.geracao) { falarComFallback(texto); } };
+      el.src = url;
+      var p = el.play();
+      if (p && typeof p.catch === 'function') { p.catch(function () { falarComFallback(texto); }); }
+    }).catch(function () {
+      if (timeoutId) { clearTimeout(timeoutId); }
+      if (minhaGeracao !== vozState.geracao) { return; }
+      falarComFallback(texto);
+    });
+  } catch (erro) {
+    console.warn('[Simulado] Falha ao narrar item:', erro);
+    falarComFallback(texto);
+  }
+}
+
+function atualizarBotaoOuvir(falando) {
+  var btn = document.getElementById('btn-ouvir-item');
+  if (!btn) return;
+  var span = btn.querySelector('span');
+  var icon = btn.querySelector('i');
+  if (span) { span.textContent = falando ? 'Parar' : 'Ouvir'; }
+  if (icon) { icon.setAttribute('data-lucide', falando ? 'square' : 'volume-2'); }
+  refreshIcons();
+}
+
+/* ----------------------------------------------------------------
+   4. BANCO DE ITENS
+   Autorados a partir do texto-base já fact-checked de index.html
+   (SSOT_CONFIG.bancaCebraspe.itensSecretos) e verificados
+   adversarialmente (gabarito conferido item a item) antes de entrar
+   aqui — ver commit que introduziu este arquivo para o processo.
+   ---------------------------------------------------------------- */
+var BANCO_ITENS = [{"id":"Q01","casoId":"ENV-01-DESC-ZUTPHEN","eixo":"analise","afirmativa":"O filósofo francês René Descartes, na obra Discurso do Método, publicada em 1637, defende que o conhecimento verdadeiro deve ser reconstruído a partir da razão do próprio sujeito pensante, que precisa duvidar metodicamente de tudo o que aprendeu pelos sentidos e pela tradição — um ideal de certeza racional bem distante da incerteza histórica que ainda envolve a rota de adornos de penas tupinambás saqueados no período colonial.","gabarito":"C","justificativa":"O texto-base confirma que, no Discurso do Método (1637), Descartes funda a certeza racional na dúvida metódica: o sujeito pensante isola-se de todo saber recebido pelos sentidos e pela tradição para reconstruir o conhecimento a partir de si mesmo — exatamente o que a afirmativa descreve. Em seguida, o próprio texto-base reconhece que a hipótese historiográfica mais aceita sobre o embarque dos adornos de penas tupinambás no fluxo de despojos coloniais associado à saída de Maurício de Nassau do Recife (1644) não constitui \"certeza documental fechada\", isto é, permanece historicamente incerta. A afirmativa está correta ao contrapor esse ideal cartesiano de certeza racional à incerteza histórica que o texto-base explicitamente admite quanto à rota dos adornos saqueados.","dificuldade":"media"},{"id":"Q02","casoId":"ENV-01-DESC-ZUTPHEN","eixo":"analise","afirmativa":"De acordo com a historiografia atual, é um fato documentalmente comprovado que, quando Maurício de Nassau deixou o Recife em maio de 1644 a bordo do navio Zutphen, carregado com bens avaliados em milhões de florins (moeda europeia da época), adornos de penas tupinambás estavam entre os itens embarcados rumo a cortes e museus de curiosidades (Kunstkammern) europeus.","gabarito":"E","justificativa":"O texto-base afirma expressamente que o embarque de adornos de penas tupinambás no Zutphen corresponde apenas a \"a hipótese historiográfica mais aceita — sem constituir certeza documental fechada\". O item, ao classificar essa mesma informação como \"um fato documentalmente comprovado\", inverte o grau de certeza epistêmica atribuído pelo texto-base: transforma uma hipótese historiográfica (ainda que majoritária) em certeza documental, o que o texto nega explicitamente. Trata-se de um erro objetivo e verificável diretamente na redação do texto-base, não de uma questão de interpretação — daí o item estar ERRADO.","dificuldade":"dificil"},{"id":"Q03","casoId":"ENV-02-REMB-ANATOMIA","eixo":"contexto","afirmativa":"O retorno ao Brasil, em 2024, de um manto tupinambá de penas de guará que estava sob a guarda do Museu Nacional da Dinamarca desde o século XVII resultou de uma iniciativa exclusiva do próprio museu dinamarquês, sem relação com a pesquisa e a liderança da artista e tecelã Glicéria Tupinambá.","gabarito":"E","justificativa":"O texto-base atribui expressamente o processo de retorno do manto à \"pesquisa e liderança da artista e tecelã Glicéria Tupinambá\", que via o manto como \"ancestral vivo que pede escuta\" — e não a uma iniciativa autônoma e desvinculada do museu dinamarquês. Ao afirmar que o retorno foi \"iniciativa exclusiva do próprio museu dinamarquês, sem relação com\" a pesquisa e a liderança de Glicéria Tupinambá, o item contraria diretamente essa informação explícita do texto-base, o que torna a afirmativa ERRADA.","dificuldade":"media"},{"id":"Q04","casoId":"ENV-03-KANT-SUBLIME","eixo":"analise","afirmativa":"No mesmo tratado de 1790, Kant classifica flores e arabescos como exemplos de beleza aderente (pulchritudo adhaerens), por pressuporem um conceito prévio de perfeição ou função, enquanto o cavalo e o edifício exemplificam a beleza livre (pulchritudo vaga), que independe de qualquer conceito sobre o que o objeto deveria ser.","gabarito":"E","justificativa":"O texto-base atribui flores e arabescos à beleza livre (pulchritudo vaga) — juízo que não pressupõe nenhum conceito do que o objeto deva ser — e o cavalo e o edifício à beleza aderente (pulchritudo adhaerens) — que pressupõe um conceito de perfeição ou função. O item inverte essa atribuição, tornando-a errada.","dificuldade":"dificil"},{"id":"Q05","casoId":"ENV-04-CORTE-RETRATO","eixo":"contexto","afirmativa":"Em um retrato hoje conservado no Museum Wasserburg Anholt, na Alemanha, Louise Hollandine do Palatinado pintou sua irmã, Sofia do Palatinado, trajada \"à indígena\" — com manto de penas vermelhas e amarelas preso ao ombro, cocar de penas, lança em punho e paisagem tropical com coqueiros ao fundo —, em data que a historiografia situa apenas de forma aproximada, entre c. 1644 e 1652.","gabarito":"C","justificativa":"O texto-base confirma integralmente todos os elementos da afirmativa: (i) a tela está \"hoje no Museum Wasserburg Anholt (Alemanha)\"; (ii) \"Louise Hollandine do Palatinado pinta sua irmã Sofia do Palatinado\"; (iii) a retratada está \"trajada 'à indígena': manto de penas vermelhas e amarelas preso ao ombro por broche, cocar de penas, lança em punho, paisagem tropical com coqueiros ao fundo\" — todos os elementos citados no item aparecem aqui, sem inversões de cor, objeto ou relação; (iv) a datação é dada como \"incerta entre c. 1644 e 1652 — a própria historiografia diverge, sem cravar um ano\", o que corresponde exatamente a \"data que a historiografia situa apenas de forma aproximada, entre c. 1644 e 1652\". Não há nenhum dado inventado, nenhuma inversão de fatos e a afirmativa é autocontida e gramaticalmente correta. Gabarito: Certo.","dificuldade":"media"},{"id":"Q06","casoId":"ENV-04-CORTE-RETRATO","eixo":"contexto","afirmativa":"No retrato pintado por Louise Hollandine do Palatinado, sua irmã Sofia do Palatinado já ostentava o título de Eleitora de Hanôver quando posou trajada \"à indígena\", com manto de penas, cocar e lança, entre c. 1644 e 1652.","gabarito":"E","justificativa":"O texto-base afirma o oposto: no período em que o retrato foi pintado (c. 1644-1652), Sofia ainda estava no círculo do exílio palatino e não possuía o título de Eleitora de Hanôver, que só receberia em 1658 — anos depois da provável execução da pintura. Logo, é falso que ela \"já ostentava\" o título no momento em que posou.","dificuldade":"dificil"},{"id":"Q07","casoId":"ENV-05-KUNSTKAMMER","eixo":"contexto","afirmativa":"Os Kunstkammer, gabinetes de curiosidades das cortes europeias dos séculos XVII e XVIII, reuniam num mesmo regime de exibição objetos naturais e manufaturados de procedências diversas, como troféus diante do olhar do soberano; nesse contexto, de um total de onze mantos tupinambás históricos dos séculos XVI e XVII que sobreviveram até 2024, todos sob custódia europeia, um exemplar dinamarquês foi devolvido ao Brasil naquele ano, restando dez mantos na Europa e um em território tupinambá.","gabarito":"C","justificativa":"O texto-base confirma a definição de Kunstkammer como regime de exibição que reúne naturalia e artificialia diante do olhar do soberano, entre os séculos XVII e XVIII. Confirma também que sobreviveram até 2024 apenas onze mantos históricos dos séculos XVI-XVII, todos sob custódia europeia (cinco na Dinamarca, três na Itália, um na Bélgica, um na França e um na Suíça — soma 11), e que, após a devolução de um exemplar dinamarquês ao Brasil naquele ano, a distribuição passou a dez mantos na Europa (4+3+1+1+1) e um em território tupinambá. Todos os números e fatos da afirmativa correspondem exatamente ao texto-base, sem alterações, trocas ou invenções, o que torna o item CORRETO.","dificuldade":"dificil"},{"id":"Q08","casoId":"ENV-06-OSWALD-PAPE","eixo":"sintese","afirmativa":"Na obra Manto Tupinambá, de Lygia Pape, o manto cerimonial é recomposto por cerca de 190 esferas de poliestireno revestidas de penas azuis industriais, sob luz vermelha, sobre uma lona de vela de cerca de dez por dez metros.","gabarito":"E","justificativa":"O texto-base afirma expressamente que as cerca de 190 esferas de poliestireno são revestidas de penas VERMELHAS industriais (não azuis) — cor que, inclusive, dialoga com a luz vermelha sob a qual a obra é vista e com os elementos de terror (ossos de silicone, baratas e escorpiões de plástico) que perfuram/cobrem parte das esferas. Os demais dados da afirmativa (cerca de 190 esferas, lona de vela de cerca de dez por dez metros, luz vermelha, autoria de Lygia Pape) conferem exatamente com o texto-base. Logo, a troca de \"vermelhas\" por \"azuis\" é um erro factual único, objetivo e diretamente checável, tornando o item ERRADO.","dificuldade":"facil"},{"id":"Q09","casoId":"ENV-07-HEGEL-FORMAS","eixo":"sintese","afirmativa":"Na obra Lições de Estética, cujas aulas foram ministradas na década de 1820 e cuja publicação só ocorreu em 1835, depois da morte do autor, o filósofo Hegel organizou a história da arte em formas sucessivas — simbólica, clássica e romântica —, classificadas conforme o grau em que a matéria conseguia expressar o espírito; nessa hierarquia, as manifestações artísticas não europeias eram colocadas em estágios considerados preliminares dessa evolução.","gabarito":"C","justificativa":"O texto-base confirma que as Lições de Estética tiveram aulas ministradas na década de 1820 e publicação póstuma em 1835 (após a morte de Hegel); que Hegel organizou a história da arte nas três formas sucessivas citadas — simbólica, clássica e romântica — segundo o grau em que a matéria consegue expressar o espírito; e que essa hierarquia situava as manifestações artísticas não europeias em estágios tidos como preliminares na escala evolutiva da arte. A afirmativa reproduz fielmente, sem inversões, omissões relevantes ou acréscimos factuais problemáticos, exatamente esses elementos do texto-base, o que confirma o gabarito C (correto).","dificuldade":"media"},{"id":"Q10","casoId":"ENV-07-HEGEL-FORMAS","eixo":"sintese","afirmativa":"Na obra Lições de Estética, Hegel organizou a história da arte nas formas simbólica, clássica e romântica; essa obra, cujas aulas foram ministradas na década de 1820, foi publicada ainda em vida do filósofo, no ano de 1835.","gabarito":"E","justificativa":"O texto-base afirma expressamente que as Lições de Estética foram \"publicadas postumamente em 1835\", ou seja, depois da morte de Hegel (ocorrida em 1831) — e não \"ainda em vida\" dele, como sustenta o item. As demais informações do item (as formas simbólica, clássica e romântica; as aulas ministradas na década de 1820) estão corretas e conferem com o texto-base, mas a afirmação de que a obra foi publicada em vida do filósofo é falsa, o que torna o item, como um todo, errado.","dificuldade":"media"},{"id":"Q11","casoId":"ENV-08-RESTITUICAO-BIENAL","eixo":"contexto","afirmativa":"Em setembro de 2024, o Museu Nacional da Universidade Federal do Rio de Janeiro (Museu Nacional/UFRJ) recebeu, em cerimônia oficial com a presença do presidente da República, lideranças tupinambás e representantes de ministérios federais, um manto de penas que estava sob a guarda do Museu Nacional da Dinamarca desde o século XVII, tornando-se o primeiro dos onze mantos tupinambás históricos conhecidos a retornar ao território tupinambá.","gabarito":"C","justificativa":"A afirmativa reproduz fielmente o evento narrado no texto-base, sem inversões, omissões relevantes ou dados inventados: a cerimônia ocorreu em setembro de 2024 no Museu Nacional/UFRJ, com a presença do presidente da República, de lideranças tupinambás e de representantes de ministérios federais; o objeto devolvido é um manto de penas mantido desde o século XVII pelo Museu Nacional da Dinamarca; e esse manto é, conforme o texto, o primeiro dos onze exemplares históricos conhecidos a retornar ao território tupinambá. Como todos os elementos (data, instituições, atores, número \"onze\" e a condição de \"primeiro\" a retornar) correspondem exatamente ao texto-base, a afirmativa está correta e o gabarito C se confirma.","dificuldade":"media"},{"id":"Q12","casoId":"ENV-09-AUTOMATO-PAPE","eixo":"sintese","afirmativa":"Descartes, no Discurso do Método (1637) e nas Meditações (1641), definiu o corpo animal como um autômato mecanicista — um conjunto de engrenagens sem alma racional —, ideia que, estendida ao corpo colonizado, ajudou a justificar sua redução a objeto de uso e classificação; em contraponto, a artista Lygia Pape, na obra Manto Tupinambá (por volta do ano 2000), usa esferas, ossos de silicone e penas industriais sobre lona suspensa para devolver a esse corpo-objeto sua carga simultânea de beleza cerimonial e de violência histórica, por meio da antropofagia.","gabarito":"C","justificativa":"A afirmativa é fielmente sustentada pelo texto-base em todos os pontos verificáveis: (1) as obras e datas de Descartes estão corretas e corretamente pareadas — Discurso do Método (1637) e Meditações (1641); (2) a caracterização do corpo animal como \"autômato mecanicista\", \"conjunto de engrenagens\" \"sem/desprovido de alma racional\" reproduz o texto-base; (3) a extensão dessa matriz conceitual ao \"corpo colonizado\", autorizando/ajudando a justificar \"sua redução a objeto de uso e classificação\", corresponde exatamente ao texto-base; (4) a autoria (Lygia Pape), a obra (Manto Tupinambá, c. 2000) e os materiais (\"esferas, ossos de silicone e penas industriais sobre lona suspensa\") são citados literalmente; (5) o efeito atribuído à obra — devolver ao corpo-objeto \"sua carga simultânea de beleza cerimonial e de violência histórica\" por meio da \"antropofagia\" — está expressamente no texto-base. A afirmativa apenas reorganiza e resume a redação original (inclusive omitindo o detalhe sobre a crítica à \"pureza formal geométrica do neoconcretismo\"), sem inserir nenhum dado falso, invertido ou incompatível com o texto-base. Logo, o item está correto (C).","dificuldade":"dificil"},{"id":"Q13","casoId":"ENV-09-AUTOMATO-PAPE","eixo":"sintese","afirmativa":"Descartes definiu o corpo animal como autômato mecanicista no Discurso do Método, obra de 1641, e nas Meditações, de 1637, ideia que, estendida ao corpo colonizado, ajudou a justificar sua redução a objeto de uso e classificação — noção que a artista Lygia Pape contrapõe na obra Manto Tupinambá, de cerca do ano 2000.","gabarito":"E","justificativa":"O texto-base atribui o ano de 1637 ao Discurso do Método e 1641 às Meditações; o item inverte essas datas, atribuindo 1641 ao Discurso do Método e 1637 às Meditações, o que configura o erro.","dificuldade":"dificil"},{"id":"Q14","casoId":"ENV-10-GUERRA-PERDA","eixo":"contexto","afirmativa":"Segundo registros jornalísticos ainda não confirmados por fontes acadêmicas independentes, um manto de penas tupinambá pertencente ao acervo etnológico de Dresden, que estava emprestado a uma instituição de Berlim, teria sido destruído em bombardeios da Segunda Guerra Mundial (1939-1945), o que reduziria ainda mais o número de mantos desse tipo que sobrevivem até hoje.","gabarito":"C","justificativa":"O texto-base afirma que registros jornalísticos — sinalizados como carentes de checagem acadêmica independente — indicam que um manto de penas então emprestado a uma instituição berlinense pelo acervo etnológico de Dresden teria sido destruído em bombardeios da Segunda Guerra Mundial (ocorrida entre 1939 e 1945, conforme o próprio texto-base), o que, se confirmado, reduziria ainda mais o número de exemplares hoje sobreviventes. A afirmativa reproduz fielmente essas informações — incluindo a ressalva sobre a fonte jornalística não checada academicamente e o caráter hipotético da destruição — sem acrescentar dados que não estejam sustentados pelo caso (a identificação do manto como \"tupinambá\" e sua proveniência Dresden/Berlim constam do objeto estético de referência do mesmo caso). Por isso, o item está CERTO.","dificuldade":"media"},{"id":"Q15","casoId":"ENV-10-GUERRA-PERDA","eixo":"contexto","afirmativa":"Registros jornalísticos indicam que um manto de penas tupinambá pertencente a uma instituição de Berlim, então emprestado ao acervo etnológico de Dresden, teria sido destruído em bombardeios da Segunda Guerra Mundial (1939-1945).","gabarito":"E","justificativa":"O erro está na inversão da relação entre as duas instituições: o texto-base afirma que o manto de penas estava emprestado a uma instituição berlinense pelo acervo etnológico de Dresden — ou seja, Dresden era a origem/proprietária do empréstimo e a instituição de Berlim a receptora. A afirmativa inverte esses papéis, apresentando o manto como pertencente a uma instituição de Berlim e emprestado ao acervo de Dresden, o que contraria diretamente a relação descrita no texto-base.","dificuldade":"media"},{"id":"Q16","casoId":"ENV-11-OLHAR-CATALOGADOR","eixo":"contexto","afirmativa":"O quadro Mulher Tapuia (1641), pintado por Albert Eckhout sob o governo de Maurício de Nassau no Brasil holandês e hoje conservado no Museu Nacional da Dinamarca, retrata uma mulher tupinambá; nele, uma mão humana à mostra em uma cesta pendurada e um pé decepado aos pés da figura são lidos pela historiografia da arte como alusão discreta à antropofagia ritual.","gabarito":"E","justificativa":"O erro está exatamente na identificação da mulher retratada. O texto-base afirma explicitamente, em aposto, que Mulher Tapuia (1641) é \"retrato de uma mulher de outro grupo indígena, não tupinambá\" — e reforça essa distinção ao listar \"tupis, tapuias, africanos, mamelucos\" como categorias etnográficas separadas na série de Eckhout. A afirmativa contraria isso diretamente ao dizer que o quadro \"retrata uma mulher tupinambá\", o que constitui um erro factual claro e verificável no próprio texto-base (não uma questão de interpretação). Todos os demais elementos da afirmativa conferem com o texto-base: autoria (Albert Eckhout), data (1641), contexto (governo de Maurício de Nassau no Brasil holandês, o mesmo que dispersou os mantos de penas tupinambás às cortes europeias), local de guarda atual (Museu Nacional da Dinamarca), e a descrição da cesta com a mão humana à mostra e do pé decepado aos pés da figura como alusão discreta à antropofagia ritual segundo a historiografia da arte. Como a convenção CEBRASPE marca como Errado qualquer item que contenha um único dado falso, mesmo cercado de informações corretas, o gabarito E está correto.","dificuldade":"dificil"},{"id":"Q17","casoId":"ENV-12-BRUXELAS-MONTEZUMA","eixo":"contexto","afirmativa":"O Art & History Museum (Musées Royaux d'Art et d'Histoire), em Bruxelas, abriga um dos onze mantos tupinambás históricos que sobreviveram até hoje; por um período de sua exposição, essa peça foi catalogada sob a legenda equivocada de \"Manto de Montezuma\", associação que a própria instituição hoje descarta, reconhecendo a peça como manufatura tupinambá.","gabarito":"C","justificativa":"Todas as informações da afirmativa são extraídas fielmente do texto-base: (i) \"Entre os onze mantos tupinambás históricos sobreviventes, um exemplar integra hoje o acervo do Art & History Museum (...), em Bruxelas\" confirma que o museu abriga um dos onze mantos sobreviventes; (ii) \"Por um período de sua história de exposição, contudo, a peça foi catalogada sob a legenda equivocada de 'Manto de Montezuma'\" confirma a catalogação equivocada; (iii) \"associação hoje descartada pela própria instituição, que a identifica corretamente como manufatura tupinambá\" confirma que é a própria instituição que hoje rejeita essa associação e reconhece a peça como tupinambá. A afirmativa apenas reorganiza a voz gramatical (de passiva para ativa) e a ordem das orações, sem alterar nenhum fato, número, nome ou relação lógica presente no texto-base, e não introduz nenhuma informação nova. Trata-se, portanto, de item CERTO.","dificuldade":"facil"},{"id":"Q18","casoId":"ENV-02-REMB-ANATOMIA","eixo":"contexto","afirmativa":"Em 1632, o pintor Rembrandt retratou, na tela A Lição de Anatomia do Dr. Nicolaes Tulp, a abertura do corpo do condenado Aris Kindt diante de um grupo de cirurgiões em um anfiteatro de Amsterdã — a mesma cidade que, na década de 1630, financiava expedições coloniais ao Brasil, de onde mantos rituais tupinambás de penas de guará foram espoliados rumo à Europa no mesmo século.","gabarito":"C","justificativa":"O texto-base confirma que Rembrandt pintou essa obra em 1632, retratando o corpo de Aris Kindt aberto no anfiteatro de Amsterdã diante dos cirurgiões, e que essa mesma cidade financiava, na década de 1630, expedições coloniais ao Brasil, de onde mantos tupinambás de penas de guará foram espoliados no mesmo século.","dificuldade":"facil"},{"id":"Q19","casoId":"ENV-03-KANT-SUBLIME","eixo":"analise","afirmativa":"Na Crítica da Faculdade do Juízo, de 1790, Immanuel Kant afirma que tanto o Belo quanto o Sublime pressupõem uma satisfação desinteressada, mas se diferenciam quanto à forma: o Belo agrada por ser finito e harmonioso, enquanto o Sublime desconcerta justamente por ultrapassar qualquer medida — distinção que pode ser posta em tensão por um objeto tecido com milhares de penas vermelhas do guará, cuja desmedida sensorial de cor, brilho e volume desafia essas categorias estéticas da filosofia europeia do século XVIII.","gabarito":"C","justificativa":"O texto-base confirma que, na Crítica da Faculdade do Juízo (1790), Kant distingue Belo e Sublime como pressupondo ambos satisfação desinteressada, mas divergindo quanto à forma (Belo finito e harmonioso, Sublime que excede toda medida), e aponta um objeto tecido com milhares de penas vermelhas do guará como aquilo cuja desmedida sensorial tensiona essas categorias.","dificuldade":"media"},{"id":"Q20","casoId":"ENV-05-KUNSTKAMMER","eixo":"contexto","afirmativa":"A documentação histórica disponível comprova com precisão a data exata e o grau de parentesco entre Maurício de Nassau e Frederico III da Dinamarca, a quem o primeiro presenteou dezenas de pinturas e objetos brasileiros ao longo do século XVII; a esse mesmo circuito de dádivas é atribuída, ainda, a origem de um manto tupinambá hoje associado ao Museu Nacional da Dinamarca.","gabarito":"E","justificativa":"O texto-base afirma o contrário: a documentação disponível NÃO precisa a data exata nem o grau de parentesco entre Maurício de Nassau e Frederico III da Dinamarca, e a proveniência do manto tupinambá é atribuída a esse mesmo circuito de dádivas cortesãs, mas sem documentação que feche todos os elos da cadeia.","dificuldade":"media"},{"id":"Q21","casoId":"ENV-06-OSWALD-PAPE","eixo":"sintese","afirmativa":"No Manifesto Antropófago, de 1928, Oswald de Andrade cunhou a frase \"Tupy, or not tupy, that is the question\", trocadilho com o verso de Hamlet \"to be or not to be\", para propor que a cultura do colonizador fosse devorada e digerida criticamente, em vez de simplesmente importada ou rejeitada; por volta do ano 2000, Lygia Pape retomou esse gesto na obra Manto Tupinambá, parte de uma série que inclui também as obras Trono Tupinambá e Memória Tupinambá.","gabarito":"C","justificativa":"O texto-base confirma a autoria de Oswald de Andrade e o ano de 1928 para o Manifesto Antropófago, a construção do trocadilho com Hamlet, a proposta de devorar criticamente a cultura do colonizador em vez de importá-la ou rejeitá-la, e a retomada desse gesto por Lygia Pape em torno de 2000 na obra Manto Tupinambá, que integra uma série de obras que inclui também Trono Tupinambá e Memória Tupinambá.","dificuldade":"media"},{"id":"Q22","casoId":"ENV-08-RESTITUICAO-BIENAL","eixo":"contexto","afirmativa":"Glicéria Tupinambá retoma a técnica ancestral de tecelagem de penas desde 2010; com mais de 4.000 penas, montou o primeiro manto tupinambá de corpo inteiro em séculos, e em 2024 representou o Brasil na 60ª Bienal de Arte de Veneza, no Pavilhão Hãhãwpuá.","gabarito":"E","justificativa":"O texto-base informa que Glicéria Tupinambá retoma a técnica ancestral desde 2020, e não desde 2010 como afirma o item; os demais dados (mais de 4.000 penas, Bienal de Veneza de 2024, Pavilhão Hãhãwpuá) estão corretos, mas a data alterada torna o item errado.","dificuldade":"dificil"},{"id":"Q23","casoId":"ENV-11-OLHAR-CATALOGADOR","eixo":"contexto","afirmativa":"Em 1592, o gravador e editor Theodor de Bry publicou, em Frankfurt, o terceiro volume de sua série \"Grandes Viagens\" (Americae Tertia Pars), com gravuras de cenas de desmembramento e consumo ritual baseadas no relato de cativeiro de Hans Staden entre os tupinambás (1557); essas imagens foram copiadas e reeditadas por décadas na Europa, ajudando a consolidar a figura do antropófago como símbolo do Novo Mundo.","gabarito":"C","justificativa":"O texto-base confirma que De Bry publicou em 1592, em Frankfurt, o terceiro volume de \"Grandes Viagens\", ilustrando com cenas de desmembramento e consumo ritual o relato de cativeiro de Hans Staden entre os tupinambás (1557), gravuras que, copiadas e reeditadas por décadas, ajudaram a fixar o antropófago como imagem-síntese do Novo Mundo.","dificuldade":"facil"},{"id":"Q24","casoId":"ENV-12-BRUXELAS-MONTEZUMA","eixo":"contexto","afirmativa":"O Art & History Museum, em Bruxelas, mantém até os dias atuais a identificação de seu manto tupinambá como \"Manto de Montezuma\", em referência a Moctezuma II, último governante asteca.","gabarito":"E","justificativa":"O erro está em afirmar que a legenda equivocada permanece em uso: o texto-base diz que essa associação está hoje descartada pela própria instituição, que passou a identificar a peça corretamente como manufatura tupinambá.","dificuldade":"media"}];
+
+var NOMES_EIXO = { analise: 'Análise', sintese: 'Síntese', contexto: 'Contextualização' };
+var CORES_EIXO = {
+  analise: 'border-sky-700/50 text-sky-400 bg-sky-950/30',
+  sintese: 'border-amber-700/50 text-amber-400 bg-amber-950/30',
+  contexto: 'border-violet-700/50 text-violet-400 bg-violet-950/30'
+};
+
+/* ----------------------------------------------------------------
+   5. ESTADO E PERSISTÊNCIA
+   ---------------------------------------------------------------- */
+var CHAVE_ESTADO = 'manto_simulado_estado_v1';
+var estado = {
+  eixoFiltro: 'todos',
+  fila: [],
+  indice: 0,
+  respostas: {},
+  acertos: 0,
+  emAndamento: false
+};
+
+function salvarEstado() {
+  try {
+    if (!window.localStorage) return;
+    window.localStorage.setItem(CHAVE_ESTADO, JSON.stringify(estado));
+  } catch (erro) { /* silencioso */ }
+}
+function carregarEstadoSalvo() {
+  try {
+    if (!window.localStorage) return null;
+    var raw = window.localStorage.getItem(CHAVE_ESTADO);
+    if (!raw) return null;
+    var dados = JSON.parse(raw);
+    if (!dados || !Array.isArray(dados.fila) || !dados.emAndamento) return null;
+    return dados;
+  } catch (erro) { return null; }
+}
+function limparEstadoSalvo() {
+  try { if (window.localStorage) { window.localStorage.removeItem(CHAVE_ESTADO); } } catch (erro) { /* silencioso */ }
+}
+
+/* ----------------------------------------------------------------
+   6. TELA DE INTRODUÇÃO
+   ---------------------------------------------------------------- */
+function itensDoEixo(eixo) {
+  if (eixo === 'todos') return BANCO_ITENS;
+  return BANCO_ITENS.filter(function (it) { return it.eixo === eixo; });
+}
+
+function atualizarContagemDisponiveis() {
+  var n = itensDoEixo(estado.eixoFiltro).length;
+  var el = document.getElementById('contagem-itens-disponiveis');
+  if (el) { el.textContent = n + (n === 1 ? ' item disponível' : ' itens disponíveis') + ' neste filtro.'; }
+}
+
+function wireIntro() {
+  $all('.chip-eixo').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      $all('.chip-eixo').forEach(function (c) {
+        c.setAttribute('aria-pressed', 'false');
+        c.className = 'chip-eixo tap-target rounded-full border border-stone-700 text-stone-300 hover:border-red-600/50 hover:text-red-400 px-3.5 text-xs font-medium transition-colors';
+      });
+      chip.setAttribute('aria-pressed', 'true');
+      chip.className = 'chip-eixo tap-target rounded-full border border-red-600 bg-red-600/15 text-red-400 px-3.5 text-xs font-medium transition-colors';
+      estado.eixoFiltro = chip.dataset.eixo;
+      atualizarContagemDisponiveis();
+    });
+  });
+
+  var btnComecar = document.getElementById('btn-comecar');
+  if (btnComecar) {
+    btnComecar.addEventListener('click', function () {
+      iniciarNovoSimulado(estado.eixoFiltro);
+    });
+  }
+
+  var salvo = carregarEstadoSalvo();
+  if (salvo) {
+    var avisoEl = document.getElementById('aviso-retomar');
+    if (avisoEl) { avisoEl.hidden = false; }
+    var btnRetomar = document.getElementById('btn-retomar');
+    if (btnRetomar) {
+      btnRetomar.addEventListener('click', function () {
+        estado = salvo;
+        mostrarTela('quiz');
+        renderItemAtual();
+      });
+    }
+  }
+
+  atualizarContagemDisponiveis();
+}
+
+/* ----------------------------------------------------------------
+   7. LOOP DO QUIZ
+   ---------------------------------------------------------------- */
+function mostrarTela(nome) {
+  ['intro', 'quiz', 'resultado'].forEach(function (t) {
+    var el = document.getElementById('tela-' + t);
+    if (el) { el.hidden = (t !== nome); }
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function iniciarNovoSimulado(eixo) {
+  var disponiveis = itensDoEixo(eixo);
+  if (!disponiveis.length) { showToast('Nenhum item disponível para este filtro.', 'erro'); return; }
+  estado = {
+    eixoFiltro: eixo,
+    fila: shuffle(disponiveis).map(function (it) { return it.id; }),
+    indice: 0,
+    respostas: {},
+    acertos: 0,
+    emAndamento: true
+  };
+  salvarEstado();
+  mostrarTela('quiz');
+  renderItemAtual();
+}
+
+function getItemPorId(id) { return BANCO_ITENS.filter(function (it) { return it.id === id; })[0] || null; }
+
+function renderItemAtual() {
+  var idAtual = estado.fila[estado.indice];
+  var item = getItemPorId(idAtual);
+  if (!item) { finalizarSimulado(); return; }
+
+  pararFala();
+
+  document.getElementById('progresso-texto').textContent = 'Item ' + (estado.indice + 1) + ' de ' + estado.fila.length;
+  document.getElementById('pontuacao-texto').textContent = 'Acertos: ' + estado.acertos;
+  var pct = Math.round((estado.indice / estado.fila.length) * 100);
+  document.getElementById('barra-progresso-preenchimento').style.width = pct + '%';
+
+  var badgeEixo = document.getElementById('badge-eixo-item');
+  badgeEixo.textContent = NOMES_EIXO[item.eixo] || item.eixo;
+  badgeEixo.className = 'text-[0.625rem] px-2.5 py-1 rounded-full border font-medium uppercase tracking-wide ' + (CORES_EIXO[item.eixo] || 'border-stone-700 text-stone-400');
+
+  var badgeDif = document.getElementById('badge-dificuldade-item');
+  var rotulosDificuldade = { facil: 'Fácil', media: 'Médio', dificil: 'Difícil' };
+  badgeDif.textContent = rotulosDificuldade[item.dificuldade] || item.dificuldade;
+
+  document.getElementById('texto-afirmativa').textContent = item.afirmativa;
+
+  var jaRespondido = Object.prototype.hasOwnProperty.call(estado.respostas, item.id);
+  var btnCerto = document.getElementById('btn-marcar-certo');
+  var btnErrado = document.getElementById('btn-marcar-errado');
+  [btnCerto, btnErrado].forEach(function (b) {
+    b.disabled = false;
+    b.className = b.id === 'btn-marcar-certo'
+      ? 'btn-julgamento tap-target rounded-xl border-2 border-emerald-700/50 bg-emerald-950/30 text-emerald-400 font-cinzel font-semibold text-sm sm:text-base py-4 flex items-center justify-center gap-2 hover:bg-emerald-900/40'
+      : 'btn-julgamento tap-target rounded-xl border-2 border-red-700/50 bg-red-950/30 text-red-400 font-cinzel font-semibold text-sm sm:text-base py-4 flex items-center justify-center gap-2 hover:bg-red-900/40';
+  });
+  document.getElementById('feedback-item').hidden = true;
+
+  if (jaRespondido) {
+    mostrarFeedback(item, estado.respostas[item.id]);
+  }
+
+  refreshIcons();
+}
+
+function mostrarFeedback(item, marcado) {
+  var acertou = marcado === item.gabarito;
+  var btnCerto = document.getElementById('btn-marcar-certo');
+  var btnErrado = document.getElementById('btn-marcar-errado');
+  [btnCerto, btnErrado].forEach(function (b) { b.disabled = true; });
+
+  var btnMarcado = marcado === 'C' ? btnCerto : btnErrado;
+  btnMarcado.classList.add(marcado === 'C' ? 'certo-marcado' : 'errado-marcado');
+  if (!acertou) {
+    var btnCorreto = item.gabarito === 'C' ? btnCerto : btnErrado;
+    btnCorreto.classList.add('gabarito-revelado');
+  }
+
+  var feedbackEl = document.getElementById('feedback-item');
+  var veredito = document.getElementById('feedback-veredito');
+  veredito.innerHTML = acertou
+    ? '<i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i><span class="text-emerald-400">Você acertou!</span>'
+    : '<i data-lucide="x-circle" class="w-4 h-4 text-red-400 shrink-0"></i><span class="text-red-400">Não foi dessa vez — o gabarito é ' + (item.gabarito === 'C' ? 'Certo' : 'Errado') + '.</span>';
+  document.getElementById('feedback-justificativa').textContent = item.justificativa;
+  var ultimo = estado.indice === estado.fila.length - 1;
+  document.getElementById('texto-btn-proximo').textContent = ultimo ? 'Ver Resultado' : 'Próximo Item';
+  feedbackEl.hidden = false;
+  refreshIcons();
+}
+
+function responderItemAtual(julgamento) {
+  var idAtual = estado.fila[estado.indice];
+  var item = getItemPorId(idAtual);
+  if (!item || Object.prototype.hasOwnProperty.call(estado.respostas, item.id)) return;
+  estado.respostas[item.id] = julgamento;
+  if (julgamento === item.gabarito) { estado.acertos += 1; }
+  salvarEstado();
+  mostrarFeedback(item, julgamento);
+  document.getElementById('pontuacao-texto').textContent = 'Acertos: ' + estado.acertos;
+}
+
+function avancarItem() {
+  if (estado.indice >= estado.fila.length - 1) { finalizarSimulado(); return; }
+  estado.indice += 1;
+  salvarEstado();
+  renderItemAtual();
+}
+
+function finalizarSimulado() {
+  pararFala();
+  estado.emAndamento = false;
+  limparEstadoSalvo();
+
+  var total = estado.fila.length;
+  var respondidos = Object.keys(estado.respostas).length;
+  var pct = respondidos > 0 ? Math.round((estado.acertos / respondidos) * 100) : 0;
+
+  var carimboEl = document.getElementById('carimbo-resultado');
+  var carimboTexto = document.getElementById('carimbo-texto');
+  var corCarimbo, textoCarimbo;
+  if (pct >= 80) { corCarimbo = '#10b981'; textoCarimbo = 'Aprovado com Distinção'; }
+  else if (pct >= 50) { corCarimbo = '#DC2626'; textoCarimbo = 'Aprovado'; }
+  else { corCarimbo = '#F59E0B'; textoCarimbo = 'Em Treinamento'; }
+  carimboEl.style.setProperty('--cor-carimbo', corCarimbo);
+  carimboTexto.textContent = textoCarimbo;
+
+  document.getElementById('resultado-resumo').textContent =
+    'Você acertou ' + estado.acertos + ' de ' + respondidos + ' itens respondidos (' + pct + '%)' +
+    (respondidos < total ? ', de um total de ' + total + ' selecionados.' : '.');
+
+  var porEixo = {};
+  Object.keys(estado.respostas).forEach(function (id) {
+    var item = getItemPorId(id);
+    if (!item) return;
+    if (!porEixo[item.eixo]) { porEixo[item.eixo] = { acertos: 0, total: 0 }; }
+    porEixo[item.eixo].total += 1;
+    if (estado.respostas[id] === item.gabarito) { porEixo[item.eixo].acertos += 1; }
+  });
+  var containerEixo = document.getElementById('resultado-por-eixo');
+  containerEixo.innerHTML = Object.keys(porEixo).map(function (eixo) {
+    var d = porEixo[eixo];
+    return '<div class="flex items-center justify-between gap-3 text-sm">' +
+      '<span class="text-stone-400">' + escapeHtml(NOMES_EIXO[eixo] || eixo) + '</span>' +
+      '<span class="font-mono text-stone-200">' + d.acertos + '/' + d.total + '</span>' +
+      '</div>';
+  }).join('');
+
+  var erros = Object.keys(estado.respostas).filter(function (id) {
+    var item = getItemPorId(id);
+    return item && estado.respostas[id] !== item.gabarito;
+  });
+  var btnRevisar = document.getElementById('btn-revisar-erros');
+  var listaRevisao = document.getElementById('lista-revisao');
+  if (erros.length) {
+    btnRevisar.hidden = false;
+    listaRevisao.innerHTML = erros.map(function (id) {
+      var item = getItemPorId(id);
+      return '<div class="rounded-xl border border-stone-800 bg-stone-950/40 p-4">' +
+        '<p class="text-stone-200 text-[0.8125rem] leading-relaxed mb-2">' + escapeHtml(item.afirmativa) + '</p>' +
+        '<p class="text-[0.6875rem] text-red-400 font-medium mb-1.5">Gabarito: ' + (item.gabarito === 'C' ? 'Certo' : 'Errado') + '</p>' +
+        '<p class="text-[0.75rem] text-stone-500 leading-relaxed">' + escapeHtml(item.justificativa) + '</p>' +
+        '</div>';
+    }).join('');
+    btnRevisar.onclick = function () {
+      listaRevisao.hidden = !listaRevisao.hidden;
+    };
+  } else {
+    btnRevisar.hidden = true;
+  }
+
+  mostrarTela('resultado');
+  refreshIcons();
+}
+
+function wireQuiz() {
+  document.getElementById('btn-marcar-certo').addEventListener('click', function () { responderItemAtual('C'); });
+  document.getElementById('btn-marcar-errado').addEventListener('click', function () { responderItemAtual('E'); });
+  document.getElementById('btn-proximo-item').addEventListener('click', avancarItem);
+  document.getElementById('btn-abandonar').addEventListener('click', function () {
+    if (Object.keys(estado.respostas).length === 0) { showToast('Responda ao menos um item antes de encerrar.', 'info'); return; }
+    finalizarSimulado();
+  });
+  document.getElementById('btn-ouvir-item').addEventListener('click', function () {
+    if (vozState.falando) { pararFala(); return; }
+    var idAtual = estado.fila[estado.indice];
+    var item = getItemPorId(idAtual);
+    if (item) { falarItem(item.afirmativa); }
+  });
+  document.getElementById('btn-refazer').addEventListener('click', function () { mostrarTela('intro'); });
+
+  document.addEventListener('keydown', function (ev) {
+    var telaQuizVisivel = !document.getElementById('tela-quiz').hidden;
+    if (!telaQuizVisivel) return;
+    var tag = (ev.target && ev.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea') return;
+    var feedbackVisivel = !document.getElementById('feedback-item').hidden;
+    if (!feedbackVisivel) {
+      if (ev.key === 'c' || ev.key === 'C') { responderItemAtual('C'); }
+      else if (ev.key === 'e' || ev.key === 'E') { responderItemAtual('E'); }
+    } else if (ev.key === 'Enter' || ev.key === ' ') {
+      ev.preventDefault();
+      avancarItem();
+    }
+  });
+}
+
+/* ----------------------------------------------------------------
+   8. INICIALIZAÇÃO
+   ---------------------------------------------------------------- */
+function iniciarApp() {
+  try {
+    try {
+      var overlayCarregando = document.getElementById('carregando-inicial');
+      if (overlayCarregando) { overlayCarregando.remove(); }
+    } catch (erroOverlay) { /* silencioso */ }
+
+    wireModais();
+    wireIntro();
+    wireQuiz();
+    refreshIcons();
+
+    try {
+      var CHAVE_VISTO = 'manto_simulado_visto_comofunciona_v1';
+      if (!window.localStorage || !window.localStorage.getItem(CHAVE_VISTO)) {
+        setTimeout(function () {
+          try {
+            abrirModal('modal-como-funciona', 'btn-como-funciona');
+            if (window.localStorage) { window.localStorage.setItem(CHAVE_VISTO, '1'); }
+          } catch (erroAbrir) { /* silencioso */ }
+        }, 600);
+      }
+    } catch (erro) { /* localStorage indisponível — segue sem auto-abrir */ }
+  } catch (erro) {
+    console.error('[Simulado] Falha crítica na inicialização:', erro);
+    try { showToast('Ocorreu um erro ao iniciar o simulado. Recarregue a página.', 'erro'); } catch (erroToast) { /* nada mais a fazer */ }
+  }
+}
+
+/* Registra o Service Worker compartilhado com os apps irmãos — mesmo
+   raciocínio de resiliência offline/sinal fraco (ver sw.js). */
+function registrarServiceWorkerCache() {
+  try {
+    if (!('serviceWorker' in navigator)) { return; }
+    window.addEventListener('load', function () {
+      try {
+        navigator.serviceWorker.register('sw.js').catch(function (erro) {
+          console.warn('[Simulado] Service Worker não registrado — app segue funcionando normalmente:', erro);
+        });
+      } catch (erro) {
+        console.warn('[Simulado] Falha ao registrar o Service Worker:', erro);
+      }
+    });
+  } catch (erro) {
+    console.warn('[Simulado] Cache offline indisponível neste navegador:', erro);
+  }
+}
+try { registrarServiceWorkerCache(); } catch (erro) { /* nunca deve impedir a inicialização do app */ }
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', iniciarApp);
+} else {
+  iniciarApp();
+}
+</script>
+</body>
+</html>

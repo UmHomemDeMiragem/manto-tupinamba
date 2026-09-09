@@ -1,6 +1,6 @@
 # Protocolo Confidencial — O Manto Tupinambá
 
-Duas aplicações web de página única (SPA), sem build, para uma aula de Filosofia
+Três aplicações web de página única (SPA), sem build, para uma aula de Filosofia
 Moderna/Estética na UnB (ICH, curadoria da Profa. Dra. Priscila Rossinetti Rufinoni)
 sobre o Manto Tupinambá e sua trajetória entre a razão barroca europeia e a
 crítica contemporânea à colonialidade.
@@ -8,22 +8,29 @@ crítica contemporânea à colonialidade.
 - **Produção (Vercel):** https://manto-tupinamba.vercel.app
 - **Produção (GitHub Pages, espelho estático):** https://umhomemdemiragem.github.io/manto-tupinamba/
 
-## As duas aplicações
+## As três aplicações
 
-| Arquivo | Nome | O quê |
-|---|---|---|
-| `index.html` | **Protocolo Confidencial** | 4 módulos: Escuta do Manto (ambiência + narração), O Desafio da Banca (envelopes com casos documentais), Oficina do Avaliador (wizard de redação de item Certo/Errado, exporta PDF), Sincronias Críticas (linha do tempo comparada). |
-| `quadro-evidencias.html` | **O Quadro de Evidências** | Dinâmica alternativa/complementar: mural investigativo onde o aluno fixa imagens, conecta com barbante e anota a interpretação; exporta o quadro montado em PNG. |
+| Arquivo | Nome | Público | O quê |
+|---|---|---|---|
+| `index.html` | **Protocolo Confidencial** | Alunos da disciplina | 4 módulos: Escuta do Manto (ambiência + narração), O Desafio da Banca (envelopes com casos documentais), Oficina do Avaliador (wizard de **redação** de item Certo/Errado, exporta PDF), Sincronias Críticas (linha do tempo comparada). |
+| `quadro-evidencias.html` | **O Quadro de Evidências** | Alunos da disciplina | Dinâmica alternativa/complementar ao Protocolo Confidencial: mural investigativo onde o aluno fixa imagens, conecta com barbante e anota a interpretação; exporta o quadro montado em PNG. |
+| `painel-resolucao.html` | **Simulado do Manto Tupinambá** | Público externo (ensino médio, vestibulandos, outros alunos da UnB) | O espelho do Protocolo Confidencial: em vez de redigir itens, o visitante **resolve** um banco de ~24 itens Certo/Errado já prontos (estilo CEBRASPE/PAS), com correção e explicação imediatas, filtro por eixo e resultado final. Sem cadastro. |
 
-Ambas: mesma identidade visual, mesmo conjunto de imagens histórico-verificadas
-(licenças de uso documentadas em cada crédito), mesma narração pré-gravada
-(voz neural `pt-BR-ThalitaMultilingualNeural`, `-15%` de ritmo, via `edge-tts`),
+As três: mesma identidade visual, mesmo conjunto de imagens histórico-verificadas
+(licenças de uso documentadas em cada crédito), mesma voz neural
+(`pt-BR-ThalitaMultilingualNeural`, `-15%` de ritmo, via `edge-tts`/proxy `/api/tts`),
 autosave em `localStorage` (nada é enviado a servidor), e um Service Worker
 (`sw.js`) para resiliência offline/sinal fraco.
 
-O `index.html` e o `quadro-evidencias.html` se referenciam mutuamente no
-cabeçalho — são pensados como **alternativas**, não como uma sequência
-obrigatória (~15–20 min e ~10–15 min, respectivamente).
+As três se referenciam mutuamente no cabeçalho/rodapé — `index.html` e
+`quadro-evidencias.html` são pensadas como **alternativas** entre si (a mesma
+disciplina, dois formatos, ~15–20 min e ~10–15 min), enquanto
+`painel-resolucao.html` atende a um **público diferente**: quem vai
+**responder** perguntas sobre o tema, não redigi-las. O banco de itens do
+Simulado foi autorado (e verificado adversarialmente, item a item) a partir do
+mesmo texto-base já fact-checked de `SSOT_CONFIG.bancaCebraspe.itensSecretos`
+em `index.html` — não é conteúdo novo, é uma reformulação em formato de prova
+do que já estava rigorosamente pesquisado.
 
 ## Arquitetura
 
@@ -72,11 +79,11 @@ vercel dev
 `sw.js` usa uma estratégia cache-first para resiliência offline. Isso quer
 dizer que **qualquer visitante que já abriu o site antes vai continuar vendo
 a versão antiga em cache**, mesmo depois de um novo deploy — até que a
-constante `CACHE_VERSAO` no topo de `sw.js` seja incrementada (`v4` → `v5`
-etc.). **Sempre que alterar `index.html` ou `quadro-evidencias.html`, bump
-essa versão no mesmo commit/PR** — do contrário o conteúdo pode nunca chegar
-a alunos que já visitaram o link antes (inclusive durante testes locais: o
-Service Worker também é registrado em `localhost`).
+constante `CACHE_VERSAO` no topo de `sw.js` seja incrementada (`v5` → `v6`
+etc.). **Sempre que alterar qualquer um dos três `.html`, bump essa versão
+no mesmo commit/PR** — do contrário o conteúdo pode nunca chegar a quem já
+visitou o link antes (inclusive durante testes locais: o Service Worker
+também é registrado em `localhost`).
 
 ## Conteúdo e imagens
 
